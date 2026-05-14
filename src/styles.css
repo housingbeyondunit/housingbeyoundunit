@@ -26,6 +26,8 @@ button:disabled{opacity:0.5;cursor:not-allowed}
 /* SVG container (svg.js mounts an <svg> inside this div) */
 .floorplan-svg{width:100%;border:1px solid #eee;background:#fff}
 .floorplan-svg svg{width:100%;height:auto;display:block}
+.floorplan-levels{display:flex;flex-direction:column;gap:24px}
+.floorplan-level{border:1px dashed rgba(40,60,80,0.25);border-radius:10px;padding:10px;background:linear-gradient(180deg, rgba(240,245,252,0.6), rgba(255,255,255,0.9))}
 .floorplan-svg-impl{animation:fp-enter 420ms ease-out}
 .hallway-rect{animation:hallway-pulse 2400ms ease-in-out infinite}
 

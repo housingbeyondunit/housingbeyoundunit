@@ -6,14 +6,15 @@ export default function FloorPlan({ levels, hallways, onUpdateUnit, currentUser,
   const [selectedTargetKey, setSelectedTargetKey] = useState(null) // which pair user picked
   const [confirm, setConfirm] = useState(null) // { fromGroupId, target }
 
-  const hostRef = useRef(null)
-  const drawRef = useRef(null)
+  const levelHostRefs = useRef(new Map())
+  const drawRefs = useRef([])
   const unitElsRef = useRef(new Map()) // id -> { rect, label }
   const targetElsRef = useRef(new Map()) // key -> svg.js element
   const cellElsRef = useRef(new Map()) // groupId -> svg.js element
 
   const flatUnits = useMemo(() => levels.flatMap(level => level.units), [levels])
   const unitsById = useMemo(() => new Map(flatUnits.map(u => [u.id, u])), [flatUnits])
+  const levelUnitsMap = useMemo(() => new Map(levels.map(level => [level.level, level.units])), [levels])
 
   const selectUnit = u => {
     setSelectedGroupId(u.groupId || null)
@@ -135,236 +136,250 @@ export default function FloorPlan({ levels, hallways, onUpdateUnit, currentUser,
   }
 
   // Calculate viewBox size based on units extents
-  const viewBox = useMemo(() => {
-    const padding = 40
-    const xs = flatUnits.map(u => [u.x, u.x + u.w]).flat()
-    const ys = flatUnits.map(u => [u.y, u.y + u.h]).flat()
-    const minX = Math.max(0, Math.min(...xs) - padding)
-    const minY = Math.max(0, Math.min(...ys) - padding)
-    const maxX = Math.max(...xs) + padding
-    const maxY = Math.max(...ys) + padding
-    return `${minX} ${minY} ${maxX - minX} ${maxY - minY}`
-  }, [flatUnits])
+  const levelViewBoxes = useMemo(() => {
+    const map = new Map()
+    levels.forEach(level => {
+      const padding = level.level === 0 ? 120 : 80
+      const units = level.units
+      const levelHalls = (hallways || []).filter(h => h.level === level.level)
+      if (!units.length && !levelHalls.length) return
+
+      const xs = []
+      const ys = []
+      units.forEach(u => {
+        xs.push(u.x, u.x + u.w)
+        ys.push(u.y, u.y + u.h)
+      })
+      levelHalls.forEach(h => {
+        xs.push(h.x, h.x + h.w)
+        ys.push(h.y, h.y + h.h)
+      })
+
+      const minX = Math.max(0, Math.min(...xs) - padding)
+      const minY = Math.max(0,Math.min(...ys) - padding)
+      const maxX = Math.max(...xs) + padding
+      const maxY = Math.max(...ys) + padding
+      map.set(level.level, `${minX} ${minY} ${maxX - minX} ${maxY - minY}`)
+    })
+    return map
+  }, [levels, hallways])
 
   // (Re)draw using svg.js
   useEffect(() => {
-    if (!hostRef.current) return
+    const drawLevel = (levelIndex, hostEl) => {
+      const viewBox = levelViewBoxes.get(levelIndex)
+      if (!viewBox) return
 
-    // clear previous drawing
-    hostRef.current.innerHTML = ''
-    unitElsRef.current = new Map()
+      hostEl.innerHTML = ''
+      const levelUnits = levelUnitsMap.get(levelIndex) || []
+      const draw = SVG().addTo(hostEl).viewbox(viewBox).addClass('floorplan-svg-impl')
+      drawRefs.current.push(draw)
 
-    const draw = SVG().addTo(hostRef.current).viewbox(viewBox).addClass('floorplan-svg-impl')
-    drawRef.current = draw
-
-  // clear target overlays
-  targetElsRef.current = new Map()
-    cellElsRef.current = new Map()
-
-    // hallway/service zones
-    if (hallways?.length) {
-      hallways.forEach(h => {
-        const zone = draw
-          .rect(h.w, h.h)
-          .move(h.x, h.y)
-          .radius(14)
-          .fill('rgba(120,160,200,0.12)')
-          .stroke({ color: 'rgba(80,120,160,0.45)', width: 1, dasharray: [8, 6] })
-
-        zone.addClass('hallway-rect')
-
-        if (h.label) {
-          draw
-            .text(h.label)
-            .move(h.x + 12, h.y + 10)
-            .font({ size: 13, family: 'Inter, Segoe UI, Arial', anchor: 'start' })
-            .fill('rgba(40,60,80,0.75)')
-        }
-      })
-    }
-
-    // level headers + separator
-    const levels = new Map()
-    flatUnits.forEach(u => {
-      const cur = levels.get(u.level) || {
-        minX: u.x,
-        minY: u.y,
-        maxX: u.x + u.w,
-        maxY: u.y + u.h
-      }
-      cur.minX = Math.min(cur.minX, u.x)
-      cur.minY = Math.min(cur.minY, u.y)
-      cur.maxX = Math.max(cur.maxX, u.x + u.w)
-      cur.maxY = Math.max(cur.maxY, u.y + u.h)
-      levels.set(u.level, cur)
-    })
-
-    const orderedLevels = [...levels.entries()].sort((a, b) => a[0] - b[0])
-    orderedLevels.forEach(([level, box]) => {
-      const padX = 30
-      const padY = 34
-      const bandY = box.minY - 44
-      const bandW = (box.maxX - box.minX) + padX * 2
-      const bandH = (box.maxY - box.minY) + padY * 2
-      const bandX = box.minX - padX
-      const labelText = level === 0 ? 'Level 1 (Ground Floor)' : 'Level 2'
-
-      draw
-        .rect(bandW, bandH)
-        .move(bandX, box.minY - padY)
-        .radius(20)
-        .fill(level === 0 ? 'rgba(220,235,250,0.65)' : 'rgba(230,235,245,0.7)')
-        .stroke({ color: 'rgba(30,40,60,0.35)', width: 1 })
-
-      draw
-        .rect(bandW, 30)
-        .move(bandX, bandY)
-        .radius(10)
-        .fill(level === 0 ? 'rgba(40,120,200,0.32)' : 'rgba(70,90,120,0.32)')
-        .stroke({ color: 'rgba(40,60,80,0.55)', width: 1 })
-
-      draw
-        .text(labelText)
-        .move(bandX + 14, bandY + 6)
-        .font({ size: 14, family: 'Inter, Segoe UI, Arial', anchor: 'start' })
-        .fill('rgba(25,35,55,0.9)')
-
-      // draw
-      //   .text(level === 0 ? 'FIRST FLOOR' : 'SECOND FLOOR')
-      //   .move(bandX + 12, box.minY + (box.maxY - box.minY) / 2 - 10)
-      //   .font({ size: 12, family: 'Inter, Segoe UI, Arial', anchor: 'start' })
-      //   .fill('rgba(25,35,55,0.75)')
-    })
-
-    if (orderedLevels.length >= 2) {
-      const upper = orderedLevels[0][1]
-      const lower = orderedLevels[1][1]
-      const gapH = Math.max(0, lower.minY - upper.maxY)
-      if (gapH > 40) {
-        draw
-          .rect(upper.maxX - upper.minX, gapH)
-          .move(upper.minX, upper.maxY)
-          .radius(14)
-          .fill('rgba(30,40,60,0.08)')
-          .stroke({ color: 'rgba(30,40,60,0.3)', width: 1, dasharray: [10, 10] })
+      // level header band — drawn first so hallways render on top of it
+      if (levelUnits.length) {
+        const xs = levelUnits.map(u => [u.x, u.x + u.w]).flat()
+        const ys = levelUnits.map(u => [u.y, u.y + u.h]).flat()
+        // include hallways so minY reaches the top hallway on levels that have one
+        ;(hallways || []).filter(h => h.level === levelIndex).forEach(h => {
+          xs.push(h.x, h.x + h.w)
+          ys.push(h.y, h.y + h.h)
+        })
+        const minX = Math.min(...xs)
+        const minY = Math.min(...ys)
+        const maxX = Math.max(...xs)
+        const maxY = Math.max(...ys)
+        const padX = 30
+        const padY = 50
+        const topSpacing = levelIndex === 0 ? 28 : 0
+        const bandY = minY - 44
+        const bandW = (maxX - minX) + padX * 2
+        const bandH = (maxY - minY) + padY * 2
+        const bandX = minX - padX
+        const labelText = levelIndex === 0 ? 'Level 1 (Ground Floor)' : 'Level 2'
 
         draw
-          .text('FLOOR BREAK')
-          .move(upper.minX + 12, upper.maxY + gapH / 2 - 7)
-          .font({ size: 12, family: 'Inter, Segoe UI, Arial', anchor: 'start' })
-          .fill('rgba(30,40,60,0.8)')
+          .rect(bandW, bandH)
+          .move(bandX, minY - padY)
+          .radius(20)
+          // .fill(levelIndex === 0 ? 'rgba(220,235,250,0.65)' : 'rgba(230,235,245,0.7)')
+          .fill('rgba(230,235,245,0.7)')
+          .stroke({ color: 'rgba(30,40,60,0.35)', width: 1 })
+
+        draw
+          .rect(bandW, 30)
+          .move(bandX, bandY)
+          .radius(10)
+          .fill('rgba(40,120,200,0.32)')
+          .stroke({ color: 'rgba(40,60,80,0.55)', width: 1 })
+
+        draw
+          .text(labelText)
+          .move(bandX + 14, bandY + 6)
+          .font({ size: 14, family: 'Inter, Segoe UI, Arial', anchor: 'start' })
+          .fill('rgba(25,35,55,0.9)')
       }
-    }
 
-    // cell boundaries (show users the 4-unit cell grouping)
-    for (const [gid, g] of groupUnits.entries()) {
-      const minX = Math.min(...g.map(i => i.x))
-      const minY = Math.min(...g.map(i => i.y))
-      const maxX = Math.max(...g.map(i => i.x + i.w))
-      const maxY = Math.max(...g.map(i => i.y + i.h))
-      const pad = 10
-      const isSelected = gid === selectedGroupId
+      // hallway/service zones (drawn after band so they appear on top of it)
+      if (hallways?.length) {
+        const levelHalls = hallways.filter(h => h.level === levelIndex)
 
-      const boundary = draw
-        .rect((maxX - minX) + pad * 2, (maxY - minY) + pad * 2)
-        .move(minX - pad, minY - pad)
-        .radius(14)
-        .fill('transparent')
-        .stroke({
-          color: isSelected ? '#ff8a00' : 'rgba(0,0,0,0.15)',
-          width: isSelected ? 3 : 1,
-          dasharray: [4, 6]
+        // Draw hallway backgrounds first, then service elements on top
+        const backgrounds = levelHalls.filter(h => !h.type)
+        const elements = levelHalls.filter(h => h.type === 'service')
+
+        backgrounds.forEach(h => {
+          const zone = draw
+            .rect(h.w, h.h)
+            .move(h.x, h.y)
+            // .radius(14)
+            .fill('#DCDCDC')
+            .stroke({ color: '#DCDCDC', width: 2, dasharray: [8, 6] })
+          zone.addClass('hallway-rect')
+          if (h.label) {
+            draw
+              .text(h.label)
+              .move(h.x + 12, h.y + 10)
+              .font({ size: 13, family: 'Inter, Segoe UI, Arial', anchor: 'start' })
+              .fill('rgba(0, 0, 0, 0.9)')
+          }
         })
 
-      cellElsRef.current.set(gid, boundary)
-    }
+        elements.forEach(h => {
+          draw
+            .rect(h.w, h.h)
+            .move(h.x, h.y)
+            .radius(2)
+            .fill('#00a878')
+            .stroke({ color: '#007a56', width: 2 })
+        })
+      }
 
-    // units
-    flatUnits.forEach(u => {
-      const occupied = !!u.owner
-      const rect = draw
-        .rect(u.w, u.h)
-        .move(u.x, u.y)
-        .radius(10)
-        .fill(occupied ? 'rgba(30,30,30,0.85)' : 'rgba(255,255,255,0.35)')
-        .stroke({ color: occupied ? '#000' : '#2b8fff', width: occupied ? 2 : 2 })
+      // cell boundaries (show users the 4-unit cell grouping)
+      for (const [gid, g] of groupUnits.entries()) {
+        if (!g.length || g[0].level !== levelIndex) continue
+        const minX = Math.min(...g.map(i => i.x))
+        const minY = Math.min(...g.map(i => i.y))
+        const maxX = Math.max(...g.map(i => i.x + i.w))
+        const maxY = Math.max(...g.map(i => i.y + i.h))
+        const pad = 0
+        const isSelected = gid === selectedGroupId
 
-      rect.attr({ 'data-id': u.id })
-      rect.css({ cursor: occupied ? 'not-allowed' : 'pointer' })
-
-      const label = draw
-        .text(u.id)
-        .move(u.x + 10, u.y + 10)
-        .font({ size: 14, family: 'Inter, Segoe UI, Arial', anchor: 'start' })
-        .fill(occupied ? '#fff' : '#222')
-
-      // hover animations
-      rect.on('mouseenter', () => {
-        rect.stroke({ width: 4, color: occupied ? '#111' : '#ff8a00' })
-      })
-      rect.on('mouseleave', () => {
-  const isInSelCell = selectedGroupId && u.groupId === selectedGroupId
-  rect.stroke({ width: isInSelCell ? 4 : 2, color: occupied ? '#000' : '#2b8fff' })
-      })
-
-      // click handlers
-      rect.on('click', () => {
-  // selecting any sub-unit selects the whole cell
-        selectUnit(u)
-      })
-      rect.on('dblclick', e => {
-        e.preventDefault()
-        toggleClaim(u)
-      })
-
-      unitElsRef.current.set(u.id, { rect, label })
-    })
-
-    // draw target highlights (behind stroke but above fills)
-    // we only draw when there is a selected cell and eligible targets
-    if (eligibleTargets.length) {
-      eligibleTargets.forEach(t => {
-        // compute union bbox of unitIds
-        const items = t.unitIds.map(id => unitsById.get(id)).filter(Boolean)
-        if (!items.length) return
-        const minX = Math.min(...items.map(i => i.x))
-        const minY = Math.min(...items.map(i => i.y))
-        const maxX = Math.max(...items.map(i => i.x + i.w))
-        const maxY = Math.max(...items.map(i => i.y + i.h))
-        const pad = 6
-        const hl = draw
+        const boundary = draw
           .rect((maxX - minX) + pad * 2, (maxY - minY) + pad * 2)
           .move(minX - pad, minY - pad)
-          .radius(12)
-          .fill('rgba(255,138,0,0.10)')
-          .stroke({ color: '#ff8a00', width: 2, dasharray: [6, 6] })
+          .radius(14)
+          .fill('transparent')
+          .stroke({
+            color: isSelected ? '#ff8a00' : 'rgba(0,0,0,0.15)',
+            width: isSelected ? 3 : 1,
+            dasharray: []
+          })
 
-        hl.css({ cursor: 'pointer' })
-        hl.on('mouseenter', () => hl.stroke({ width: 4 }))
-        hl.on('mouseleave', () => hl.stroke({ width: selectedTargetKey === t.key ? 5 : 2 }))
-        hl.on('click', () => {
-          setSelectedTargetKey(t.key)
+        cellElsRef.current.set(gid, boundary)
+      }
+
+      // units
+      levelUnits.forEach(u => {
+        const occupied = !!u.owner
+        const rect = draw
+          .rect(u.w, u.h)
+          .move(u.x, u.y)
+          .radius(0)
+          .fill(occupied ? 'rgba(30, 30, 30, 0.58)' : 'rgba(255, 255, 255, 0.35)')
+          .stroke({ color: occupied ? '#000' : '#ffffff', width: 1 })
+
+        rect.attr({ 'data-id': u.id })
+        rect.css({ cursor: occupied ? 'not-allowed' : 'pointer' })
+
+        // const label = draw
+        //   .text(u.id)
+        //   .move(u.x + 10, u.y + 10)
+        //   .font({ size: 14, family: 'Inter, Segoe UI, Arial', anchor: 'start' })
+        //   .fill(occupied ? '#fff' : '#222')
+        const label = null
+
+        // hover animations
+        rect.on('mouseenter', () => {
+          rect.stroke({ width: 2, color: occupied ? '#111' : '#ff8a00' })
+        })
+        rect.on('mouseleave', () => {
+          const isInSelCell = selectedGroupId && u.groupId === selectedGroupId
+          rect.stroke({ width: isInSelCell ? 2 : 1, color: occupied ? '#000' : '#000000' })
         })
 
-        targetElsRef.current.set(t.key, hl)
+        // click handlers
+        rect.on('click', () => {
+    // selecting any sub-unit selects the whole cell
+          selectUnit(u)
+        })
+        rect.on('dblclick', e => {
+          e.preventDefault()
+          toggleClaim(u)
+        })
+
+        unitElsRef.current.set(u.id, { rect, label })
       })
+
+      // draw target highlights (behind stroke but above fills)
+      // we only draw when there is a selected cell and eligible targets
+      if (eligibleTargets.length) {
+        eligibleTargets.forEach(t => {
+          const items = t.unitIds.map(id => unitsById.get(id)).filter(Boolean)
+          if (!items.length) return
+          if (items[0].level !== levelIndex) return
+          const minX = Math.min(...items.map(i => i.x))
+          const minY = Math.min(...items.map(i => i.y))
+          const maxX = Math.max(...items.map(i => i.x + i.w))
+          const maxY = Math.max(...items.map(i => i.y + i.h))
+          const pad = 6
+          const hl = draw
+            .rect((maxX - minX) + pad * 2, (maxY - minY) + pad * 2)
+            .move(minX - pad, minY - pad)
+            .radius(12)
+            .fill('rgba(255,138,0,0.10)')
+            .stroke({ color: '#ff8a00', width: 2, dasharray: [6, 6] })
+
+          hl.css({ cursor: 'pointer' })
+          hl.on('mouseenter', () => hl.stroke({ width: 4 }))
+          hl.on('mouseleave', () => hl.stroke({ width: selectedTargetKey === t.key ? 5 : 2 }))
+          hl.on('click', () => {
+            setSelectedTargetKey(t.key)
+          })
+
+          targetElsRef.current.set(t.key, hl)
+        })
+      }
+
+      // initial selected cell styling: highlight all 4 subunits if owned
+      if (selectedGroupId) {
+        const g = groupUnits.get(selectedGroupId) || []
+        if (g.length && g[0].level === levelIndex) {
+          g.forEach(x => {
+            const el = unitElsRef.current.get(x.id)
+            if (el) el.rect.stroke({ width: 4, color: '#ff8a00' })
+          })
+        }
+      }
     }
 
-    // initial selected cell styling: highlight all 4 subunits if owned
-    if (selectedGroupId) {
-      const g = groupUnits.get(selectedGroupId) || []
-      g.forEach(x => {
-        const el = unitElsRef.current.get(x.id)
-        if (el) el.rect.stroke({ width: 4, color: '#ff8a00' })
-      })
-    }
+    unitElsRef.current = new Map()
+    targetElsRef.current = new Map()
+    cellElsRef.current = new Map()
+    drawRefs.current = []
+
+    levels.forEach(level => {
+      const hostEl = levelHostRefs.current.get(level.level)
+      if (hostEl) drawLevel(level.level, hostEl)
+    })
 
     return () => {
-      try { draw.clear() } catch { /* ignore */ }
-      drawRef.current = null
+      drawRefs.current.forEach(d => {
+        try { d.clear() } catch { /* ignore */ }
+      })
+      drawRefs.current = []
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [flatUnits, viewBox, eligibleTargets, selectedTargetKey, selectedGroupId, groupUnits, unitsById])
+  }, [levels, flatUnits, levelViewBoxes, eligibleTargets, selectedTargetKey, selectedGroupId, groupUnits, unitsById, hallways, levelUnitsMap])
 
   // Animate selection changes (cell selection + target selection)
   useEffect(() => {
@@ -375,7 +390,7 @@ export default function FloorPlan({ levels, hallways, onUpdateUnit, currentUser,
       const u = unitsById.get(id)
       const occupied = !!u?.owner
       const isInSelCell = selectedUnits.has(id)
-      const baseStroke = occupied ? '#000' : '#2b8fff'
+      const baseStroke = occupied ? '#000' : '#000000'
       const strokeColor = isInSelCell ? '#ff8a00' : baseStroke
       const strokeWidth = isInSelCell ? 4 : 2
       obj.rect.stroke({ width: strokeWidth, color: strokeColor })
@@ -401,7 +416,18 @@ export default function FloorPlan({ levels, hallways, onUpdateUnit, currentUser,
   return (
     <div className="floorplan-wrap">
       <div className="layout">
-        <div ref={hostRef} className="floorplan-svg" />
+        <div className="floorplan-levels">
+          {levels.map(level => (
+            <div key={level.level} className="floorplan-level">
+              <div
+                ref={el => {
+                  if (el) levelHostRefs.current.set(level.level, el)
+                }}
+                className="floorplan-svg"
+              />
+            </div>
+          ))}
+        </div>
 
         <aside className="sidepanel">
           <div className="sidepanel-title">Upgrade targets (+2 units)</div>

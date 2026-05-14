@@ -12,12 +12,12 @@ const layoutConfig = {
   cellH: 140,
   startX: 60,
   startY: 40,
-  gapX: 18,
+  gapX: 0,
   levelGap: 250,
   subCols: 2,
   subRows: 2,
-  subPadding: 6,
-  subGap: 6,
+  subPadding: 0,
+  subGap: 0,
   levels: [
     {
       rowGap: 64,
@@ -27,11 +27,12 @@ const layoutConfig = {
       extraOffset: 0
     },
     {
-      rowGap: 16,
+      rowGap: 64,
       topHallway: 48,
       bottomHallway: 48,
       topLabel: 'Hallway',
       bottomLabel: 'Hallway',
+      middleLabel: 'Stairs & Service',
       extraOffset: 250
     }
   ]
@@ -52,6 +53,60 @@ const getLevelBaseY = (levelIndex) => {
   return y + currentOffset
 }
 
+const buildServiceElements = (levelIndex, midY, hallH) => {
+  const services = []
+
+  const servicePairs = [
+    [0, 1],
+    [2, 3],
+    [4, 5]
+  ]
+
+  const serviceHeight = 12
+  const serviceWidth = layoutConfig.cellW * 1
+
+  servicePairs.forEach(([leftCol, rightCol]) => {
+    const leftCellX =
+      layoutConfig.startX +
+      leftCol * (layoutConfig.cellW + layoutConfig.gapX)
+
+    const rightCellX =
+      layoutConfig.startX +
+      rightCol * (layoutConfig.cellW + layoutConfig.gapX)
+
+    // center between 2 cells
+    const centerX =
+      (leftCellX + layoutConfig.cellW + rightCellX) / 2
+
+    const x =
+      centerX - serviceWidth / 2
+
+    // attached to bottom of upper units
+    const y =
+      midY + 4
+
+    services.push({
+      level: levelIndex,
+      type: 'service',
+      x,
+      y: midY - serviceHeight,
+      w: serviceWidth,
+      h: serviceHeight
+    })
+
+    services.push({
+      level: levelIndex,
+      type: 'service',
+      x,
+      y: midY + hallH,
+      w: serviceWidth,
+      h: serviceHeight
+    })
+  })
+
+  return services
+}
+
 const buildHallways = () => {
   const gridW = layoutConfig.cellCols * layoutConfig.cellW + (layoutConfig.cellCols - 1) * layoutConfig.gapX
   const hallways = []
@@ -60,21 +115,23 @@ const buildHallways = () => {
     const baseY = getLevelBaseY(levelIndex)
     const row0Y = baseY + level.topHallway
     const row1Y = row0Y + layoutConfig.cellH + level.rowGap
+    const midY = row0Y + layoutConfig.cellH
 
     if (levelIndex === 0) {
       hallways.push({
         level: levelIndex,
         x: layoutConfig.startX,
-        y: row0Y + layoutConfig.cellH,
+        y: midY,
         w: gridW,
         h: level.rowGap,
         label: level.middleLabel
       })
+      hallways.push(...buildServiceElements(levelIndex, midY, level.rowGap))
     } else {
       hallways.push({
         level: levelIndex,
         x: layoutConfig.startX,
-        y: baseY,
+        y: baseY + 32,
         w: gridW,
         h: level.topHallway,
         label: level.topLabel
@@ -82,11 +139,12 @@ const buildHallways = () => {
       hallways.push({
         level: levelIndex,
         x: layoutConfig.startX,
-        y: row1Y + layoutConfig.cellH,
+        y: row1Y + layoutConfig.cellH - 32,
         w: gridW,
         h: level.bottomHallway,
         label: level.bottomLabel
       })
+      hallways.push(...buildServiceElements(levelIndex, midY, level.rowGap))
     }
   })
 
@@ -109,6 +167,16 @@ const defaultUnits = () => {
         const cellId = `L${level}-CR${cr}-CC${cc}`
         const cellX = layoutConfig.startX + cc * (layoutConfig.cellW + layoutConfig.gapX)
         const cellY = baseY + levelCfg.topHallway + cr * (layoutConfig.cellH + levelCfg.rowGap)
+
+        if (level === 1) {
+          if (cr === 0) {
+            // upper row move down
+            cellY += 32
+          } else if (cr === 1) {
+            // lower row move up
+            cellY -= 32
+          }
+        }
 
         const subW = (layoutConfig.cellW - layoutConfig.subPadding * 2 - layoutConfig.subGap) / layoutConfig.subCols
         const subH = (layoutConfig.cellH - layoutConfig.subPadding * 2 - layoutConfig.subGap) / layoutConfig.subRows
