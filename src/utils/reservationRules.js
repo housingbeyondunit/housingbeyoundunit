@@ -59,28 +59,6 @@ export function areUnitsAdjacent(a, b) {
 }
 
 // ---------------------------------------------------------------------------
-// Row restriction
-// ---------------------------------------------------------------------------
-
-// Returns the cellR all existing units share, or null when the set is empty or mixed.
-function getRequiredRow(existingUserUnits) {
-  if (!existingUserUnits.length) return null
-  const rows = new Set(existingUserUnits.map(u => u.cellR))
-  return rows.size === 1 ? [...rows][0] : null
-}
-
-// Within the same level, a target unit must share cellR with the existing reservation.
-// Cross-floor targets (different level) are exempt from this restriction.
-function isRowCompatible(existingUserUnits, targetUnits) {
-  const requiredRow = getRequiredRow(existingUserUnits)
-  if (requiredRow === null) return true
-  const existingLevels = new Set(existingUserUnits.map(u => u.level))
-  return targetUnits.every(t =>
-    !existingLevels.has(t.level) || t.cellR === requiredRow
-  )
-}
-
-// ---------------------------------------------------------------------------
 // Service-area adjacency
 // ---------------------------------------------------------------------------
 
@@ -162,14 +140,6 @@ export function validateUpgrade(currentUserUnits, targetUnits) {
     )
   }
 
-  // Row restriction — same cellR within the same floor; cross-floor is exempt
-  if (currentUserUnits.length > 0 && !isRowCompatible(currentUserUnits, targetUnits)) {
-    const row = getRequiredRow(currentUserUnits)
-    errors.push(
-      `Units must stay within row ${row} on the same floor. Cross-row upgrades are not permitted.`
-    )
-  }
-
   // Rule 3 — connectivity
   if (currentUserUnits.length > 0 && !isConnectedToExistingUnits(currentUserUnits, targetUnits)) {
     errors.push(
@@ -239,7 +209,6 @@ export function validateDowngrade(currentUserUnits, unitToReleaseId) {
  * @param {object[]} targetUnits       Candidate upgrade pair
  */
 export function isUpgradeTargetEligible(currentUserUnits, targetUnits) {
-  if (!isRowCompatible(currentUserUnits, targetUnits)) return false
   if (!isConnectedToExistingUnits(currentUserUnits, targetUnits)) return false
   if (!hasServiceAreaConnection([...currentUserUnits, ...targetUnits])) return false
   return true

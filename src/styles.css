@@ -14,12 +14,12 @@ body{font-family:Inter,Segoe UI,Arial;margin:20px;background:#f7f7fb}
 .row{display:flex;gap:8px}
 .unit{width:120px;height:64px;border:2px dashed #ddd;border-radius:6px;display:flex;align-items:center;justify-content:center;cursor:pointer;background:white}
 .unit.filled{background:#333;color:#fff;border-style:solid}
-.unit.selected{outline:3px solid #2b8fff}
+.unit.selected{outline:3px solid #ff8a00}
 .controls{display:flex;gap:8px}
 .legend{display:flex;gap:12px;align-items:center;margin-top:8px}
 .box{display:inline-block;width:18px;height:12px;border:1px solid #ccc;margin-right:6px}
 .box.filled{background:#333}
-.box.selected{outline:3px solid #2b8fff}
+.box.selected{outline:3px solid #ff8a00}
 button{padding:8px 12px;border-radius:6px;border:1px solid #ccc;background:#fff;cursor:pointer}
 button:disabled{opacity:0.5;cursor:not-allowed}
 
