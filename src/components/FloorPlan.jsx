@@ -10,7 +10,7 @@ import {
 
 export default function FloorPlan({ levels, hallways, onUpdateUnit, currentUser, resetApp }) {
   const [selectedGroupId, setSelectedGroupId] = useState(null)
-  const [selectedTargetKey, setSelectedTargetKey] = useState(null)
+  const [selectedTargetKeys, setSelectedTargetKeys] = useState(new Set())
   const [selectedOwnUnitId, setSelectedOwnUnitId] = useState(null)
   const [confirm, setConfirm] = useState(null)
   const [notification, setNotification] = useState(null)
@@ -76,9 +76,18 @@ export default function FloorPlan({ levels, hallways, onUpdateUnit, currentUser,
     return [...groups.values()].sort((a, b) => a.date.localeCompare(b.date) || a.type.localeCompare(b.type))
   }, [flatUnits, todayISO])
 
+  const toggleTargetKey = key => {
+    setSelectedTargetKeys(prev => {
+      const next = new Set(prev)
+      if (next.has(key)) next.delete(key)
+      else next.add(key)
+      return next
+    })
+  }
+
   const selectUnit = u => {
     setSelectedGroupId(u.groupId || null)
-    setSelectedTargetKey(null)
+    setSelectedTargetKeys(new Set())
     setSelectedOwnUnitId(null)
   }
 
@@ -173,20 +182,23 @@ export default function FloorPlan({ levels, hallways, onUpdateUnit, currentUser,
       // Phase 1: initial full-cell reservation (4 units)
       if (!selectedGroupId) return showAlert('No cell selected', 'Click any cell on the floor plan to select your starting location.')
       if (!eligibleTargets.length) return showAlert('Cell unavailable', 'This cell is not available. Pick another one.')
-      const cellTarget = eligibleTargets.find(t => t.key === selectedTargetKey && t.kind === 'initial-cell')
+      const cellTarget = eligibleTargets.find(t => selectedTargetKeys.has(t.key) && t.kind === 'initial-cell')
         || eligibleTargets.find(t => t.kind === 'initial-cell')
       if (!cellTarget) return showAlert('Cell unavailable', 'This cell is not available. Pick another one.')
-      setSelectedTargetKey(cellTarget.key)
+      setSelectedTargetKeys(new Set([cellTarget.key]))
       setConfirm({ isInitial: true, target: cellTarget })
     } else {
-      // Phase 2: add 1 unit at a time
+      // Phase 2: add units (minimum 2 must be selected)
       if (!eligibleTargets.length) return showAlert('No units available', 'No adjacent empty units are available to add.')
-      const target = eligibleTargets.find(t => t.key === selectedTargetKey) || eligibleTargets[0]
-      const targetUnits = target.unitIds.map(id => unitsById.get(id)).filter(Boolean)
+      const selectedTargets = eligibleTargets.filter(t => selectedTargetKeys.has(t.key))
+      const allSelectedUnitIds = selectedTargets.flatMap(t => t.unitIds)
+      if (allSelectedUnitIds.length < 2) {
+        return showAlert('Select at least 2 units', 'You must select at least 2 units before upgrading. Click on highlighted units on the floor plan to select them.')
+      }
+      const targetUnits = allSelectedUnitIds.map(id => unitsById.get(id)).filter(Boolean)
       const errors = validateUpgrade(currentUserAllUnits, targetUnits)
-      if (errors.length) return showAlert('Cannot add unit', errors)
-      setSelectedTargetKey(target.key)
-      setConfirm({ isInitial: false, target })
+      if (errors.length) return showAlert('Cannot add units', errors)
+      setConfirm({ isInitial: false, target: { unitIds: allSelectedUnitIds, label: `${allSelectedUnitIds.length} units` } })
     }
   }
 
@@ -421,7 +433,7 @@ export default function FloorPlan({ levels, hallways, onUpdateUnit, currentUser,
             // Phase 1: toggle group selection — click again to deselect
             if (u.groupId === selectedGroupId) {
               setSelectedGroupId(null)
-              setSelectedTargetKey(null)
+              setSelectedTargetKeys(new Set())
             } else {
               selectUnit(u)
             }
@@ -429,7 +441,12 @@ export default function FloorPlan({ levels, hallways, onUpdateUnit, currentUser,
             // Phase 2: toggle the single-unit eligible target
             const key = `U:${u.id}`
             if (eligibleTargets.some(t => t.key === key)) {
-              setSelectedTargetKey(prev => prev === key ? null : key)
+              setSelectedTargetKeys(prev => {
+                const next = new Set(prev)
+                if (next.has(key)) next.delete(key)
+                else next.add(key)
+                return next
+              })
             }
             setSelectedGroupId(u.groupId || null)
             setSelectedOwnUnitId(null)
@@ -441,7 +458,7 @@ export default function FloorPlan({ levels, hallways, onUpdateUnit, currentUser,
             } else {
               setSelectedOwnUnitId(u.id)
               setSelectedGroupId(u.groupId || null)
-              setSelectedTargetKey(null)
+              setSelectedTargetKeys(new Set())
             }
           }
         })
@@ -489,9 +506,14 @@ export default function FloorPlan({ levels, hallways, onUpdateUnit, currentUser,
 
           hl.css({ cursor: 'pointer' })
           hl.on('mouseenter', () => hl.stroke({ width: 4 }))
-          hl.on('mouseleave', () => hl.stroke({ width: selectedTargetKey === t.key ? 5 : 2 }))
+          hl.on('mouseleave', () => hl.stroke({ width: selectedTargetKeys.has(t.key) ? 5 : 2 }))
           hl.on('click', () => {
-            setSelectedTargetKey(prev => prev === t.key ? null : t.key)
+            setSelectedTargetKeys(prev => {
+              const next = new Set(prev)
+              if (next.has(t.key)) next.delete(t.key)
+              else next.add(t.key)
+              return next
+            })
           })
 
           targetElsRef.current.set(t.key, hl)
@@ -527,7 +549,7 @@ export default function FloorPlan({ levels, hallways, onUpdateUnit, currentUser,
       drawRefs.current = []
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [levels, flatUnits, levelViewBoxes, eligibleTargets, selectedTargetKey, selectedGroupId, groupUnits, unitsById, hallways, levelUnitsMap])
+  }, [levels, flatUnits, levelViewBoxes, eligibleTargets, selectedTargetKeys, selectedGroupId, groupUnits, unitsById, hallways, levelUnitsMap])
 
   // Animate selection changes (cell selection + target selection + release selection)
   useEffect(() => {
@@ -552,9 +574,9 @@ export default function FloorPlan({ levels, hallways, onUpdateUnit, currentUser,
       obj.rect.stroke({ width: strokeWidth, color: strokeColor })
     }
 
-    // highlight chosen target
+    // highlight chosen targets
     for (const [key, hl] of targetElsRef.current.entries()) {
-      const isSelTarget = key === selectedTargetKey
+      const isSelTarget = selectedTargetKeys.has(key)
       hl.stroke({ width: isSelTarget ? 5 : 2, color: isSelTarget ? '#0ea5e9' : '#f59e0b' })
       hl.fill(isSelTarget ? 'rgba(14,165,233,0.20)' : 'rgba(245,158,11,0.14)')
     }
@@ -567,7 +589,7 @@ export default function FloorPlan({ levels, hallways, onUpdateUnit, currentUser,
         width: isSelected ? 3 : 1
       })
     }
-  }, [selectedGroupId, selectedTargetKey, selectedOwnUnitId, groupUnits, unitsById])
+  }, [selectedGroupId, selectedTargetKeys, selectedOwnUnitId, groupUnits, unitsById])
 
   return (
     <div className="floorplan-wrap">
@@ -645,7 +667,10 @@ export default function FloorPlan({ levels, hallways, onUpdateUnit, currentUser,
             <div className="sidepanel-hint">No adjacent empty units available.</div>
           )}
           {currentUser && currentUserAllUnits.length > 0 && eligibleTargets.length > 0 && (
-            <div className="sidepanel-hint">Click an adjacent empty unit to add it to your reservation.</div>
+            <div className="sidepanel-hint">
+              Select at least <strong>2 adjacent empty units</strong>, then click <strong>Add Unit</strong>.
+              {selectedTargetKeys.size > 0 && ` (${selectedTargetKeys.size} selected)`}
+            </div>
           )}
 
           {eligibleTargets.length > 0 && (
@@ -653,8 +678,8 @@ export default function FloorPlan({ levels, hallways, onUpdateUnit, currentUser,
               {eligibleTargets.map(t => (
                 <button
                   key={t.key}
-                  className={`target-item ${t.key === selectedTargetKey ? 'active' : ''}`}
-                  onClick={() => setSelectedTargetKey(t.key)}
+                  className={`target-item ${selectedTargetKeys.has(t.key) ? 'active' : ''}`}
+                  onClick={() => toggleTargetKey(t.key)}
                 >
                   <div className="target-main">
                     <div className="target-label">{t.label}</div>
@@ -722,7 +747,7 @@ export default function FloorPlan({ levels, hallways, onUpdateUnit, currentUser,
         <div style={{marginLeft:12}}>
           {currentUserAllUnits.length === 0
             ? 'Tip: click any cell, then click "Reserve Cell" to reserve all 4 units.'
-            : 'Tip: click an adjacent empty unit (any registered row) to add it. Click your own unit then "Release Unit" to remove it.'}
+            : 'Tip: select at least 2 adjacent empty units (any registered row), then click "Add Unit". Click your own unit then "Release Unit" to remove it.'}
         </div>
       </div>
 
@@ -810,7 +835,7 @@ export default function FloorPlan({ levels, hallways, onUpdateUnit, currentUser,
                 }
                 setConfirm(null)
                 setSelectedGroupId(null)
-                setSelectedTargetKey(null)
+                setSelectedTargetKeys(new Set())
               }}>Confirm</button>
             </div>
           </div>
