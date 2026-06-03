@@ -38,6 +38,9 @@ const layoutConfig = {
   ]
 }
 
+const cellGroupLabel = (cellRow, cellCol) =>
+  String.fromCharCode(65 + cellRow * layoutConfig.cellCols + cellCol)
+
 const getLevelHeight = (levelIndex) => {
   const level = layoutConfig.levels[levelIndex]
   return level.topHallway + layoutConfig.cellH + level.rowGap + layoutConfig.cellH + level.bottomHallway
@@ -164,7 +167,8 @@ const defaultUnits = () => {
     const baseY = getLevelBaseY(level)
     for (let cr = 0; cr < layoutConfig.cellRows; cr++) {
       for (let cc = 0; cc < layoutConfig.cellCols; cc++) {
-        const cellId = `L${level}-CR${cr}-CC${cc}`
+        const letter = cellGroupLabel(cr, cc)
+        const cellId = `${letter}${level + 1}`
         const cellX = layoutConfig.startX + cc * (layoutConfig.cellW + layoutConfig.gapX)
         let cellY = baseY + levelCfg.topHallway + cr * (layoutConfig.cellH + levelCfg.rowGap)
 
@@ -184,7 +188,7 @@ const defaultUnits = () => {
         for (let sr = 0; sr < layoutConfig.subRows; sr++) {
           for (let sc = 0; sc < layoutConfig.subCols; sc++) {
             const quadrant = sr * 2 + sc // 0..3
-            const id = `${cellId}-Q${quadrant}`
+            const id = `${cellId}-${quadrant + 1}`
             const x = cellX + layoutConfig.subPadding + sc * (subW + layoutConfig.subGap)
             const y = cellY + layoutConfig.subPadding + sr * (subH + layoutConfig.subGap)
             levels[level].units.push({
@@ -237,17 +241,25 @@ const migrateUnit = u => {
   }
 }
 
+const migrateUnitId = u => {
+  const m = /^L(\d+)-CR(\d+)-CC(\d+)-Q(\d+)$/.exec(u.id)
+  if (!m) return u
+  const [, lv, cr, cc, q] = m.map(Number)
+  const letter = cellGroupLabel(cr, cc)
+  return { ...u, id: `${letter}${lv + 1}-${q + 1}`, groupId: `${letter}${lv + 1}` }
+}
+
 const normalizeState = (data) => {
   if (data?.levels) {
     return {
       ...data,
-      levels: data.levels.map(lvl => ({ ...lvl, units: lvl.units.map(migrateUnit) }))
+      levels: data.levels.map(lvl => ({ ...lvl, units: lvl.units.map(u => migrateUnit(migrateUnitId(u))) }))
     }
   }
   if (Array.isArray(data?.units)) {
     const levels = layoutConfig.levels.map((_, level) => ({
       level,
-      units: data.units.filter(u => u.level === level).map(migrateUnit)
+      units: data.units.filter(u => u.level === level).map(u => migrateUnit(migrateUnitId(u)))
     }))
     return { levels }
   }

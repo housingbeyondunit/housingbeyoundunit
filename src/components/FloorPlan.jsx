@@ -408,12 +408,12 @@ export default function FloorPlan({ levels, hallways, onUpdateUnit, currentUser,
         rect.attr({ 'data-id': u.id })
         rect.css({ cursor: (occupied && !ownedByMe) || pendingAvailable ? 'not-allowed' : 'pointer' })
 
-        // const label = draw
-        //   .text(u.id)
-        //   .move(u.x + 10, u.y + 10)
-        //   .font({ size: 14, family: 'Inter, Segoe UI, Arial', anchor: 'start' })
-        //   .fill(occupied ? '#fff' : '#222')
-        const label = null
+        const label = draw
+          .text(u.id)
+          .move(u.x + u.w / 2, u.y + u.h / 2 - 5)
+          .font({ size: 10, family: 'Inter, Segoe UI, Arial', anchor: 'middle' })
+          .fill(occupied ? '#fff' : '#475569')
+          .attr({ 'pointer-events': 'none' })
 
         // hover animations
         // rect.on('mouseenter', () => {
@@ -719,7 +719,7 @@ export default function FloorPlan({ levels, hallways, onUpdateUnit, currentUser,
                         <span className="pill pill--kind">
                           {t.kind === 'cross-floor' ? 'cross-floor' : 'same level'}
                         </span>
-                        <span className="pill">dist {t.distance}</span>
+                        {/* <span className="pill">dist {t.distance}</span> */}
                       </div>
                     </div>
                   </button>
@@ -808,7 +808,7 @@ export default function FloorPlan({ levels, hallways, onUpdateUnit, currentUser,
                 {pendingActions.map((a, i) => {
                   const label = a.qs.length === 4
                     ? a.groupId
-                    : `${a.groupId} · ${a.qs.sort().map(q => `Q${q}`).join(', ')}`
+                    : a.qs.sort().map(q => `${a.groupId}-${q + 1}`).join(', ')
                   return (
                     <tr key={i}>
                       <td>
