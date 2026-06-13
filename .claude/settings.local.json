@@ -4,7 +4,9 @@
       "Bash(npm run *)",
       "Bash(npx playwright *)",
       "Bash(node -e ' *)",
-      "Bash(npx --yes playwright@1.60.0 screenshot)"
+      "Bash(npx --yes playwright@1.60.0 screenshot)",
+      "Bash(Get-ChildItem -Path \"d:\\\\Works\\\\Freelance\\\\floor-plan-thesis\" -Recurse -File)",
+      "Bash(Select-Object FullName)"
     ]
   }
 }

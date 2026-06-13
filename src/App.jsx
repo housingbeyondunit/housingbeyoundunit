@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react'
+import { createPortal } from 'react-dom'
 import FloorPlan from './components/FloorPlan'
 
 // Minimal in-memory data model with localStorage persistence
@@ -202,6 +203,7 @@ const defaultUnits = () => {
               date: null,
               availableFrom: null,
               releasedBy: null,
+              furniture: [],
               x,
               y,
               w: subW,
@@ -238,6 +240,7 @@ const migrateUnit = u => {
     date: u.date ?? startDate ?? (u.owner ? '2000-01-01' : null),
     availableFrom: u.availableFrom ?? null,
     releasedBy: u.releasedBy ?? null,
+    furniture: u.furniture ?? [],
   }
 }
 
@@ -316,6 +319,7 @@ export default function App() {
   }, [state])
 
   const currentUserUnitCount = existingUsers.find(u => u.name === currentUser)?.count ?? 0
+  const [contactModalOpen, setContactModalOpen] = useState(false)
 
   return (
     <div className="app">
@@ -325,19 +329,63 @@ export default function App() {
             <h1 className="app-title">Floor Plan Booking</h1>
             <p className="app-subtitle">Unit reservation &amp; management system</p>
           </div>
-          {currentUser && (
-            <UserBadge
-              name={currentUser}
-              unitCount={currentUserUnitCount}
-              onLogout={() => setCurrentUser('')}
-            />
-          )}
+          <div className="app-header-actions">
+            <button className="contact-designer-btn" onClick={() => setContactModalOpen(true)}>
+              <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="1" y="3" width="14" height="10" rx="1.5" stroke="currentColor" strokeWidth="1.5"/>
+                <path d="M1 6l7 4.5L15 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+              Contact Designer
+            </button>
+            {currentUser && (
+              <UserBadge
+                name={currentUser}
+                unitCount={currentUserUnitCount}
+                onLogout={() => setCurrentUser('')}
+              />
+            )}
+          </div>
         </div>
         {!currentUser && (
           <UserSelector existingUsers={existingUsers} onSetUser={setCurrentUser} />
         )}
       </div>
       <FloorPlan levels={state.levels} hallways={hallways} onUpdateUnit={updateUnit} currentUser={currentUser} resetApp={resetState} />
+
+      {contactModalOpen && createPortal(
+        <div className="modal-overlay" onClick={() => setContactModalOpen(false)}>
+          <div className="modal contact-modal" onClick={e => e.stopPropagation()}>
+            <h3>Contact the Designer</h3>
+            <div className="contact-info">
+              <div className="contact-row">
+                <span className="contact-label">Designer</span>
+                <span className="contact-value">Arch. Rafael Santos</span>
+              </div>
+              <div className="contact-row">
+                <span className="contact-label">Email</span>
+                <a href="mailto:rafael.santos@floorplan.com" className="contact-value contact-link">
+                  rafael.santos@floorplan.com
+                </a>
+              </div>
+              <div className="contact-row">
+                <span className="contact-label">Phone</span>
+                <span className="contact-value">+63 917 123 4567</span>
+              </div>
+              <div className="contact-row">
+                <span className="contact-label">Office hours</span>
+                <span className="contact-value">Mon – Fri, 9 AM – 6 PM</span>
+              </div>
+            </div>
+            <p className="contact-note">
+              For inquiries about unit specifications, floor plan modifications, or custom design requests, please reach out directly.
+            </p>
+            <div className="modal-actions">
+              <button className="primary-btn" onClick={() => setContactModalOpen(false)}>Close</button>
+            </div>
+          </div>
+        </div>,
+        document.body
+      )}
     </div>
   )
 }

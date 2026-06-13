@@ -8,12 +8,28 @@ import {
   validateActionDate,
 } from '../utils/reservationRules'
 
+const FURNITURE_ITEMS = [
+  { id: 'sofa', label: 'Sofa' },
+  { id: 'bed', label: 'Bed' },
+  { id: 'wardrobe', label: 'Wardrobe' },
+  { id: 'dining-table', label: 'Dining Table' },
+  { id: 'chair', label: 'Chair' },
+  { id: 'desk', label: 'Desk' },
+  { id: 'bookshelf', label: 'Bookshelf' },
+  { id: 'tv-stand', label: 'TV Stand' },
+  { id: 'coffee-table', label: 'Coffee Table' },
+  { id: 'side-table', label: 'Side Table' },
+  { id: 'floor-lamp', label: 'Floor Lamp' },
+  { id: 'rug', label: 'Rug' },
+]
+
 export default function FloorPlan({ levels, hallways, onUpdateUnit, currentUser, resetApp }) {
   const [selectedGroupId, setSelectedGroupId] = useState(null)
   const [selectedTargetKeys, setSelectedTargetKeys] = useState(new Set())
   const [selectedOwnUnitId, setSelectedOwnUnitId] = useState(null)
   const [confirm, setConfirm] = useState(null)
   const [notification, setNotification] = useState(null)
+  const [pendingFurniture, setPendingFurniture] = useState([])
 
   const showAlert = (title, body) =>
     setNotification({ title, lines: Array.isArray(body) ? body : [body] })
@@ -89,6 +105,7 @@ export default function FloorPlan({ levels, hallways, onUpdateUnit, currentUser,
     setSelectedGroupId(u.groupId || null)
     setSelectedTargetKeys(new Set())
     setSelectedOwnUnitId(null)
+    setPendingFurniture([])
   }
 
   const groupUnits = useMemo(() => {
@@ -643,33 +660,18 @@ export default function FloorPlan({ levels, hallways, onUpdateUnit, currentUser,
             Reservation controls
           </div>
 
-          {/* ── Action date ───────────────────────────────────────── */}
+          {/* ── Action section with inline date ───────────────────── */}
           <div className="sidepanel-section">
-            <div className="sidepanel-title">
-              <svg className="sidepanel-title-icon" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <rect x="1" y="2" width="12" height="11" rx="1.5" stroke="currentColor" strokeWidth="1.4"/>
-                <path d="M1 5h12" stroke="currentColor" strokeWidth="1.4"/>
-                <path d="M4 1v2M10 1v2" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round"/>
-              </svg>
-              Action date
-            </div>
-            <div className="date-picker-row">
-              <label className="date-field">
-                <span>Date</span>
-                <input type="date" value={actionDate} min={todayISO}
-                  onChange={e => setActionDate(e.target.value)} />
-              </label>
-            </div>
-          </div>
-
-          {/* ── Action section ────────────────────────────────────── */}
-          <div className="sidepanel-section">
-            <div className="sidepanel-title">
-              <svg className="sidepanel-title-icon" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="7" cy="7" r="5.5" stroke="currentColor" strokeWidth="1.4"/>
-                <path d="M7 4.5v5M4.5 7h5" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round"/>
-              </svg>
-              {currentUserAllUnits.length === 0 ? 'New reservation' : 'Add a unit'}
+            <div className="sidepanel-section-header">
+              <div className="sidepanel-title">
+                <svg className="sidepanel-title-icon" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <circle cx="7" cy="7" r="5.5" stroke="currentColor" strokeWidth="1.4"/>
+                  <path d="M7 4.5v5M4.5 7h5" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round"/>
+                </svg>
+                {currentUserAllUnits.length === 0 ? 'New reservation' : 'Add a unit'}
+              </div>
+              <input type="date" className="date-input-compact" value={actionDate} min={todayISO}
+                onChange={e => setActionDate(e.target.value)} />
             </div>
 
             {!currentUser && (
@@ -731,25 +733,110 @@ export default function FloorPlan({ levels, hallways, onUpdateUnit, currentUser,
           {/* Release section — shown when user has clicked one of their own units */}
           {currentUser && selectedOwnUnitId && currentUserAllUnits.some(u => u.id === selectedOwnUnitId) && (
             <div className="release-section">
-              <div className="sidepanel-title" style={{color:'#c0392b'}}>
-                <svg className="sidepanel-title-icon" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M2 7h10M8 3l4 4-4 4" stroke="#c0392b" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
-                Release unit
-              </div>
-              <div className="sidepanel-hint">
-                Selected: <strong>{selectedOwnUnitId}</strong>
-              </div>
               {(() => {
                 const errors = validateDowngrade(currentUserAllUnits, selectedOwnUnitId)
-                return errors.length > 0
-                  ? errors.map((e, i) => (
+                return (
+                  <>
+                    <div className="release-row">
+                      <div className="sidepanel-title release-title">
+                        <svg className="sidepanel-title-icon" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M2 7h10M8 3l4 4-4 4" stroke="#c0392b" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/>
+                        </svg>
+                        Release: <code className="release-unit-code">{selectedOwnUnitId}</code>
+                      </div>
+                      {errors.length === 0 && (
+                        <button className="release-btn release-btn--inline" onClick={submitRelease}>Release</button>
+                      )}
+                    </div>
+                    {errors.map((e, i) => (
                       <div key={i} className="sidepanel-hint sidepanel-hint--danger">{e}</div>
-                    ))
-                  : <button className="release-btn" onClick={submitRelease}>Release This Unit</button>
+                    ))}
+                  </>
+                )
               })()}
             </div>
           )}
+
+          {/* Furniture for pending reservation — new cell selected or targets selected */}
+          {currentUser && (
+            (currentUserAllUnits.length === 0 && selectedGroupId && eligibleTargets.length > 0) ||
+            (currentUserAllUnits.length > 0 && selectedTargetKeys.size > 0)
+          ) && (
+            <div className="furniture-section">
+              <div className="sidepanel-title">
+                <svg className="sidepanel-title-icon" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <rect x="1" y="7" width="12" height="5" rx="1" stroke="currentColor" strokeWidth="1.4"/>
+                  <rect x="1" y="5" width="2" height="4" rx="0.7" stroke="currentColor" strokeWidth="1.4"/>
+                  <rect x="11" y="5" width="2" height="4" rx="0.7" stroke="currentColor" strokeWidth="1.4"/>
+                  <rect x="3" y="4" width="8" height="5" rx="1" stroke="currentColor" strokeWidth="1.4"/>
+                  <path d="M4 12v1M10 12v1" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round"/>
+                </svg>
+                Furniture
+              </div>
+              <div className="sidepanel-hint sidepanel-hint--info">
+                Optional — choose furniture for your new unit(s)
+              </div>
+              <div className="furniture-grid">
+                {FURNITURE_ITEMS.map(item => {
+                  const isActive = pendingFurniture.includes(item.id)
+                  return (
+                    <button
+                      key={item.id}
+                      className={`furniture-chip${isActive ? ' furniture-chip--active' : ''}`}
+                      onClick={() => setPendingFurniture(prev =>
+                        prev.includes(item.id)
+                          ? prev.filter(f => f !== item.id)
+                          : [...prev, item.id]
+                      )}
+                    >
+                      {item.label}
+                    </button>
+                  )
+                })}
+              </div>
+            </div>
+          )}
+
+          {/* Furniture section — shown when user has clicked one of their own units */}
+          {currentUser && selectedOwnUnitId && currentUserAllUnits.some(u => u.id === selectedOwnUnitId) && (
+            <div className="furniture-section">
+              <div className="sidepanel-title">
+                <svg className="sidepanel-title-icon" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <rect x="1" y="7" width="12" height="5" rx="1" stroke="currentColor" strokeWidth="1.4"/>
+                  <rect x="1" y="5" width="2" height="4" rx="0.7" stroke="currentColor" strokeWidth="1.4"/>
+                  <rect x="11" y="5" width="2" height="4" rx="0.7" stroke="currentColor" strokeWidth="1.4"/>
+                  <rect x="3" y="4" width="8" height="5" rx="1" stroke="currentColor" strokeWidth="1.4"/>
+                  <path d="M4 12v1M10 12v1" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round"/>
+                </svg>
+                Furniture
+              </div>
+              <div className="sidepanel-hint sidepanel-hint--info">
+                Choose furniture for <strong>{selectedOwnUnitId}</strong>
+              </div>
+              <div className="furniture-grid">
+                {FURNITURE_ITEMS.map(item => {
+                  const unitFurniture = unitsById.get(selectedOwnUnitId)?.furniture || []
+                  const isActive = unitFurniture.includes(item.id)
+                  return (
+                    <button
+                      key={item.id}
+                      className={`furniture-chip${isActive ? ' furniture-chip--active' : ''}`}
+                      onClick={() => {
+                        const current = unitsById.get(selectedOwnUnitId)?.furniture || []
+                        const updated = current.includes(item.id)
+                          ? current.filter(f => f !== item.id)
+                          : [...current, item.id]
+                        onUpdateUnit(selectedOwnUnitId, { furniture: updated })
+                      }}
+                    >
+                      {item.label}
+                    </button>
+                  )
+                })}
+              </div>
+            </div>
+          )}
+
         </aside>
       </div>
 
@@ -861,7 +948,7 @@ export default function FloorPlan({ levels, hallways, onUpdateUnit, currentUser,
                   onUpdateUnit(confirm.unitId, { owner: null, date: null, availableFrom: actionDate, releasedBy: currentUser })
                   setSelectedOwnUnitId(null)
                 } else if (confirm.isInitial) {
-                  confirm.target.unitIds.forEach(id => onUpdateUnit(id, { owner: currentUser, date: actionDate, availableFrom: null, releasedBy: null }))
+                  confirm.target.unitIds.forEach(id => onUpdateUnit(id, { owner: currentUser, date: actionDate, availableFrom: null, releasedBy: null, furniture: pendingFurniture }))
                 } else {
                   const targetUnits = confirm.target.unitIds.map(id => unitsById.get(id)).filter(Boolean)
                   const errors = validateUpgrade(currentUserAllUnits, targetUnits)
@@ -869,11 +956,12 @@ export default function FloorPlan({ levels, hallways, onUpdateUnit, currentUser,
                     setConfirm(null)
                     return showAlert('No longer valid', errors)
                   }
-                  confirm.target.unitIds.forEach(id => onUpdateUnit(id, { owner: currentUser, date: actionDate, availableFrom: null, releasedBy: null }))
+                  confirm.target.unitIds.forEach(id => onUpdateUnit(id, { owner: currentUser, date: actionDate, availableFrom: null, releasedBy: null, furniture: pendingFurniture }))
                 }
                 setConfirm(null)
                 setSelectedGroupId(null)
                 setSelectedTargetKeys(new Set())
+                setPendingFurniture([])
               }}>Confirm</button>
             </div>
           </div>
@@ -896,6 +984,7 @@ export default function FloorPlan({ levels, hallways, onUpdateUnit, currentUser,
           </div>
         </div>
       )}
+
     </div>
   )
 }
