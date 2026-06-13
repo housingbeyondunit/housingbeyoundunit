@@ -4,6 +4,106 @@
   "graph": {},
   "nodes": [
     {
+      "label": "CLAUDE.md",
+      "file_type": "document",
+      "source_file": "CLAUDE.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "claude",
+      "community": 1,
+      "norm_label": "claude.md"
+    },
+    {
+      "label": "CLAUDE.md",
+      "file_type": "document",
+      "source_file": "CLAUDE.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "claude_claude_md",
+      "community": 1,
+      "norm_label": "claude.md"
+    },
+    {
+      "label": "Commands",
+      "file_type": "document",
+      "source_file": "CLAUDE.md",
+      "source_location": "L5",
+      "_origin": "ast",
+      "id": "claude_commands",
+      "community": 1,
+      "norm_label": "commands"
+    },
+    {
+      "label": "Architecture",
+      "file_type": "document",
+      "source_file": "CLAUDE.md",
+      "source_location": "L16",
+      "_origin": "ast",
+      "id": "claude_architecture",
+      "community": 1,
+      "norm_label": "architecture"
+    },
+    {
+      "label": "Data model",
+      "file_type": "document",
+      "source_file": "CLAUDE.md",
+      "source_location": "L20",
+      "_origin": "ast",
+      "id": "claude_data_model",
+      "community": 1,
+      "norm_label": "data model"
+    },
+    {
+      "label": "Rendering",
+      "file_type": "document",
+      "source_file": "CLAUDE.md",
+      "source_location": "L30",
+      "_origin": "ast",
+      "id": "claude_rendering",
+      "community": 1,
+      "norm_label": "rendering"
+    },
+    {
+      "label": "Upgrade flow",
+      "file_type": "document",
+      "source_file": "CLAUDE.md",
+      "source_location": "L38",
+      "_origin": "ast",
+      "id": "claude_upgrade_flow",
+      "community": 1,
+      "norm_label": "upgrade flow"
+    },
+    {
+      "label": "Geometry helpers (App.jsx)",
+      "file_type": "document",
+      "source_file": "CLAUDE.md",
+      "source_location": "L46",
+      "_origin": "ast",
+      "id": "claude_geometry_helpers_app_jsx",
+      "community": 1,
+      "norm_label": "geometry helpers (app.jsx)"
+    },
+    {
+      "label": "Styling",
+      "file_type": "document",
+      "source_file": "CLAUDE.md",
+      "source_location": "L52",
+      "_origin": "ast",
+      "id": "claude_styling",
+      "community": 1,
+      "norm_label": "styling"
+    },
+    {
+      "label": "graphify",
+      "file_type": "document",
+      "source_file": "CLAUDE.md",
+      "source_location": "L56",
+      "_origin": "ast",
+      "id": "claude_graphify",
+      "community": 1,
+      "norm_label": "graphify"
+    },
+    {
       "label": "App.jsx",
       "file_type": "code",
       "source_file": "src/App.jsx",
@@ -30,7 +130,7 @@
       "source_location": "L45",
       "_origin": "ast",
       "id": "src_app_cellgrouplabel",
-      "community": 1,
+      "community": 0,
       "norm_label": "cellgrouplabel()"
     },
     {
@@ -40,7 +140,7 @@
       "source_location": "L48",
       "_origin": "ast",
       "id": "src_app_getlevelheight",
-      "community": 3,
+      "community": 0,
       "norm_label": "getlevelheight()"
     },
     {
@@ -50,7 +150,7 @@
       "source_location": "L53",
       "_origin": "ast",
       "id": "src_app_getlevelbasey",
-      "community": 3,
+      "community": 0,
       "norm_label": "getlevelbasey()"
     },
     {
@@ -80,7 +180,7 @@
       "source_location": "L161",
       "_origin": "ast",
       "id": "src_app_defaultunits",
-      "community": 1,
+      "community": 0,
       "norm_label": "defaultunits()"
     },
     {
@@ -100,7 +200,7 @@
       "source_location": "L250",
       "_origin": "ast",
       "id": "src_app_migrateunitid",
-      "community": 1,
+      "community": 0,
       "norm_label": "migrateunitid()"
     },
     {
@@ -110,7 +210,7 @@
       "source_location": "L258",
       "_origin": "ast",
       "id": "src_app_normalizestate",
-      "community": 1,
+      "community": 0,
       "norm_label": "normalizestate()"
     },
     {
@@ -122,6 +222,106 @@
       "id": "src_app_app",
       "community": 0,
       "norm_label": "app()"
+    },
+    {
+      "label": "BookingWizard.jsx",
+      "file_type": "code",
+      "source_file": "src/components/BookingWizard.jsx",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "components_bookingwizard",
+      "community": 2,
+      "norm_label": "bookingwizard.jsx"
+    },
+    {
+      "label": "STEPS",
+      "file_type": "code",
+      "source_file": "src/components/BookingWizard.jsx",
+      "source_location": "L11",
+      "_origin": "ast",
+      "id": "components_bookingwizard_steps",
+      "community": 2,
+      "norm_label": "steps"
+    },
+    {
+      "label": "BookingWizard()",
+      "file_type": "code",
+      "source_file": "src/components/BookingWizard.jsx",
+      "source_location": "L17",
+      "_origin": "ast",
+      "id": "components_bookingwizard_bookingwizard",
+      "community": 3,
+      "norm_label": "bookingwizard()"
+    },
+    {
+      "label": "Stepper()",
+      "file_type": "code",
+      "source_file": "src/components/BookingWizard.jsx",
+      "source_location": "L626",
+      "_origin": "ast",
+      "id": "components_bookingwizard_stepper",
+      "community": 2,
+      "norm_label": "stepper()"
+    },
+    {
+      "label": "SummaryCard()",
+      "file_type": "code",
+      "source_file": "src/components/BookingWizard.jsx",
+      "source_location": "L654",
+      "_origin": "ast",
+      "id": "components_bookingwizard_summarycard",
+      "community": 2,
+      "norm_label": "summarycard()"
+    },
+    {
+      "label": "CheckIcon()",
+      "file_type": "code",
+      "source_file": "src/components/BookingWizard.jsx",
+      "source_location": "L667",
+      "_origin": "ast",
+      "id": "components_bookingwizard_checkicon",
+      "community": 2,
+      "norm_label": "checkicon()"
+    },
+    {
+      "label": "CalendarIcon()",
+      "file_type": "code",
+      "source_file": "src/components/BookingWizard.jsx",
+      "source_location": "L675",
+      "_origin": "ast",
+      "id": "components_bookingwizard_calendaricon",
+      "community": 2,
+      "norm_label": "calendaricon()"
+    },
+    {
+      "label": "UnitIcon()",
+      "file_type": "code",
+      "source_file": "src/components/BookingWizard.jsx",
+      "source_location": "L686",
+      "_origin": "ast",
+      "id": "components_bookingwizard_uniticon",
+      "community": 2,
+      "norm_label": "uniticon()"
+    },
+    {
+      "label": "ReleaseIcon()",
+      "file_type": "code",
+      "source_file": "src/components/BookingWizard.jsx",
+      "source_location": "L697",
+      "_origin": "ast",
+      "id": "components_bookingwizard_releaseicon",
+      "community": 2,
+      "norm_label": "releaseicon()"
+    },
+    {
+      "label": "FurnitureSectionIcon()",
+      "file_type": "code",
+      "source_file": "src/components/BookingWizard.jsx",
+      "source_location": "L705",
+      "_origin": "ast",
+      "id": "components_bookingwizard_furnituresectionicon",
+      "community": 2,
+      "norm_label": "furnituresectionicon()"
     },
     {
       "label": "FloorPlan.jsx",
@@ -152,18 +352,718 @@
       "id": "components_floorplan_floorplan",
       "community": 2,
       "norm_label": "floorplan()"
+    },
+    {
+      "label": "FurnitureGrid.jsx",
+      "file_type": "code",
+      "source_file": "src/components/FurnitureGrid.jsx",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "components_furnituregrid",
+      "community": 4,
+      "norm_label": "furnituregrid.jsx"
+    },
+    {
+      "label": "unsplash()",
+      "file_type": "code",
+      "source_file": "src/components/FurnitureGrid.jsx",
+      "source_location": "L3",
+      "_origin": "ast",
+      "id": "components_furnituregrid_unsplash",
+      "community": 4,
+      "norm_label": "unsplash()"
+    },
+    {
+      "label": "FURNITURE_ITEMS",
+      "file_type": "code",
+      "source_file": "src/components/FurnitureGrid.jsx",
+      "source_location": "L5",
+      "_origin": "ast",
+      "id": "components_furnituregrid_furniture_items",
+      "community": 4,
+      "norm_label": "furniture_items"
+    },
+    {
+      "label": "FurnitureIcon()",
+      "file_type": "code",
+      "source_file": "src/components/FurnitureGrid.jsx",
+      "source_location": "L22",
+      "_origin": "ast",
+      "id": "components_furnituregrid_furnitureicon",
+      "community": 4,
+      "norm_label": "furnitureicon()"
+    },
+    {
+      "label": "CheckIcon()",
+      "file_type": "code",
+      "source_file": "src/components/FurnitureGrid.jsx",
+      "source_location": "L174",
+      "_origin": "ast",
+      "id": "components_furnituregrid_checkicon",
+      "community": 4,
+      "norm_label": "checkicon()"
+    },
+    {
+      "label": "ArrowIcon()",
+      "file_type": "code",
+      "source_file": "src/components/FurnitureGrid.jsx",
+      "source_location": "L182",
+      "_origin": "ast",
+      "id": "components_furnituregrid_arrowicon",
+      "community": 4,
+      "norm_label": "arrowicon()"
+    },
+    {
+      "label": "getItemsPerPage()",
+      "file_type": "code",
+      "source_file": "src/components/FurnitureGrid.jsx",
+      "source_location": "L196",
+      "_origin": "ast",
+      "id": "components_furnituregrid_getitemsperpage",
+      "community": 4,
+      "norm_label": "getitemsperpage()"
+    },
+    {
+      "label": "FurnitureGrid()",
+      "file_type": "code",
+      "source_file": "src/components/FurnitureGrid.jsx",
+      "source_location": "L206",
+      "_origin": "ast",
+      "id": "components_furnituregrid_furnituregrid",
+      "community": 2,
+      "norm_label": "furnituregrid()"
+    },
+    {
+      "label": "SiteFooter.jsx",
+      "file_type": "code",
+      "source_file": "src/components/SiteFooter.jsx",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "components_sitefooter",
+      "community": 0,
+      "norm_label": "sitefooter.jsx"
+    },
+    {
+      "label": "SiteFooter()",
+      "file_type": "code",
+      "source_file": "src/components/SiteFooter.jsx",
+      "source_location": "L3",
+      "_origin": "ast",
+      "id": "components_sitefooter_sitefooter",
+      "community": 0,
+      "norm_label": "sitefooter()"
+    },
+    {
+      "label": "SiteHeader.jsx",
+      "file_type": "code",
+      "source_file": "src/components/SiteHeader.jsx",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "components_siteheader",
+      "community": 3,
+      "norm_label": "siteheader.jsx"
+    },
+    {
+      "label": "NAV_ITEMS",
+      "file_type": "code",
+      "source_file": "src/components/SiteHeader.jsx",
+      "source_location": "L4",
+      "_origin": "ast",
+      "id": "components_siteheader_nav_items",
+      "community": 3,
+      "norm_label": "nav_items"
+    },
+    {
+      "label": "SiteHeader()",
+      "file_type": "code",
+      "source_file": "src/components/SiteHeader.jsx",
+      "source_location": "L12",
+      "_origin": "ast",
+      "id": "components_siteheader_siteheader",
+      "community": 3,
+      "norm_label": "siteheader()"
+    },
+    {
+      "label": "AboutConcept.jsx",
+      "file_type": "code",
+      "source_file": "src/components/home/AboutConcept.jsx",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "home_aboutconcept",
+      "community": 7,
+      "norm_label": "aboutconcept.jsx"
+    },
+    {
+      "label": "AboutConcept()",
+      "file_type": "code",
+      "source_file": "src/components/home/AboutConcept.jsx",
+      "source_location": "L4",
+      "_origin": "ast",
+      "id": "home_aboutconcept_aboutconcept",
+      "community": 7,
+      "norm_label": "aboutconcept()"
+    },
+    {
+      "label": "CommunityStories.jsx",
+      "file_type": "code",
+      "source_file": "src/components/home/CommunityStories.jsx",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "home_communitystories",
+      "community": 6,
+      "norm_label": "communitystories.jsx"
+    },
+    {
+      "label": "CommunityStories()",
+      "file_type": "code",
+      "source_file": "src/components/home/CommunityStories.jsx",
+      "source_location": "L4",
+      "_origin": "ast",
+      "id": "home_communitystories_communitystories",
+      "community": 6,
+      "norm_label": "communitystories()"
+    },
+    {
+      "label": "FeaturedSpaces.jsx",
+      "file_type": "code",
+      "source_file": "src/components/home/FeaturedSpaces.jsx",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "home_featuredspaces",
+      "community": 8,
+      "norm_label": "featuredspaces.jsx"
+    },
+    {
+      "label": "FeaturedSpaces()",
+      "file_type": "code",
+      "source_file": "src/components/home/FeaturedSpaces.jsx",
+      "source_location": "L4",
+      "_origin": "ast",
+      "id": "home_featuredspaces_featuredspaces",
+      "community": 8,
+      "norm_label": "featuredspaces()"
+    },
+    {
+      "label": "Hero.jsx",
+      "file_type": "code",
+      "source_file": "src/components/home/Hero.jsx",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "home_hero",
+      "community": 9,
+      "norm_label": "hero.jsx"
+    },
+    {
+      "label": "Hero()",
+      "file_type": "code",
+      "source_file": "src/components/home/Hero.jsx",
+      "source_location": "L6",
+      "_origin": "ast",
+      "id": "home_hero_hero",
+      "community": 9,
+      "norm_label": "hero()"
+    },
+    {
+      "label": "InspirationGallery.jsx",
+      "file_type": "code",
+      "source_file": "src/components/home/InspirationGallery.jsx",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "home_inspirationgallery",
+      "community": 10,
+      "norm_label": "inspirationgallery.jsx"
+    },
+    {
+      "label": "InspirationGallery()",
+      "file_type": "code",
+      "source_file": "src/components/home/InspirationGallery.jsx",
+      "source_location": "L4",
+      "_origin": "ast",
+      "id": "home_inspirationgallery_inspirationgallery",
+      "community": 10,
+      "norm_label": "inspirationgallery()"
+    },
+    {
+      "label": "OpenLibrary.jsx",
+      "file_type": "code",
+      "source_file": "src/components/home/OpenLibrary.jsx",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "home_openlibrary",
+      "community": 4,
+      "norm_label": "openlibrary.jsx"
+    },
+    {
+      "label": "OpenLibrary()",
+      "file_type": "code",
+      "source_file": "src/components/home/OpenLibrary.jsx",
+      "source_location": "L5",
+      "_origin": "ast",
+      "id": "home_openlibrary_openlibrary",
+      "community": 4,
+      "norm_label": "openlibrary()"
+    },
+    {
+      "label": "ReservationCTA.jsx",
+      "file_type": "code",
+      "source_file": "src/components/home/ReservationCTA.jsx",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "home_reservationcta",
+      "community": 11,
+      "norm_label": "reservationcta.jsx"
+    },
+    {
+      "label": "ReservationCTA()",
+      "file_type": "code",
+      "source_file": "src/components/home/ReservationCTA.jsx",
+      "source_location": "L4",
+      "_origin": "ast",
+      "id": "home_reservationcta_reservationcta",
+      "community": 11,
+      "norm_label": "reservationcta()"
+    },
+    {
+      "label": "designers.js",
+      "file_type": "code",
+      "source_file": "src/data/designers.js",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "data_designers",
+      "community": 5,
+      "norm_label": "designers.js"
+    },
+    {
+      "label": "unsplash()",
+      "file_type": "code",
+      "source_file": "src/data/designers.js",
+      "source_location": "L4",
+      "_origin": "ast",
+      "id": "data_designers_unsplash",
+      "community": 5,
+      "norm_label": "unsplash()"
+    },
+    {
+      "label": "designersIntro",
+      "file_type": "code",
+      "source_file": "src/data/designers.js",
+      "source_location": "L6",
+      "_origin": "ast",
+      "id": "data_designers_designersintro",
+      "community": 5,
+      "norm_label": "designersintro"
+    },
+    {
+      "label": "designers",
+      "file_type": "code",
+      "source_file": "src/data/designers.js",
+      "source_location": "L13",
+      "_origin": "ast",
+      "id": "data_designers_designers",
+      "community": 5,
+      "norm_label": "designers"
+    },
+    {
+      "label": "homeContent.js",
+      "file_type": "code",
+      "source_file": "src/data/homeContent.js",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "data_homecontent",
+      "community": 6,
+      "norm_label": "homecontent.js"
+    },
+    {
+      "label": "unsplash()",
+      "file_type": "code",
+      "source_file": "src/data/homeContent.js",
+      "source_location": "L4",
+      "_origin": "ast",
+      "id": "data_homecontent_unsplash",
+      "community": 6,
+      "norm_label": "unsplash()"
+    },
+    {
+      "label": "hero",
+      "file_type": "code",
+      "source_file": "src/data/homeContent.js",
+      "source_location": "L6",
+      "_origin": "ast",
+      "id": "data_homecontent_hero",
+      "community": 9,
+      "norm_label": "hero"
+    },
+    {
+      "label": "aboutConcept",
+      "file_type": "code",
+      "source_file": "src/data/homeContent.js",
+      "source_location": "L22",
+      "_origin": "ast",
+      "id": "data_homecontent_aboutconcept",
+      "community": 7,
+      "norm_label": "aboutconcept"
+    },
+    {
+      "label": "openLibrary",
+      "file_type": "code",
+      "source_file": "src/data/homeContent.js",
+      "source_location": "L38",
+      "_origin": "ast",
+      "id": "data_homecontent_openlibrary",
+      "community": 6,
+      "norm_label": "openlibrary"
+    },
+    {
+      "label": "inspirationGallery",
+      "file_type": "code",
+      "source_file": "src/data/homeContent.js",
+      "source_location": "L46",
+      "_origin": "ast",
+      "id": "data_homecontent_inspirationgallery",
+      "community": 10,
+      "norm_label": "inspirationgallery"
+    },
+    {
+      "label": "communityStories",
+      "file_type": "code",
+      "source_file": "src/data/homeContent.js",
+      "source_location": "L85",
+      "_origin": "ast",
+      "id": "data_homecontent_communitystories",
+      "community": 6,
+      "norm_label": "communitystories"
+    },
+    {
+      "label": "featuredSpaces",
+      "file_type": "code",
+      "source_file": "src/data/homeContent.js",
+      "source_location": "L121",
+      "_origin": "ast",
+      "id": "data_homecontent_featuredspaces",
+      "community": 8,
+      "norm_label": "featuredspaces"
+    },
+    {
+      "label": "reservationExperience",
+      "file_type": "code",
+      "source_file": "src/data/homeContent.js",
+      "source_location": "L140",
+      "_origin": "ast",
+      "id": "data_homecontent_reservationexperience",
+      "community": 11,
+      "norm_label": "reservationexperience"
+    },
+    {
+      "label": "DesignersPage.jsx",
+      "file_type": "code",
+      "source_file": "src/pages/DesignersPage.jsx",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "pages_designerspage",
+      "community": 5,
+      "norm_label": "designerspage.jsx"
+    },
+    {
+      "label": "DesignersPage()",
+      "file_type": "code",
+      "source_file": "src/pages/DesignersPage.jsx",
+      "source_location": "L4",
+      "_origin": "ast",
+      "id": "pages_designerspage_designerspage",
+      "community": 5,
+      "norm_label": "designerspage()"
+    },
+    {
+      "label": "HomePage.jsx",
+      "file_type": "code",
+      "source_file": "src/pages/HomePage.jsx",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "pages_homepage",
+      "community": 7,
+      "norm_label": "homepage.jsx"
+    },
+    {
+      "label": "HomePage()",
+      "file_type": "code",
+      "source_file": "src/pages/HomePage.jsx",
+      "source_location": "L10",
+      "_origin": "ast",
+      "id": "pages_homepage_homepage",
+      "community": 7,
+      "norm_label": "homepage()"
+    },
+    {
+      "label": "ReservationPage.jsx",
+      "file_type": "code",
+      "source_file": "src/pages/ReservationPage.jsx",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "pages_reservationpage",
+      "community": 3,
+      "norm_label": "reservationpage.jsx"
+    },
+    {
+      "label": "ReservationPage()",
+      "file_type": "code",
+      "source_file": "src/pages/ReservationPage.jsx",
+      "source_location": "L5",
+      "_origin": "ast",
+      "id": "pages_reservationpage_reservationpage",
+      "community": 3,
+      "norm_label": "reservationpage()"
+    },
+    {
+      "label": "UserSelector()",
+      "file_type": "code",
+      "source_file": "src/pages/ReservationPage.jsx",
+      "source_location": "L27",
+      "_origin": "ast",
+      "id": "pages_reservationpage_userselector",
+      "community": 3,
+      "norm_label": "userselector()"
+    },
+    {
+      "label": "avatar.js",
+      "file_type": "code",
+      "source_file": "src/utils/avatar.js",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "utils_avatar",
+      "community": 3,
+      "norm_label": "avatar.js"
+    },
+    {
+      "label": "AVATAR_COLORS",
+      "file_type": "code",
+      "source_file": "src/utils/avatar.js",
+      "source_location": "L2",
+      "_origin": "ast",
+      "id": "utils_avatar_avatar_colors",
+      "community": 3,
+      "norm_label": "avatar_colors"
+    },
+    {
+      "label": "avatarColor()",
+      "file_type": "code",
+      "source_file": "src/utils/avatar.js",
+      "source_location": "L4",
+      "_origin": "ast",
+      "id": "utils_avatar_avatarcolor",
+      "community": 3,
+      "norm_label": "avatarcolor()"
     }
   ],
   "links": [
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
+      "source_file": "CLAUDE.md",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "claude",
+      "target": "claude_claude_md",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "CLAUDE.md",
+      "source_location": "L16",
+      "weight": 1.0,
+      "source": "claude_claude_md",
+      "target": "claude_architecture",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "CLAUDE.md",
+      "source_location": "L5",
+      "weight": 1.0,
+      "source": "claude_claude_md",
+      "target": "claude_commands",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "CLAUDE.md",
+      "source_location": "L56",
+      "weight": 1.0,
+      "source": "claude_claude_md",
+      "target": "claude_graphify",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "CLAUDE.md",
+      "source_location": "L20",
+      "weight": 1.0,
+      "source": "claude_architecture",
+      "target": "claude_data_model",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "CLAUDE.md",
+      "source_location": "L46",
+      "weight": 1.0,
+      "source": "claude_architecture",
+      "target": "claude_geometry_helpers_app_jsx",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "CLAUDE.md",
+      "source_location": "L30",
+      "weight": 1.0,
+      "source": "claude_architecture",
+      "target": "claude_rendering",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "CLAUDE.md",
+      "source_location": "L52",
+      "weight": 1.0,
+      "source": "claude_architecture",
+      "target": "claude_styling",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "CLAUDE.md",
+      "source_location": "L38",
+      "weight": 1.0,
+      "source": "claude_architecture",
+      "target": "claude_upgrade_flow",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/App.jsx",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "src_app",
+      "target": "components_sitefooter",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/App.jsx",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "src_app",
+      "target": "components_sitefooter_sitefooter",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/App.jsx",
+      "source_location": "L2",
+      "weight": 1.0,
+      "source": "src_app",
+      "target": "components_siteheader",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/App.jsx",
+      "source_location": "L2",
+      "weight": 1.0,
+      "source": "src_app",
+      "target": "components_siteheader_siteheader",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/App.jsx",
+      "source_location": "L6",
+      "weight": 1.0,
+      "source": "src_app",
+      "target": "pages_designerspage",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/App.jsx",
+      "source_location": "L6",
+      "weight": 1.0,
+      "source": "src_app",
+      "target": "pages_designerspage_designerspage",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/App.jsx",
+      "source_location": "L4",
+      "weight": 1.0,
+      "source": "src_app",
+      "target": "pages_homepage",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/App.jsx",
+      "source_location": "L4",
+      "weight": 1.0,
+      "source": "src_app",
+      "target": "pages_homepage_homepage",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/App.jsx",
+      "source_location": "L5",
+      "weight": 1.0,
+      "source": "src_app",
+      "target": "pages_reservationpage",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/App.jsx",
+      "source_location": "L5",
+      "weight": 1.0,
+      "source": "src_app",
+      "target": "pages_reservationpage_reservationpage",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
       "source_file": "src/App.jsx",
       "source_location": "L275",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_app",
-      "target": "src_app_app",
-      "confidence_score": 1.0
+      "target": "src_app_app"
     },
     {
       "relation": "contains",
@@ -171,9 +1071,9 @@
       "source_file": "src/App.jsx",
       "source_location": "L117",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_app",
-      "target": "src_app_buildhallways",
-      "confidence_score": 1.0
+      "target": "src_app_buildhallways"
     },
     {
       "relation": "contains",
@@ -181,9 +1081,9 @@
       "source_file": "src/App.jsx",
       "source_location": "L63",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_app",
-      "target": "src_app_buildserviceelements",
-      "confidence_score": 1.0
+      "target": "src_app_buildserviceelements"
     },
     {
       "relation": "contains",
@@ -191,9 +1091,9 @@
       "source_file": "src/App.jsx",
       "source_location": "L45",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_app",
-      "target": "src_app_cellgrouplabel",
-      "confidence_score": 1.0
+      "target": "src_app_cellgrouplabel"
     },
     {
       "relation": "contains",
@@ -201,9 +1101,9 @@
       "source_file": "src/App.jsx",
       "source_location": "L161",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_app",
-      "target": "src_app_defaultunits",
-      "confidence_score": 1.0
+      "target": "src_app_defaultunits"
     },
     {
       "relation": "contains",
@@ -211,9 +1111,9 @@
       "source_file": "src/App.jsx",
       "source_location": "L53",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_app",
-      "target": "src_app_getlevelbasey",
-      "confidence_score": 1.0
+      "target": "src_app_getlevelbasey"
     },
     {
       "relation": "contains",
@@ -221,9 +1121,9 @@
       "source_file": "src/App.jsx",
       "source_location": "L48",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_app",
-      "target": "src_app_getlevelheight",
-      "confidence_score": 1.0
+      "target": "src_app_getlevelheight"
     },
     {
       "relation": "contains",
@@ -231,9 +1131,9 @@
       "source_file": "src/App.jsx",
       "source_location": "L12",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_app",
-      "target": "src_app_layoutconfig",
-      "confidence_score": 1.0
+      "target": "src_app_layoutconfig"
     },
     {
       "relation": "contains",
@@ -241,9 +1141,9 @@
       "source_file": "src/App.jsx",
       "source_location": "L239",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_app",
-      "target": "src_app_migrateunit",
-      "confidence_score": 1.0
+      "target": "src_app_migrateunit"
     },
     {
       "relation": "contains",
@@ -251,9 +1151,9 @@
       "source_file": "src/App.jsx",
       "source_location": "L250",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_app",
-      "target": "src_app_migrateunitid",
-      "confidence_score": 1.0
+      "target": "src_app_migrateunitid"
     },
     {
       "relation": "contains",
@@ -261,9 +1161,9 @@
       "source_file": "src/App.jsx",
       "source_location": "L258",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_app",
-      "target": "src_app_normalizestate",
-      "confidence_score": 1.0
+      "target": "src_app_normalizestate"
     },
     {
       "relation": "calls",
@@ -272,9 +1172,9 @@
       "source_file": "src/App.jsx",
       "source_location": "L174",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_app_defaultunits",
-      "target": "src_app_cellgrouplabel",
-      "confidence_score": 1.0
+      "target": "src_app_cellgrouplabel"
     },
     {
       "relation": "calls",
@@ -283,9 +1183,9 @@
       "source_file": "src/App.jsx",
       "source_location": "L254",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_app_migrateunitid",
-      "target": "src_app_cellgrouplabel",
-      "confidence_score": 1.0
+      "target": "src_app_cellgrouplabel"
     },
     {
       "relation": "calls",
@@ -294,9 +1194,9 @@
       "source_file": "src/App.jsx",
       "source_location": "L57",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_app_getlevelbasey",
-      "target": "src_app_getlevelheight",
-      "confidence_score": 1.0
+      "target": "src_app_getlevelheight"
     },
     {
       "relation": "calls",
@@ -305,9 +1205,9 @@
       "source_file": "src/App.jsx",
       "source_location": "L171",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_app_defaultunits",
-      "target": "src_app_getlevelbasey",
-      "confidence_score": 1.0
+      "target": "src_app_getlevelbasey"
     },
     {
       "relation": "calls",
@@ -316,9 +1216,9 @@
       "source_file": "src/App.jsx",
       "source_location": "L318",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_app_app",
-      "target": "src_app_buildhallways",
-      "confidence_score": 1.0
+      "target": "src_app_buildhallways"
     },
     {
       "relation": "calls",
@@ -327,8 +1227,164 @@
       "source_file": "src/App.jsx",
       "source_location": "L272",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_app_normalizestate",
-      "target": "src_app_defaultunits",
+      "target": "src_app_defaultunits"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/BookingWizard.jsx",
+      "source_location": "L17",
+      "weight": 1.0,
+      "source": "components_bookingwizard",
+      "target": "components_bookingwizard_bookingwizard",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/BookingWizard.jsx",
+      "source_location": "L675",
+      "weight": 1.0,
+      "source": "components_bookingwizard",
+      "target": "components_bookingwizard_calendaricon",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/BookingWizard.jsx",
+      "source_location": "L667",
+      "weight": 1.0,
+      "source": "components_bookingwizard",
+      "target": "components_bookingwizard_checkicon",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/BookingWizard.jsx",
+      "source_location": "L705",
+      "weight": 1.0,
+      "source": "components_bookingwizard",
+      "target": "components_bookingwizard_furnituresectionicon",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/BookingWizard.jsx",
+      "source_location": "L697",
+      "weight": 1.0,
+      "source": "components_bookingwizard",
+      "target": "components_bookingwizard_releaseicon",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/BookingWizard.jsx",
+      "source_location": "L626",
+      "weight": 1.0,
+      "source": "components_bookingwizard",
+      "target": "components_bookingwizard_stepper",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/BookingWizard.jsx",
+      "source_location": "L11",
+      "weight": 1.0,
+      "source": "components_bookingwizard",
+      "target": "components_bookingwizard_steps",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/BookingWizard.jsx",
+      "source_location": "L654",
+      "weight": 1.0,
+      "source": "components_bookingwizard",
+      "target": "components_bookingwizard_summarycard",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/BookingWizard.jsx",
+      "source_location": "L686",
+      "weight": 1.0,
+      "source": "components_bookingwizard",
+      "target": "components_bookingwizard_uniticon",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/BookingWizard.jsx",
+      "source_location": "L2",
+      "weight": 1.0,
+      "source": "components_bookingwizard",
+      "target": "components_floorplan",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/BookingWizard.jsx",
+      "source_location": "L2",
+      "weight": 1.0,
+      "source": "components_bookingwizard",
+      "target": "components_floorplan_floorplan",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/BookingWizard.jsx",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "components_bookingwizard",
+      "target": "components_furnituregrid",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/BookingWizard.jsx",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "components_bookingwizard",
+      "target": "components_furnituregrid_furnituregrid",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pages/ReservationPage.jsx",
+      "source_location": "L2",
+      "weight": 1.0,
+      "source": "pages_reservationpage",
+      "target": "components_bookingwizard",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pages/ReservationPage.jsx",
+      "source_location": "L2",
+      "weight": 1.0,
+      "source": "pages_reservationpage",
+      "target": "components_bookingwizard_bookingwizard",
       "confidence_score": 1.0
     },
     {
@@ -337,9 +1393,9 @@
       "source_file": "src/components/FloorPlan.jsx",
       "source_location": "L20",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "components_floorplan",
-      "target": "components_floorplan_drawbadge",
-      "confidence_score": 1.0
+      "target": "components_floorplan_drawbadge"
     },
     {
       "relation": "contains",
@@ -347,11 +1403,791 @@
       "source_file": "src/components/FloorPlan.jsx",
       "source_location": "L46",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "components_floorplan",
-      "target": "components_floorplan_floorplan",
+      "target": "components_floorplan_floorplan"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/FurnitureGrid.jsx",
+      "source_location": "L182",
+      "weight": 1.0,
+      "source": "components_furnituregrid",
+      "target": "components_furnituregrid_arrowicon",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/FurnitureGrid.jsx",
+      "source_location": "L174",
+      "weight": 1.0,
+      "source": "components_furnituregrid",
+      "target": "components_furnituregrid_checkicon",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/FurnitureGrid.jsx",
+      "source_location": "L5",
+      "weight": 1.0,
+      "source": "components_furnituregrid",
+      "target": "components_furnituregrid_furniture_items",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/FurnitureGrid.jsx",
+      "source_location": "L206",
+      "weight": 1.0,
+      "source": "components_furnituregrid",
+      "target": "components_furnituregrid_furnituregrid",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/FurnitureGrid.jsx",
+      "source_location": "L22",
+      "weight": 1.0,
+      "source": "components_furnituregrid",
+      "target": "components_furnituregrid_furnitureicon",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/FurnitureGrid.jsx",
+      "source_location": "L196",
+      "weight": 1.0,
+      "source": "components_furnituregrid",
+      "target": "components_furnituregrid_getitemsperpage",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/FurnitureGrid.jsx",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "components_furnituregrid",
+      "target": "components_furnituregrid_unsplash",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/home/OpenLibrary.jsx",
+      "source_location": "L2",
+      "weight": 1.0,
+      "source": "home_openlibrary",
+      "target": "components_furnituregrid",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/home/OpenLibrary.jsx",
+      "source_location": "L2",
+      "weight": 1.0,
+      "source": "home_openlibrary",
+      "target": "components_furnituregrid_furniture_items",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/home/OpenLibrary.jsx",
+      "source_location": "L2",
+      "weight": 1.0,
+      "source": "home_openlibrary",
+      "target": "components_furnituregrid_furnitureicon",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/SiteFooter.jsx",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "components_sitefooter",
+      "target": "components_sitefooter_sitefooter",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/SiteHeader.jsx",
+      "source_location": "L4",
+      "weight": 1.0,
+      "source": "components_siteheader",
+      "target": "components_siteheader_nav_items",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/SiteHeader.jsx",
+      "source_location": "L12",
+      "weight": 1.0,
+      "source": "components_siteheader",
+      "target": "components_siteheader_siteheader",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/SiteHeader.jsx",
+      "source_location": "L2",
+      "weight": 1.0,
+      "source": "components_siteheader",
+      "target": "utils_avatar",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/SiteHeader.jsx",
+      "source_location": "L2",
+      "weight": 1.0,
+      "source": "components_siteheader",
+      "target": "utils_avatar_avatarcolor",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/components/SiteHeader.jsx",
+      "source_location": "L59",
+      "weight": 1.0,
+      "source": "components_siteheader_siteheader",
+      "target": "utils_avatar_avatarcolor"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/home/AboutConcept.jsx",
+      "source_location": "L2",
+      "weight": 1.0,
+      "source": "home_aboutconcept",
+      "target": "data_homecontent",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/home/AboutConcept.jsx",
+      "source_location": "L2",
+      "weight": 1.0,
+      "source": "home_aboutconcept",
+      "target": "data_homecontent_aboutconcept",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/home/AboutConcept.jsx",
+      "source_location": "L4",
+      "weight": 1.0,
+      "source": "home_aboutconcept",
+      "target": "home_aboutconcept_aboutconcept",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pages/HomePage.jsx",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "pages_homepage",
+      "target": "home_aboutconcept",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pages/HomePage.jsx",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "pages_homepage",
+      "target": "home_aboutconcept_aboutconcept",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/home/CommunityStories.jsx",
+      "source_location": "L2",
+      "weight": 1.0,
+      "source": "home_communitystories",
+      "target": "data_homecontent",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/home/CommunityStories.jsx",
+      "source_location": "L2",
+      "weight": 1.0,
+      "source": "home_communitystories",
+      "target": "data_homecontent_communitystories",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/home/CommunityStories.jsx",
+      "source_location": "L4",
+      "weight": 1.0,
+      "source": "home_communitystories",
+      "target": "home_communitystories_communitystories",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pages/HomePage.jsx",
+      "source_location": "L7",
+      "weight": 1.0,
+      "source": "pages_homepage",
+      "target": "home_communitystories",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pages/HomePage.jsx",
+      "source_location": "L7",
+      "weight": 1.0,
+      "source": "pages_homepage",
+      "target": "home_communitystories_communitystories",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/home/FeaturedSpaces.jsx",
+      "source_location": "L2",
+      "weight": 1.0,
+      "source": "home_featuredspaces",
+      "target": "data_homecontent",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/home/FeaturedSpaces.jsx",
+      "source_location": "L2",
+      "weight": 1.0,
+      "source": "home_featuredspaces",
+      "target": "data_homecontent_featuredspaces",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/home/FeaturedSpaces.jsx",
+      "source_location": "L4",
+      "weight": 1.0,
+      "source": "home_featuredspaces",
+      "target": "home_featuredspaces_featuredspaces",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pages/HomePage.jsx",
+      "source_location": "L4",
+      "weight": 1.0,
+      "source": "pages_homepage",
+      "target": "home_featuredspaces",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pages/HomePage.jsx",
+      "source_location": "L4",
+      "weight": 1.0,
+      "source": "pages_homepage",
+      "target": "home_featuredspaces_featuredspaces",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/home/Hero.jsx",
+      "source_location": "L2",
+      "weight": 1.0,
+      "source": "home_hero",
+      "target": "data_homecontent",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/home/Hero.jsx",
+      "source_location": "L2",
+      "weight": 1.0,
+      "source": "home_hero",
+      "target": "data_homecontent_hero",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/home/Hero.jsx",
+      "source_location": "L6",
+      "weight": 1.0,
+      "source": "home_hero",
+      "target": "home_hero_hero",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pages/HomePage.jsx",
+      "source_location": "L2",
+      "weight": 1.0,
+      "source": "pages_homepage",
+      "target": "home_hero",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pages/HomePage.jsx",
+      "source_location": "L2",
+      "weight": 1.0,
+      "source": "pages_homepage",
+      "target": "home_hero_hero",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/home/InspirationGallery.jsx",
+      "source_location": "L2",
+      "weight": 1.0,
+      "source": "home_inspirationgallery",
+      "target": "data_homecontent",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/home/InspirationGallery.jsx",
+      "source_location": "L2",
+      "weight": 1.0,
+      "source": "home_inspirationgallery",
+      "target": "data_homecontent_inspirationgallery",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/home/InspirationGallery.jsx",
+      "source_location": "L4",
+      "weight": 1.0,
+      "source": "home_inspirationgallery",
+      "target": "home_inspirationgallery_inspirationgallery",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pages/HomePage.jsx",
+      "source_location": "L5",
+      "weight": 1.0,
+      "source": "pages_homepage",
+      "target": "home_inspirationgallery",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pages/HomePage.jsx",
+      "source_location": "L5",
+      "weight": 1.0,
+      "source": "pages_homepage",
+      "target": "home_inspirationgallery_inspirationgallery",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/home/OpenLibrary.jsx",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "home_openlibrary",
+      "target": "data_homecontent",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/home/OpenLibrary.jsx",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "home_openlibrary",
+      "target": "data_homecontent_openlibrary",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/home/OpenLibrary.jsx",
+      "source_location": "L5",
+      "weight": 1.0,
+      "source": "home_openlibrary",
+      "target": "home_openlibrary_openlibrary",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pages/HomePage.jsx",
+      "source_location": "L6",
+      "weight": 1.0,
+      "source": "pages_homepage",
+      "target": "home_openlibrary",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pages/HomePage.jsx",
+      "source_location": "L6",
+      "weight": 1.0,
+      "source": "pages_homepage",
+      "target": "home_openlibrary_openlibrary",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/home/ReservationCTA.jsx",
+      "source_location": "L2",
+      "weight": 1.0,
+      "source": "home_reservationcta",
+      "target": "data_homecontent",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/home/ReservationCTA.jsx",
+      "source_location": "L2",
+      "weight": 1.0,
+      "source": "home_reservationcta",
+      "target": "data_homecontent_reservationexperience",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/home/ReservationCTA.jsx",
+      "source_location": "L4",
+      "weight": 1.0,
+      "source": "home_reservationcta",
+      "target": "home_reservationcta_reservationcta",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pages/HomePage.jsx",
+      "source_location": "L8",
+      "weight": 1.0,
+      "source": "pages_homepage",
+      "target": "home_reservationcta",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pages/HomePage.jsx",
+      "source_location": "L8",
+      "weight": 1.0,
+      "source": "pages_homepage",
+      "target": "home_reservationcta_reservationcta",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/data/designers.js",
+      "source_location": "L13",
+      "weight": 1.0,
+      "source": "data_designers",
+      "target": "data_designers_designers",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/data/designers.js",
+      "source_location": "L6",
+      "weight": 1.0,
+      "source": "data_designers",
+      "target": "data_designers_designersintro",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/data/designers.js",
+      "source_location": "L4",
+      "weight": 1.0,
+      "source": "data_designers",
+      "target": "data_designers_unsplash",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pages/DesignersPage.jsx",
+      "source_location": "L2",
+      "weight": 1.0,
+      "source": "pages_designerspage",
+      "target": "data_designers",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pages/DesignersPage.jsx",
+      "source_location": "L2",
+      "weight": 1.0,
+      "source": "pages_designerspage",
+      "target": "data_designers_designersintro",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pages/DesignersPage.jsx",
+      "source_location": "L2",
+      "weight": 1.0,
+      "source": "pages_designerspage",
+      "target": "data_designers_designers",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/data/homeContent.js",
+      "source_location": "L22",
+      "weight": 1.0,
+      "source": "data_homecontent",
+      "target": "data_homecontent_aboutconcept",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/data/homeContent.js",
+      "source_location": "L85",
+      "weight": 1.0,
+      "source": "data_homecontent",
+      "target": "data_homecontent_communitystories",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/data/homeContent.js",
+      "source_location": "L121",
+      "weight": 1.0,
+      "source": "data_homecontent",
+      "target": "data_homecontent_featuredspaces",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/data/homeContent.js",
+      "source_location": "L6",
+      "weight": 1.0,
+      "source": "data_homecontent",
+      "target": "data_homecontent_hero",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/data/homeContent.js",
+      "source_location": "L46",
+      "weight": 1.0,
+      "source": "data_homecontent",
+      "target": "data_homecontent_inspirationgallery",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/data/homeContent.js",
+      "source_location": "L38",
+      "weight": 1.0,
+      "source": "data_homecontent",
+      "target": "data_homecontent_openlibrary",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/data/homeContent.js",
+      "source_location": "L140",
+      "weight": 1.0,
+      "source": "data_homecontent",
+      "target": "data_homecontent_reservationexperience",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/data/homeContent.js",
+      "source_location": "L4",
+      "weight": 1.0,
+      "source": "data_homecontent",
+      "target": "data_homecontent_unsplash",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pages/DesignersPage.jsx",
+      "source_location": "L4",
+      "weight": 1.0,
+      "source": "pages_designerspage",
+      "target": "pages_designerspage_designerspage",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pages/HomePage.jsx",
+      "source_location": "L10",
+      "weight": 1.0,
+      "source": "pages_homepage",
+      "target": "pages_homepage_homepage",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pages/ReservationPage.jsx",
+      "source_location": "L5",
+      "weight": 1.0,
+      "source": "pages_reservationpage",
+      "target": "pages_reservationpage_reservationpage",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pages/ReservationPage.jsx",
+      "source_location": "L27",
+      "weight": 1.0,
+      "source": "pages_reservationpage",
+      "target": "pages_reservationpage_userselector",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pages/ReservationPage.jsx",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "pages_reservationpage",
+      "target": "utils_avatar",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pages/ReservationPage.jsx",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "pages_reservationpage",
+      "target": "utils_avatar_avatarcolor",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pages/ReservationPage.jsx",
+      "source_location": "L43",
+      "weight": 1.0,
+      "source": "pages_reservationpage_userselector",
+      "target": "utils_avatar_avatarcolor",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/utils/avatar.js",
+      "source_location": "L2",
+      "weight": 1.0,
+      "source": "utils_avatar",
+      "target": "utils_avatar_avatar_colors",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/utils/avatar.js",
+      "source_location": "L4",
+      "weight": 1.0,
+      "source": "utils_avatar",
+      "target": "utils_avatar_avatarcolor",
       "confidence_score": 1.0
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "f50418959f90173d96b81d8b4094820b6a6f63d4"
+  "built_at_commit": "17fa4632b1cd8fcdb4183138b3b7995760758098"
 }
