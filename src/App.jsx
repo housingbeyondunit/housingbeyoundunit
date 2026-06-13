@@ -1,6 +1,9 @@
 import React, { useState, useEffect, useMemo } from 'react'
-import { createPortal } from 'react-dom'
-import FloorPlan from './components/FloorPlan'
+import SiteHeader from './components/SiteHeader'
+import SiteFooter from './components/SiteFooter'
+import HomePage from './pages/HomePage'
+import ReservationPage from './pages/ReservationPage'
+import DesignersPage from './pages/DesignersPage'
 
 // Minimal in-memory data model with localStorage persistence
 const STORAGE_KEY = 'fp_demo_state_v1'
@@ -281,6 +284,13 @@ export default function App() {
     return sessionStorage.getItem(USER_KEY) || ''
   })
 
+  const [page, setPage] = useState(() => {
+    if (window.location.hash === '#/reservation') return 'reservation'
+    if (window.location.hash === '#/designers') return 'designers'
+    return 'home'
+  })
+  const [pendingScroll, setPendingScroll] = useState(null)
+
   useEffect(() => {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(state))
   }, [state])
@@ -319,136 +329,64 @@ export default function App() {
   }, [state])
 
   const currentUserUnitCount = existingUsers.find(u => u.name === currentUser)?.count ?? 0
-  const [contactModalOpen, setContactModalOpen] = useState(false)
 
-  return (
-    <div className="app">
-      <div className="app-header">
-        <div className="app-title-row">
-          <div className="app-title-block">
-            <h1 className="app-title">Floor Plan Booking</h1>
-            <p className="app-subtitle">Unit reservation &amp; management system</p>
-          </div>
-          <div className="app-header-actions">
-            <button className="contact-designer-btn" onClick={() => setContactModalOpen(true)}>
-              <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <rect x="1" y="3" width="14" height="10" rx="1.5" stroke="currentColor" strokeWidth="1.5"/>
-                <path d="M1 6l7 4.5L15 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
-              Contact Designer
-            </button>
-            {currentUser && (
-              <UserBadge
-                name={currentUser}
-                unitCount={currentUserUnitCount}
-                onLogout={() => setCurrentUser('')}
-              />
-            )}
-          </div>
-        </div>
-        {!currentUser && (
-          <UserSelector existingUsers={existingUsers} onSetUser={setCurrentUser} />
-        )}
-      </div>
-      <FloorPlan levels={state.levels} hallways={hallways} onUpdateUnit={updateUnit} currentUser={currentUser} resetApp={resetState} />
+  const goHome = () => {
+    setPage('home')
+    window.location.hash = ''
+  }
 
-      {contactModalOpen && createPortal(
-        <div className="modal-overlay" onClick={() => setContactModalOpen(false)}>
-          <div className="modal contact-modal" onClick={e => e.stopPropagation()}>
-            <h3>Contact the Designer</h3>
-            <div className="contact-info">
-              <div className="contact-row">
-                <span className="contact-label">Designer</span>
-                <span className="contact-value">Arch. Rafael Santos</span>
-              </div>
-              <div className="contact-row">
-                <span className="contact-label">Email</span>
-                <a href="mailto:rafael.santos@floorplan.com" className="contact-value contact-link">
-                  rafael.santos@floorplan.com
-                </a>
-              </div>
-              <div className="contact-row">
-                <span className="contact-label">Phone</span>
-                <span className="contact-value">+63 917 123 4567</span>
-              </div>
-              <div className="contact-row">
-                <span className="contact-label">Office hours</span>
-                <span className="contact-value">Mon – Fri, 9 AM – 6 PM</span>
-              </div>
-            </div>
-            <p className="contact-note">
-              For inquiries about unit specifications, floor plan modifications, or custom design requests, please reach out directly.
-            </p>
-            <div className="modal-actions">
-              <button className="primary-btn" onClick={() => setContactModalOpen(false)}>Close</button>
-            </div>
-          </div>
-        </div>,
-        document.body
-      )}
-    </div>
-  )
-}
+  const goReservation = () => {
+    setPage('reservation')
+    window.location.hash = '#/reservation'
+  }
 
-// ── Deterministic avatar colour based on name ──────────────────────────────
-const AVATAR_COLORS = ['#4f46e5','#0891b2','#059669','#d97706','#dc2626','#7c3aed','#db2777']
-const avatarColor = name => AVATAR_COLORS[(name.charCodeAt(0) + name.length) % AVATAR_COLORS.length]
+  const goDesigners = () => {
+    setPage('designers')
+    window.location.hash = '#/designers'
+  }
 
-// ── Compact badge shown in the header when a user is logged in ─────────────
-function UserBadge({ name, unitCount, onLogout }) {
-  return (
-    <div className="user-badge">
-      <span className="user-avatar" style={{ background: avatarColor(name) }}>
-        {name[0].toUpperCase()}
-      </span>
-      <div className="user-badge-info">
-        <span className="user-badge-name">{name}</span>
-        <span className="user-badge-meta">{unitCount} unit{unitCount !== 1 ? 's' : ''} reserved</span>
-      </div>
-      <button className="user-logout-btn" onClick={onLogout}>Logout</button>
-    </div>
-  )
-}
-
-// ── Full selector shown below the header when no user is logged in ─────────
-function UserSelector({ existingUsers, onSetUser }) {
-  const [newName, setNewName] = useState('')
-
-  const handleJoin = () => {
-    const name = newName.trim()
-    if (name) { onSetUser(name); setNewName('') }
+  const navigateToSection = sectionId => {
+    setPendingScroll(sectionId)
+    goHome()
   }
 
   return (
-    <div className="user-selector">
-      {existingUsers.length > 0 && (
-        <div className="user-selector-section">
-          <span className="user-selector-label">Login as existing user</span>
-          <div className="user-card-list">
-            {existingUsers.map(u => (
-              <button key={u.name} className="user-card" onClick={() => onSetUser(u.name)}>
-                <span className="user-avatar user-avatar--sm" style={{ background: avatarColor(u.name) }}>
-                  {u.name[0].toUpperCase()}
-                </span>
-                <span className="user-card-name">{u.name}</span>
-                <span className="user-card-count">{u.count} unit{u.count !== 1 ? 's' : ''}</span>
-              </button>
-            ))}
-          </div>
-        </div>
-      )}
-      <div className="user-selector-divider">or join as new user</div>
-      <div className="user-new-form">
-        <input
-          className="user-new-input"
-          placeholder="Enter your name..."
-          value={newName}
-          onChange={e => setNewName(e.target.value)}
-          onKeyDown={e => e.key === 'Enter' && handleJoin()}
-          autoFocus
+    <div className="app">
+      <SiteHeader
+        page={page}
+        currentUser={currentUser}
+        currentUserUnitCount={currentUserUnitCount}
+        onLogout={() => setCurrentUser('')}
+        onNavigate={navigateToSection}
+        onGoHome={goHome}
+        onGoReservation={goReservation}
+        onContactClick={goDesigners}
+      />
+
+      {page === 'home' && (
+        <HomePage
+          pendingScroll={pendingScroll}
+          clearPendingScroll={() => setPendingScroll(null)}
+          onGoReservation={goReservation}
+          onNavigate={navigateToSection}
         />
-        <button onClick={handleJoin} disabled={!newName.trim()}>Join</button>
-      </div>
+      )}
+
+      {page === 'reservation' && (
+        <ReservationPage
+          levels={state.levels}
+          hallways={hallways}
+          onUpdateUnit={updateUnit}
+          currentUser={currentUser}
+          setCurrentUser={setCurrentUser}
+          existingUsers={existingUsers}
+          resetApp={resetState}
+        />
+      )}
+
+      {page === 'designers' && <DesignersPage />}
+
+      <SiteFooter onNavigate={navigateToSection} onGoReservation={goReservation} onContactClick={goDesigners} />
     </div>
   )
 }

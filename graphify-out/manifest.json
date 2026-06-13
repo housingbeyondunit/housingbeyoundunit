@@ -1,0 +1,167 @@
+{
+  ".claude/settings.json": {
+    "mtime": 1781269397.7400184,
+    "ast_hash": "7bf81dca0376bde3a32244b82bc7cbc0",
+    "semantic_hash": ""
+  },
+  ".claude/settings.local.json": {
+    "mtime": 1781363515.6772966,
+    "ast_hash": "8b15c53170a19395b76bf7651b60a06e",
+    "semantic_hash": ""
+  },
+  ".claude/skills/ui-ux-pro-max/scripts/core.py": {
+    "mtime": 1779860767.310386,
+    "ast_hash": "3df4734a785963a8242a56c1b926adfd",
+    "semantic_hash": ""
+  },
+  ".claude/skills/ui-ux-pro-max/scripts/design_system.py": {
+    "mtime": 1779860767.3127756,
+    "ast_hash": "08f84d04608a19049c90fc2b1ef314f9",
+    "semantic_hash": ""
+  },
+  ".claude/skills/ui-ux-pro-max/scripts/search.py": {
+    "mtime": 1779860767.314045,
+    "ast_hash": "8c7e35426fe8f6f3ed91e9dce0ed7af1",
+    "semantic_hash": ""
+  },
+  "package.json": {
+    "mtime": 1781017651.9436347,
+    "ast_hash": "a03a1a60d9b266f5fc5b84f75e36f3d8",
+    "semantic_hash": ""
+  },
+  "src/App.jsx": {
+    "mtime": 1781353499.0489228,
+    "ast_hash": "58aed668941cfb752209ad2a119af0d7",
+    "semantic_hash": ""
+  },
+  "src/components/BookingWizard.jsx": {
+    "mtime": 1781363198.008278,
+    "ast_hash": "ce51d306a631c75a633dbd4adc630dbf",
+    "semantic_hash": ""
+  },
+  "src/components/FloorPlan.jsx": {
+    "mtime": 1781360187.112828,
+    "ast_hash": "9baeb241185a276e1ed8eb1f29db97f8",
+    "semantic_hash": ""
+  },
+  "src/components/FurnitureGrid.jsx": {
+    "mtime": 1781364314.9736152,
+    "ast_hash": "a506e0477b46b74f7c3d438eba757faf",
+    "semantic_hash": ""
+  },
+  "src/components/SiteFooter.jsx": {
+    "mtime": 1781341361.076316,
+    "ast_hash": "17b29434493157c7dbe22c98a7f52b6e",
+    "semantic_hash": ""
+  },
+  "src/components/SiteHeader.jsx": {
+    "mtime": 1781341350.2896194,
+    "ast_hash": "4553b5f642ee3f93299add0c3c2e9ac0",
+    "semantic_hash": ""
+  },
+  "src/components/home/AboutConcept.jsx": {
+    "mtime": 1781340566.6955495,
+    "ast_hash": "7acb74dfdaf0f63f3118b63dbae39c37",
+    "semantic_hash": ""
+  },
+  "src/components/home/CommunityStories.jsx": {
+    "mtime": 1781338591.988453,
+    "ast_hash": "899f4fd47c480c17febfedadaf52aef8",
+    "semantic_hash": ""
+  },
+  "src/components/home/FeaturedSpaces.jsx": {
+    "mtime": 1781341255.2743976,
+    "ast_hash": "b01c3229ae660e40d1215709cb1a147d",
+    "semantic_hash": ""
+  },
+  "src/components/home/Hero.jsx": {
+    "mtime": 1781353765.7311587,
+    "ast_hash": "d490b2a3d67d9fdd4c460dbffd756cd3",
+    "semantic_hash": ""
+  },
+  "src/components/home/InspirationGallery.jsx": {
+    "mtime": 1781338584.6580327,
+    "ast_hash": "cc04443168897a1c37615191983d190e",
+    "semantic_hash": ""
+  },
+  "src/components/home/OpenLibrary.jsx": {
+    "mtime": 1781338577.864698,
+    "ast_hash": "6a7f07017ff27ee2c54c197ba8f5b356",
+    "semantic_hash": ""
+  },
+  "src/components/home/ReservationCTA.jsx": {
+    "mtime": 1781338611.494547,
+    "ast_hash": "89bfd0d3e37dd908bd39401fb94a1926",
+    "semantic_hash": ""
+  },
+  "src/data/designers.js": {
+    "mtime": 1781353448.1619043,
+    "ast_hash": "a67fef4940f8da103e83f9a815bec69e",
+    "semantic_hash": ""
+  },
+  "src/data/homeContent.js": {
+    "mtime": 1781359895.286605,
+    "ast_hash": "a8a105c42f725794dd92b8cb60787582",
+    "semantic_hash": ""
+  },
+  "src/main.jsx": {
+    "mtime": 1778511558.5071318,
+    "ast_hash": "fc1f2b42abbd2bb433632b3854c8a19f",
+    "semantic_hash": ""
+  },
+  "src/pages/DesignersPage.jsx": {
+    "mtime": 1781353456.2546475,
+    "ast_hash": "f734b3cd4b6f26429ddb9cadcc0a8358",
+    "semantic_hash": ""
+  },
+  "src/pages/HomePage.jsx": {
+    "mtime": 1781341264.8422723,
+    "ast_hash": "0a0b315b688d72af7c7ffa94e63212e4",
+    "semantic_hash": ""
+  },
+  "src/pages/ReservationPage.jsx": {
+    "mtime": 1781348748.7419138,
+    "ast_hash": "353de5eaea486e150d6915feba4ead85",
+    "semantic_hash": ""
+  },
+  "src/utils/avatar.js": {
+    "mtime": 1781338622.1732893,
+    "ast_hash": "8d63d6170ecc4420e0c0d2e6b0511ef0",
+    "semantic_hash": ""
+  },
+  "src/utils/reservationRules.js": {
+    "mtime": 1778942866.1523046,
+    "ast_hash": "73349e7cd96d9d0c2eeeb02969ac9571",
+    "semantic_hash": ""
+  },
+  "vite.config.js": {
+    "mtime": 1781017411.4688656,
+    "ast_hash": "9ecf9f4a521da4ae93f7bf971fb341e1",
+    "semantic_hash": ""
+  },
+  ".claude/skills/ui-ux-pro-max/SKILL.md": {
+    "mtime": 1779860777.2564354,
+    "ast_hash": "e092c3924799d4fc4194f994d8394cc3",
+    "semantic_hash": ""
+  },
+  "CLAUDE.md": {
+    "mtime": 1781269397.737769,
+    "ast_hash": "ab2abfb3a70df8abb8906a909c05ee90",
+    "semantic_hash": ""
+  },
+  "README.md": {
+    "mtime": 1778511566.0217717,
+    "ast_hash": "c63b48f51fdc117ff03fe1137ffc274e",
+    "semantic_hash": ""
+  },
+  "docs/floorplan-logic.md": {
+    "mtime": 1778596009.4726584,
+    "ast_hash": "9d65b345dac66707327e0ba29e09f3ce",
+    "semantic_hash": ""
+  },
+  "index.html": {
+    "mtime": 1781343581.1710513,
+    "ast_hash": "97979227f7c0d3a48f4568c33e9ecbf1",
+    "semantic_hash": ""
+  }
+}

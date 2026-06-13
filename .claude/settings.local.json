@@ -6,7 +6,31 @@
       "Bash(node -e ' *)",
       "Bash(npx --yes playwright@1.60.0 screenshot)",
       "Bash(Get-ChildItem -Path \"d:\\\\Works\\\\Freelance\\\\floor-plan-thesis\" -Recurse -File)",
-      "Bash(Select-Object FullName)"
+      "Bash(Select-Object FullName)",
+      "Bash(chromium-cli --session fp)",
+      "Bash(npx --yes -p playwright -p playwright-chromium node .tmp_screenshot.mjs)",
+      "Bash(find ~/.npm/_npx -maxdepth 4 -iname \"playwright\" -type d 2>/dev/null)",
+      "Read(//c/Users/Richard/.npm/**)",
+      "Bash(NODE_PATH=\"C:\\\\Users\\\\Richard\\\\AppData\\\\Local\\\\npm-cache/_npx/a0fa7f91c00d46a5/node_modules\" node .tmp_screenshot.mjs)",
+      "Bash(node .tmp_screenshot.mjs)",
+      "Bash(rm -f .tmp_screenshot.mjs .tmp_shot_*.png)",
+      "Bash(pkill -f \"vite\")",
+      "WebFetch(domain:superlofts.co)",
+      "Bash(git status *)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" http://localhost:5180/)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" http://localhost:5180/housingbeyoundunit/)",
+      "Bash(curl -s http://localhost:5180/housingbeyoundunit/src/main.jsx)",
+      "Bash(curl -s http://localhost:5180/housingbeyoundunit/)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" \"http://localhost:5180/housingbeyoundunit/src/components/BookingWizard.jsx\")",
+      "Bash(curl -s -o /dev/null -w \"FloorPlan:%{http_code} \" \"http://localhost:5180/housingbeyoundunit/src/components/FloorPlan.jsx\")",
+      "Bash(curl -s -o /dev/null -w \"styles:%{http_code}\\\\n\" \"http://localhost:5180/housingbeyoundunit/src/styles.css\")",
+      "Bash(curl -s -o /dev/null -w \"App:%{http_code} \" \"http://localhost:5180/housingbeyoundunit/src/App.jsx\")",
+      "Bash(curl -s -o /dev/null -w \"DesignersPage:%{http_code} \" \"http://localhost:5180/housingbeyoundunit/src/pages/DesignersPage.jsx\")",
+      "Bash(curl -s -o /dev/null -w \"designers.js:%{http_code} \" \"http://localhost:5180/housingbeyoundunit/src/data/designers.js\")",
+      "Bash(curl -s -o /dev/null -w \"styles.css:%{http_code}\\\\n\" \"http://localhost:5180/housingbeyoundunit/src/styles.css\")",
+      "Bash(curl -s -o /dev/null -w \"Hero:%{http_code} \" \"http://localhost:5180/housingbeyoundunit/src/components/home/Hero.jsx\")",
+      "Bash(curl -s -o /dev/null -w \"homeContent:%{http_code} \" \"http://localhost:5180/housingbeyoundunit/src/data/homeContent.js\")",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" \"http://localhost:5180/housingbeyoundunit/\")"
     ]
   }
 }

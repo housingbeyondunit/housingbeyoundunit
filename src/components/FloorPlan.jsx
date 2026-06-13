@@ -1,284 +1,76 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { SVG } from '@svgdotjs/svg.js'
-import {
-  validateUpgrade,
-  validateDowngrade,
-  isUpgradeTargetEligible,
-  areUnitsAdjacent,
-  validateActionDate,
-} from '../utils/reservationRules'
 
-const FURNITURE_ITEMS = [
-  { id: 'sofa', label: 'Sofa' },
-  { id: 'bed', label: 'Bed' },
-  { id: 'wardrobe', label: 'Wardrobe' },
-  { id: 'dining-table', label: 'Dining Table' },
-  { id: 'chair', label: 'Chair' },
-  { id: 'desk', label: 'Desk' },
-  { id: 'bookshelf', label: 'Bookshelf' },
-  { id: 'tv-stand', label: 'TV Stand' },
-  { id: 'coffee-table', label: 'Coffee Table' },
-  { id: 'side-table', label: 'Side Table' },
-  { id: 'floor-lamp', label: 'Floor Lamp' },
-  { id: 'rug', label: 'Rug' },
-]
+// Hardcoded mirrors of the CSS custom properties defined in :root (src/styles.css).
+// svg.js draws imperatively and cannot read CSS variables, so these must be kept in sync.
+const COLOR_PRIMARY = '#4F46E5'
+const COLOR_PRIMARY_DARK = '#4338CA'
+const COLOR_SUCCESS = '#16A34A'
+const COLOR_SUCCESS_DARK = '#15803D'
+const COLOR_WARNING = '#F59E0B'
+const COLOR_DANGER = '#DC2626'
+const COLOR_BORDER = '#E2E8F0'
+const COLOR_BORDER_STRONG = '#CBD5E1'
+const COLOR_TEXT = '#0F172A'
+const COLOR_MUTED = '#475569'
+const COLOR_SURFACE = '#FFFFFF'
+const COLOR_SURFACE_SOFT = '#F1F5F9'
+const FONT_FAMILY = 'Plus Jakarta Sans, Segoe UI, Arial'
 
-export default function FloorPlan({ levels, hallways, onUpdateUnit, currentUser, resetApp }) {
-  const [selectedGroupId, setSelectedGroupId] = useState(null)
-  const [selectedTargetKeys, setSelectedTargetKeys] = useState(new Set())
-  const [selectedOwnUnitId, setSelectedOwnUnitId] = useState(null)
-  const [confirm, setConfirm] = useState(null)
-  const [notification, setNotification] = useState(null)
-  const [pendingFurniture, setPendingFurniture] = useState([])
+function drawBadge(draw, cx, cy, { fill, content }) {
+  const group = draw.group()
+  group.circle(20).center(cx, cy).fill(fill).stroke({ color: '#fff', width: 2 })
 
-  const showAlert = (title, body) =>
-    setNotification({ title, lines: Array.isArray(body) ? body : [body] })
+  if (typeof content === 'number') {
+    group
+      .text(String(content))
+      .font({ size: 11, family: FONT_FAMILY, anchor: 'middle', weight: 700 })
+      .fill('#fff')
+      .center(cx, cy)
+  } else if (content === 'check') {
+    group
+      .path(`M ${cx - 5} ${cy} L ${cx - 1.5} ${cy + 4} L ${cx + 5} ${cy - 5}`)
+      .stroke({ color: '#fff', width: 2.5, linecap: 'round', linejoin: 'round' })
+      .fill('none')
+  } else if (content === 'release') {
+    group
+      .path(`M ${cx - 5} ${cy} H ${cx + 5} M ${cx + 1} ${cy - 4} L ${cx + 5} ${cy} L ${cx + 1} ${cy + 4}`)
+      .stroke({ color: '#fff', width: 2, linecap: 'round', linejoin: 'round' })
+      .fill('none')
+  }
 
-  // Single action date — written into every reserve / release action.
-  const todayISO = new Date().toISOString().split('T')[0]
-  const [actionDate, setActionDate] = useState(todayISO)
+  group.css({ 'pointer-events': 'none' })
+  return group
+}
 
+export default function FloorPlan({
+  levels,
+  hallways,
+  currentUser,
+  todayISO,
+  actionDate,
+  flatUnits,
+  unitsById,
+  levelUnitsMap,
+  levelViewBoxes,
+  groupUnits,
+  eligibleTargets,
+  currentUserAllUnits,
+  selectedGroupId,
+  selectedTargetKeys,
+  selectedOwnUnitId,
+  activeLevel,
+  onActiveLevelChange,
+  onUnitClick,
+  onToggleTarget,
+}) {
   const levelHostRefs = useRef(new Map())
   const drawRefs = useRef([])
+  const drawByLevelRef = useRef(new Map())
   const unitElsRef = useRef(new Map()) // id -> { rect, label }
   const targetElsRef = useRef(new Map()) // key -> svg.js element
   const cellElsRef = useRef(new Map()) // groupId -> svg.js element
-
-  const flatUnits = useMemo(() => levels.flatMap(level => level.units), [levels])
-  const unitsById = useMemo(() => new Map(flatUnits.map(u => [u.id, u])), [flatUnits])
-  const levelUnitsMap = useMemo(() => new Map(levels.map(level => [level.level, level.units])), [levels])
-  const planStats = useMemo(() => {
-    const occupied = flatUnits.filter(u => u.owner).length
-    const ownedByCurrentUser = currentUser
-      ? flatUnits.filter(u => u.owner === currentUser).length
-      : 0
-
-    return {
-      total: flatUnits.length,
-      available: flatUnits.length - occupied,
-      occupied,
-      ownedByCurrentUser,
-    }
-  }, [flatUnits, currentUser])
-
-  // Units the current user currently owns
-  const currentUserAllUnits = useMemo(
-    () => flatUnits.filter(u => u.owner === currentUser),
-    [flatUnits, currentUser]
-  )
-
-  // Rows that already have at least one tenant (or a recently released unit) — keyed as "level-cellR"
-  const registeredRows = useMemo(() => {
-    const s = new Set()
-    for (const u of flatUnits) if (u.owner || u.availableFrom) s.add(`${u.level}-${u.cellR}`)
-    return s
-  }, [flatUnits])
-
-  // Pending future actions — grouped by (type, user, date, cell)
-  const pendingActions = useMemo(() => {
-    const groups = new Map()
-    flatUnits.forEach(u => {
-      if (u.owner && u.date && u.date > todayISO) {
-        const key = `reserve:${u.owner}:${u.date}:${u.groupId}`
-        if (!groups.has(key)) groups.set(key, { type: 'reserve', user: u.owner, date: u.date, groupId: u.groupId, qs: [] })
-        groups.get(key).qs.push(u.q)
-      }
-      if (!u.owner && u.availableFrom && u.availableFrom > todayISO) {
-        const key = `release:${u.releasedBy ?? ''}:${u.availableFrom}:${u.groupId}`
-        if (!groups.has(key)) groups.set(key, { type: 'release', user: u.releasedBy || '—', date: u.availableFrom, groupId: u.groupId, qs: [] })
-        groups.get(key).qs.push(u.q)
-      }
-    })
-    return [...groups.values()].sort((a, b) => a.date.localeCompare(b.date) || a.type.localeCompare(b.type))
-  }, [flatUnits, todayISO])
-
-  const toggleTargetKey = key => {
-    setSelectedTargetKeys(prev => {
-      const next = new Set(prev)
-      if (next.has(key)) next.delete(key)
-      else next.add(key)
-      return next
-    })
-  }
-
-  const selectUnit = u => {
-    setSelectedGroupId(u.groupId || null)
-    setSelectedTargetKeys(new Set())
-    setSelectedOwnUnitId(null)
-    setPendingFurniture([])
-  }
-
-  const groupUnits = useMemo(() => {
-    const m = new Map()
-    for (const u of flatUnits) {
-      const key = u.groupId
-      if (!m.has(key)) m.set(key, [])
-      m.get(key).push(u)
-    }
-    return m
-  }, [flatUnits])
-
-  const getGroupOwner = (groupId) => {
-    const g = groupUnits.get(groupId) || []
-    // group is owned only if *all 4* subunits have the same owner
-    const owners = new Set(g.map(x => x.owner).filter(Boolean))
-    if (owners.size !== 1) return null
-    const owner = [...owners][0]
-    if (g.every(x => x.owner === owner)) return owner
-    return null
-  }
-
-  const isFullCellOwnedByUser = (groupId) => getGroupOwner(groupId) === currentUser
-
-  const eligibleTargets = useMemo(() => {
-    if (!currentUser) return []
-
-    // ── PHASE 1: INITIAL RESERVATION (user has no units yet) ─────────────────
-    // Rules:
-    //  • Only allow starting in a row that already has at least one tenant.
-    //  • The full 4-unit cell must be available (no partial reservations).
-    if (currentUserAllUnits.length === 0) {
-      if (!selectedGroupId) return []
-      const g = groupUnits.get(selectedGroupId) || []
-      if (!g.length) return []
-
-      const cellLevel = g[0].level
-      const cellRow   = g[0].cellR // 0 = top-row cells, 1 = bottom-row cells
-
-      // Row must have at least one existing tenant before new users can register there
-      const rowIsRegistered = flatUnits.some(
-        u => u.owner && u.level === cellLevel && u.cellR === cellRow
-      )
-      if (!rowIsRegistered) return []
-
-      // First reservation is the full 4-unit cell (all sub-units must be available on actionDate)
-      if (g.length === 4 && g.every(u => !u.owner && (!u.availableFrom || actionDate >= u.availableFrom))) {
-        return [{
-          key: `INIT:${selectedGroupId}:full`,
-          kind: 'initial-cell',
-          label: selectedGroupId,
-          unitIds: g.map(u => u.id),
-          distance: 0,
-        }]
-      }
-      return []
-    }
-
-    // ── PHASE 2: EXTENSION ───────────────────────────────────────────────────
-    // Add 1 empty adjacent unit at a time (registered rows only).
-    const userLevels = new Set(currentUserAllUnits.map(u => u.level))
-    const userCx = currentUserAllUnits.reduce((s, u) => s + u.x + u.w / 2, 0) / currentUserAllUnits.length
-    const userCy = currentUserAllUnits.reduce((s, u) => s + u.y + u.h / 2, 0) / currentUserAllUnits.length
-
-    const targets = []
-    for (const u of flatUnits) {
-      if (u.owner) continue
-      if (u.availableFrom && actionDate < u.availableFrom) continue
-      if (!registeredRows.has(`${u.level}-${u.cellR}`)) continue
-      if (!isUpgradeTargetEligible(currentUserAllUnits, [u])) continue
-      const cx = u.x + u.w / 2
-      const cy = u.y + u.h / 2
-      targets.push({
-        key: `U:${u.id}`,
-        kind: userLevels.has(u.level) ? 'same-level' : 'cross-floor',
-        label: u.id,
-        unitIds: [u.id],
-        distance: Math.round(Math.hypot(cx - userCx, cy - userCy))
-      })
-    }
-
-    return targets.sort((a, b) => a.distance - b.distance)
-  }, [currentUser, currentUserAllUnits, selectedGroupId, flatUnits, groupUnits, registeredRows, actionDate])
-
-  const submitAction = () => {
-    if (!currentUser) return showAlert('Login required', 'Please log in before making a reservation.')
-    const dateErrors = validateActionDate(actionDate)
-    if (dateErrors.length) return showAlert('Invalid date', dateErrors)
-
-    if (currentUserAllUnits.length === 0) {
-      // Phase 1: initial full-cell reservation (4 units)
-      if (!selectedGroupId) return showAlert('No cell selected', 'Click any cell on the floor plan to select your starting location.')
-      if (!eligibleTargets.length) return showAlert('Cell unavailable', 'This cell is not available. Pick another one.')
-      const cellTarget = eligibleTargets.find(t => selectedTargetKeys.has(t.key) && t.kind === 'initial-cell')
-        || eligibleTargets.find(t => t.kind === 'initial-cell')
-      if (!cellTarget) return showAlert('Cell unavailable', 'This cell is not available. Pick another one.')
-      setSelectedTargetKeys(new Set([cellTarget.key]))
-      setConfirm({ isInitial: true, target: cellTarget })
-    } else {
-      // Phase 2: add units (minimum 2 must be selected)
-      if (!eligibleTargets.length) return showAlert('No units available', 'No adjacent empty units are available to add.')
-      const selectedTargets = eligibleTargets.filter(t => selectedTargetKeys.has(t.key))
-      const allSelectedUnitIds = selectedTargets.flatMap(t => t.unitIds)
-      if (allSelectedUnitIds.length < 2) {
-        return showAlert('Select at least 2 units', 'You must select at least 2 units before upgrading. Click on highlighted units on the floor plan to select them.')
-      }
-      const targetUnits = allSelectedUnitIds.map(id => unitsById.get(id)).filter(Boolean)
-      const errors = validateUpgrade(currentUserAllUnits, targetUnits)
-      if (errors.length) return showAlert('Cannot add units', errors)
-      setConfirm({ isInitial: false, target: { unitIds: allSelectedUnitIds, label: `${allSelectedUnitIds.length} units` } })
-    }
-  }
-
-  const submitRelease = () => {
-    if (!selectedOwnUnitId) return
-    const errors = validateDowngrade(currentUserAllUnits, selectedOwnUnitId)
-    if (errors.length) return showAlert('Release not allowed', errors)
-    setConfirm({ isRelease: true, unitId: selectedOwnUnitId, label: selectedOwnUnitId })
-  }
-
-  const toggleClaim = u => {
-    if (!currentUser) return showAlert('Login required', 'Please log in before claiming a unit.')
-    if (!u.owner) {
-      // Debug claim: enforce registered-row check, date availability, and connectivity rules.
-      if (!registeredRows.has(`${u.level}-${u.cellR}`)) {
-        return showAlert('Cannot claim', 'This row has no existing reservations.')
-      }
-      if (u.availableFrom && actionDate < u.availableFrom) {
-        return showAlert('Cannot claim', `This unit is not available until ${u.availableFrom}.`)
-      }
-      if (currentUserAllUnits.length > 0) {
-        const errors = validateUpgrade(currentUserAllUnits, [u])
-        if (errors.length) return showAlert('Cannot claim', errors)
-      }
-      onUpdateUnit(u.id, { owner: currentUser, date: actionDate, availableFrom: null, releasedBy: null })
-    } else if (u.owner === currentUser) {
-      // Releasing (downgrade): validate all rules before allowing the release
-      const errors = validateDowngrade(currentUserAllUnits, u.id)
-      if (errors.length) return showAlert('Release not allowed', errors)
-      onUpdateUnit(u.id, { owner: null, date: null, availableFrom: actionDate, releasedBy: currentUser })
-    } else {
-      showAlert('Unit occupied', `This unit is reserved by ${u.owner}.`)
-    }
-  }
-
-  // Calculate viewBox size based on units extents
-  const levelViewBoxes = useMemo(() => {
-    const map = new Map()
-    levels.forEach(level => {
-      const padding = level.level === 0 ? 120 : 80
-      const units = level.units
-      const levelHalls = (hallways || []).filter(h => h.level === level.level)
-      if (!units.length && !levelHalls.length) return
-
-      const xs = []
-      const ys = []
-      units.forEach(u => {
-        xs.push(u.x, u.x + u.w)
-        ys.push(u.y, u.y + u.h)
-      })
-      levelHalls.forEach(h => {
-        xs.push(h.x, h.x + h.w)
-        ys.push(h.y, h.y + h.h)
-      })
-
-      const minX = Math.max(0, Math.min(...xs) - padding)
-      const minY = Math.max(0,Math.min(...ys) - padding)
-      const maxX = Math.max(...xs) + padding
-      const maxY = Math.max(...ys) + padding
-      map.set(level.level, `${minX} ${minY} ${maxX - minX} ${maxY - minY}`)
-    })
-    return map
-  }, [levels, hallways])
+  const releaseBadgeRef = useRef(null)
 
   // (Re)draw using svg.js
   useEffect(() => {
@@ -290,12 +82,12 @@ export default function FloorPlan({ levels, hallways, onUpdateUnit, currentUser,
       const levelUnits = levelUnitsMap.get(levelIndex) || []
       const draw = SVG().addTo(hostEl).viewbox(viewBox).addClass('floorplan-svg-impl')
       drawRefs.current.push(draw)
+      drawByLevelRef.current.set(levelIndex, draw)
 
       // level header band — drawn first so hallways render on top of it
       if (levelUnits.length) {
         const xs = levelUnits.map(u => [u.x, u.x + u.w]).flat()
         const ys = levelUnits.map(u => [u.y, u.y + u.h]).flat()
-        // include hallways so minY reaches the top hallway on levels that have one
         ;(hallways || []).filter(h => h.level === levelIndex).forEach(h => {
           xs.push(h.x, h.x + h.w)
           ys.push(h.y, h.y + h.h)
@@ -306,7 +98,6 @@ export default function FloorPlan({ levels, hallways, onUpdateUnit, currentUser,
         const maxY = Math.max(...ys)
         const padX = 30
         const padY = 50
-        const topSpacing = levelIndex === 0 ? 28 : 0
         const bandY = minY - 44
         const bandW = (maxX - minX) + padX * 2
         const bandH = (maxY - minY) + padY * 2
@@ -317,55 +108,45 @@ export default function FloorPlan({ levels, hallways, onUpdateUnit, currentUser,
           .rect(bandW, bandH)
           .move(bandX, minY - padY)
           .radius(20)
-          .fill(levelIndex === 0 ? 'rgba(239, 246, 255, 0.92)' : 'rgba(236, 253, 245, 0.88)')
-          .stroke({ color: levelIndex === 0 ? 'rgba(37, 99, 235, 0.20)' : 'rgba(5, 150, 105, 0.22)', width: 1.5 })
+          .fill(COLOR_SURFACE_SOFT)
+          .stroke({ color: COLOR_BORDER, width: 1.5 })
 
         draw
           .rect(bandW, 30)
           .move(bandX, bandY)
           .radius(10)
-          .fill(levelIndex === 0 ? 'rgba(37, 99, 235, 0.18)' : 'rgba(5, 150, 105, 0.18)')
-          .stroke({ color: levelIndex === 0 ? 'rgba(37, 99, 235, 0.38)' : 'rgba(5, 150, 105, 0.38)', width: 1 })
+          .fill('rgba(79, 70, 229, 0.10)')
+          .stroke({ color: 'rgba(79, 70, 229, 0.25)', width: 1 })
 
         draw
           .text(labelText)
           .move(bandX + 14, bandY + 6)
-          .font({ size: 14, family: 'Inter, Segoe UI, Arial', anchor: 'start' })
-          .fill('#102033')
+          .font({ size: 14, family: FONT_FAMILY, anchor: 'start' })
+          .fill(COLOR_TEXT)
       }
 
       // hallway/service zones (drawn after band so they appear on top of it)
+      let serviceElements = []
       if (hallways?.length) {
         const levelHalls = hallways.filter(h => h.level === levelIndex)
 
-        // Draw hallway backgrounds first, then service elements on top
         const backgrounds = levelHalls.filter(h => !h.type)
-        const elements = levelHalls.filter(h => h.type === 'service')
+        serviceElements = levelHalls.filter(h => h.type === 'service')
 
         backgrounds.forEach(h => {
           const zone = draw
             .rect(h.w, h.h)
             .move(h.x, h.y)
-            // .radius(14)
-            .fill('rgba(226, 232, 240, 0.86)')
-            .stroke({ color: 'rgba(148, 163, 184, 0.55)', width: 2, dasharray: [8, 6] })
+            .fill(COLOR_SURFACE_SOFT)
+            .stroke({ color: COLOR_BORDER_STRONG, width: 2, dasharray: [8, 6] })
           zone.addClass('hallway-rect')
           if (h.label) {
             draw
               .text(h.label)
               .move(h.x + 12, h.y + 10)
-              .font({ size: 13, family: 'Inter, Segoe UI, Arial', anchor: 'start' })
-              .fill('#475569')
+              .font({ size: 13, family: FONT_FAMILY, anchor: 'start' })
+              .fill(COLOR_MUTED)
           }
-        })
-
-        elements.forEach(h => {
-          draw
-            .rect(h.w, h.h)
-            .move(h.x, h.y)
-            .radius(2)
-            .fill('#14b8a6')
-            .stroke({ color: '#0f766e', width: 2 })
         })
       }
 
@@ -376,21 +157,24 @@ export default function FloorPlan({ levels, hallways, onUpdateUnit, currentUser,
         const minY = Math.min(...g.map(i => i.y))
         const maxX = Math.max(...g.map(i => i.x + i.w))
         const maxY = Math.max(...g.map(i => i.y + i.h))
-        const pad = 0
         const isSelected = gid === selectedGroupId
 
         const boundary = draw
-          .rect((maxX - minX) + pad * 2, (maxY - minY) + pad * 2)
-          .move(minX - pad, minY - pad)
-          // .radius(14)
+          .rect(maxX - minX, maxY - minY)
+          .move(minX, minY)
           .fill('transparent')
           .stroke({
-            color: isSelected ? '#f97316' : 'rgba(100,116,139,0.22)',
+            color: isSelected ? COLOR_PRIMARY : COLOR_BORDER_STRONG,
             width: isSelected ? 3 : 1.25,
             dasharray: []
           })
 
         cellElsRef.current.set(gid, boundary)
+
+        // Phase 1: checkmark badge on the selected cell
+        if (isSelected && currentUserAllUnits.length === 0 && eligibleTargets.some(t => t.kind === 'initial-cell')) {
+          drawBadge(draw, maxX, minY, { fill: COLOR_PRIMARY, content: 'check' })
+        }
       }
 
       // units
@@ -399,19 +183,19 @@ export default function FloorPlan({ levels, hallways, onUpdateUnit, currentUser,
         const ownedByMe = u.owner === currentUser
         const pendingAvailable = !occupied && !!u.availableFrom && u.availableFrom > todayISO
         const fillColor = occupied
-          ? (ownedByMe ? '#2563eb' : '#334155')
+          ? (ownedByMe ? COLOR_PRIMARY : COLOR_MUTED)
           : pendingAvailable
-            ? 'rgba(253, 186, 116, 0.72)'
-            : 'rgba(255, 255, 255, 0.72)'
+            ? 'rgba(245, 158, 11, 0.35)'
+            : COLOR_SURFACE
         const strokeColor = occupied
-          ? 'rgba(15, 23, 42, 0.32)'
+          ? COLOR_PRIMARY_DARK
           : pendingAvailable
-            ? 'rgba(234, 88, 12, 0.45)'
-            : 'rgba(148, 163, 184, 0.45)'
+            ? COLOR_WARNING
+            : COLOR_BORDER_STRONG
         const rect = draw
           .rect(u.w, u.h)
           .move(u.x, u.y)
-          .radius(0)
+          .radius(4)
           .fill(fillColor)
           .stroke({ color: strokeColor, width: 1 })
 
@@ -428,62 +212,11 @@ export default function FloorPlan({ levels, hallways, onUpdateUnit, currentUser,
         const label = draw
           .text(u.id)
           .move(u.x + u.w / 2, u.y + u.h / 2 - 5)
-          .font({ size: 10, family: 'Inter, Segoe UI, Arial', anchor: 'middle' })
-          .fill(occupied ? '#fff' : '#475569')
+          .font({ size: 10, family: FONT_FAMILY, anchor: 'middle' })
+          .fill(occupied ? '#fff' : COLOR_MUTED)
           .attr({ 'pointer-events': 'none' })
 
-        // hover animations
-        // rect.on('mouseenter', () => {
-        //   rect.stroke({ width: 3, color: occupied ? '#111' : '#ff8a00' })
-        // })
-        // rect.on('mouseleave', () => {
-        //   const isInSelCell = selectedGroupId && u.groupId === selectedGroupId
-        //   rect.stroke({ width: isInSelCell ? 2 : 1, color: occupied ? '#000' : '#000000' })
-        // })
-
-        // click handlers
-        rect.on('click', () => {
-          // Units reserved by other users are fully non-interactive
-          if (u.owner && u.owner !== currentUser) return
-
-          if (currentUserAllUnits.length === 0) {
-            // Phase 1: toggle group selection — click again to deselect
-            if (u.groupId === selectedGroupId) {
-              setSelectedGroupId(null)
-              setSelectedTargetKeys(new Set())
-            } else {
-              selectUnit(u)
-            }
-          } else if (!u.owner) {
-            // Phase 2: toggle the single-unit eligible target
-            const key = `U:${u.id}`
-            if (eligibleTargets.some(t => t.key === key)) {
-              setSelectedTargetKeys(prev => {
-                const next = new Set(prev)
-                if (next.has(key)) next.delete(key)
-                else next.add(key)
-                return next
-              })
-            }
-            setSelectedGroupId(u.groupId || null)
-            setSelectedOwnUnitId(null)
-          } else {
-            // Own unit → toggle release selection; click again to deselect
-            if (u.id === selectedOwnUnitId) {
-              setSelectedOwnUnitId(null)
-              setSelectedGroupId(null)
-            } else {
-              setSelectedOwnUnitId(u.id)
-              setSelectedGroupId(u.groupId || null)
-              setSelectedTargetKeys(new Set())
-            }
-          }
-        })
-        rect.on('dblclick', e => {
-          e.preventDefault()
-          if (u.owner && u.owner !== currentUser) return
-          toggleClaim(u)
-        })
+        rect.on('click', () => onUnitClick(u))
 
         unitElsRef.current.set(u.id, { rect, label })
       })
@@ -491,49 +224,52 @@ export default function FloorPlan({ levels, hallways, onUpdateUnit, currentUser,
       // draw target highlights — clipped to the target's own cell row so the box
       // never bleeds into the hallway / service zone on either floor.
       if (eligibleTargets.length) {
+        const selectedOrder = [...selectedTargetKeys]
         eligibleTargets.forEach(t => {
           const items = t.unitIds.map(id => unitsById.get(id)).filter(Boolean)
           if (!items.length) return
           if (items[0].level !== levelIndex) return
 
           const pad = 3
-          let hlX  = Math.min(...items.map(i => i.x)) - pad
-          let hlY  = Math.min(...items.map(i => i.y)) - pad
+          let hlX = Math.min(...items.map(i => i.x)) - pad
+          let hlY = Math.min(...items.map(i => i.y)) - pad
           let hlX2 = Math.max(...items.map(i => i.x + i.w)) + pad
           let hlY2 = Math.max(...items.map(i => i.y + i.h)) + pad
 
           // Clip Y to the actual cell-row bounds (derived from unit positions).
-          // This is level-structure-agnostic — works the same for Level 0 and Level 1.
           const rowCellR = items[0].cellR
           const rowUnits = (levelUnitsMap.get(levelIndex) || []).filter(u => u.cellR === rowCellR)
           if (rowUnits.length) {
             const rowMinY = Math.min(...rowUnits.map(u => u.y))
             const rowMaxY = Math.max(...rowUnits.map(u => u.y + u.h))
-            hlY  = Math.max(hlY,  rowMinY)
+            hlY = Math.max(hlY, rowMinY)
             hlY2 = Math.min(hlY2, rowMaxY)
           }
 
           if (hlY2 <= hlY) return // clipped to nothing — skip
 
+          const isSelTarget = selectedTargetKeys.has(t.key)
+
           const hl = draw
             .rect(hlX2 - hlX, hlY2 - hlY)
             .move(hlX, hlY)
-            .fill('rgba(245,158,11,0.14)')
-            .stroke({ color: '#f59e0b', width: 2, dasharray: [5, 4] })
+            .fill(isSelTarget ? 'rgba(79, 70, 229, 0.18)' : 'rgba(79, 70, 229, 0.08)')
+            .stroke({ color: COLOR_PRIMARY, width: isSelTarget ? 3 : 2, dasharray: isSelTarget ? [] : [5, 4] })
 
           hl.css({ cursor: 'pointer' })
-          hl.on('mouseenter', () => hl.stroke({ width: 4 }))
-          hl.on('mouseleave', () => hl.stroke({ width: selectedTargetKeys.has(t.key) ? 5 : 2 }))
-          hl.on('click', () => {
-            setSelectedTargetKeys(prev => {
-              const next = new Set(prev)
-              if (next.has(t.key)) next.delete(t.key)
-              else next.add(t.key)
-              return next
-            })
-          })
+          if (!isSelTarget) hl.addClass('target-pulse')
+
+          hl.on('mouseenter', () => hl.stroke({ width: isSelTarget ? 3 : 3 }))
+          hl.on('mouseleave', () => hl.stroke({ width: isSelTarget ? 3 : 2 }))
+          hl.on('click', () => onToggleTarget(t.key))
 
           targetElsRef.current.set(t.key, hl)
+
+          // Phase 2: numbered badge for each selected target, in selection order
+          if (isSelTarget && t.kind !== 'initial-cell') {
+            const order = selectedOrder.indexOf(t.key) + 1
+            drawBadge(draw, hlX2, hlY, { fill: COLOR_PRIMARY, content: order })
+          }
         })
       }
 
@@ -543,15 +279,28 @@ export default function FloorPlan({ levels, hallways, onUpdateUnit, currentUser,
         if (g.length && g[0].level === levelIndex) {
           g.forEach(x => {
             const el = unitElsRef.current.get(x.id)
-            if (el) el.rect.stroke({ width: 4, color: '#ff8a00' })
+            if (el) el.rect.stroke({ width: 4, color: COLOR_PRIMARY })
           })
         }
       }
+
+      // service zones drawn last so they sit above units and highlights
+      serviceElements.forEach(h => {
+        const zone = draw
+          .rect(h.w, h.h)
+          .move(h.x, h.y)
+          .radius(2)
+          .fill(COLOR_SUCCESS)
+          .stroke({ color: COLOR_SUCCESS_DARK, width: 2 })
+          .opacity(0.4)
+        zone.element('title').words('Service point')
+      })
     }
 
     unitElsRef.current = new Map()
     targetElsRef.current = new Map()
     cellElsRef.current = new Map()
+    drawByLevelRef.current = new Map()
     drawRefs.current = []
 
     levels.forEach(level => {
@@ -564,6 +313,7 @@ export default function FloorPlan({ levels, hallways, onUpdateUnit, currentUser,
         try { d.clear() } catch { /* ignore */ }
       })
       drawRefs.current = []
+      releaseBadgeRef.current = null
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [levels, flatUnits, levelViewBoxes, eligibleTargets, selectedTargetKeys, selectedGroupId, groupUnits, unitsById, hallways, levelUnitsMap])
@@ -579,13 +329,13 @@ export default function FloorPlan({ levels, hallways, onUpdateUnit, currentUser,
       const isInSelCell = selectedUnits.has(id)
       const isSelectedForRelease = id === selectedOwnUnitId
 
-      let strokeColor = occupied ? 'rgba(15, 23, 42, 0.32)' : 'rgba(148, 163, 184, 0.45)'
+      let strokeColor = occupied ? COLOR_PRIMARY_DARK : COLOR_BORDER_STRONG
       let strokeWidth = 1
       if (isSelectedForRelease) {
-        strokeColor = '#dc2626'
+        strokeColor = COLOR_DANGER
         strokeWidth = 4
       } else if (isInSelCell) {
-        strokeColor = '#f97316'
+        strokeColor = COLOR_PRIMARY
         strokeWidth = 4
       }
       obj.rect.stroke({ width: strokeWidth, color: strokeColor })
@@ -594,271 +344,64 @@ export default function FloorPlan({ levels, hallways, onUpdateUnit, currentUser,
     // highlight chosen targets
     for (const [key, hl] of targetElsRef.current.entries()) {
       const isSelTarget = selectedTargetKeys.has(key)
-      hl.stroke({ width: isSelTarget ? 5 : 2, color: isSelTarget ? '#0ea5e9' : '#f59e0b' })
-      hl.fill(isSelTarget ? 'rgba(14,165,233,0.20)' : 'rgba(245,158,11,0.14)')
+      hl.stroke({ width: isSelTarget ? 3 : 2, color: COLOR_PRIMARY })
+      hl.fill(isSelTarget ? 'rgba(79, 70, 229, 0.18)' : 'rgba(79, 70, 229, 0.08)')
     }
 
     // highlight selected cell boundary
     for (const [gid, boundary] of cellElsRef.current.entries()) {
       const isSelected = gid === selectedGroupId
       boundary.stroke({
-        color: isSelected ? '#f97316' : 'rgba(100,116,139,0.22)',
-        width: isSelected ? 3 : 1
+        color: isSelected ? COLOR_PRIMARY : COLOR_BORDER_STRONG,
+        width: isSelected ? 3 : 1.25
       })
+    }
+
+    // release badge on the unit selected for release
+    if (releaseBadgeRef.current) {
+      try { releaseBadgeRef.current.remove() } catch { /* ignore */ }
+      releaseBadgeRef.current = null
+    }
+    if (selectedOwnUnitId) {
+      const u = unitsById.get(selectedOwnUnitId)
+      const draw = u && drawByLevelRef.current.get(u.level)
+      if (u && draw) {
+        releaseBadgeRef.current = drawBadge(draw, u.x + u.w, u.y, { fill: COLOR_DANGER, content: 'release' })
+      }
     }
   }, [selectedGroupId, selectedTargetKeys, selectedOwnUnitId, groupUnits, unitsById])
 
   return (
-    <div className="floorplan-wrap">
-      <section className="plan-overview" aria-label="Floor plan summary">
-        <div className="overview-card overview-card--total">
-          <span className="overview-label">Total units</span>
-          <strong>{planStats.total}</strong>
-        </div>
-        <div className="overview-card overview-card--available">
-          <span className="overview-label">Available</span>
-          <strong>{planStats.available}</strong>
-        </div>
-        <div className="overview-card overview-card--occupied">
-          <span className="overview-label">Occupied</span>
-          <strong>{planStats.occupied}</strong>
-        </div>
-        <div className="overview-card overview-card--accent">
-          <span className="overview-label">Your units</span>
-          <strong>{planStats.ownedByCurrentUser}</strong>
-        </div>
-      </section>
-
-      <div className="layout">
-        <div className="floorplan-levels">
-          {levels.map(level => (
-            <div key={level.level} className="floorplan-level">
-              <div className="floorplan-level-header">
-                <span className={`floorplan-level-dot floorplan-level-dot--${level.level}`} />
-                <span className="floorplan-level-label">
-                  {level.level === 0 ? 'Level 1 — Ground Floor' : 'Level 2 — Upper Floor'}
-                </span>
-              </div>
-              <div
-                ref={el => {
-                  if (el) levelHostRefs.current.set(level.level, el)
-                }}
-                className="floorplan-svg"
-              />
-            </div>
-          ))}
-        </div>
-
-        <aside className="sidepanel">
-          <div className="panel-kicker">
-            <svg className="panel-kicker-icon" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <rect x="1" y="1" width="6" height="6" rx="1" stroke="currentColor" strokeWidth="1.5"/>
-              <rect x="9" y="1" width="6" height="6" rx="1" stroke="currentColor" strokeWidth="1.5"/>
-              <rect x="1" y="9" width="6" height="6" rx="1" stroke="currentColor" strokeWidth="1.5"/>
-              <rect x="9" y="9" width="6" height="6" rx="1" stroke="currentColor" strokeWidth="1.5"/>
-            </svg>
-            Reservation controls
-          </div>
-
-          {/* ── Action section with inline date ───────────────────── */}
-          <div className="sidepanel-section">
-            <div className="sidepanel-section-header">
-              <div className="sidepanel-title">
-                <svg className="sidepanel-title-icon" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <circle cx="7" cy="7" r="5.5" stroke="currentColor" strokeWidth="1.4"/>
-                  <path d="M7 4.5v5M4.5 7h5" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round"/>
-                </svg>
-                {currentUserAllUnits.length === 0 ? 'New reservation' : 'Add a unit'}
-              </div>
-              <input type="date" className="date-input-compact" value={actionDate} min={todayISO}
-                onChange={e => setActionDate(e.target.value)} />
-            </div>
-
-            {!currentUser && (
-              <div className="sidepanel-hint sidepanel-hint--info">Set your user name to make a reservation.</div>
-            )}
-            {currentUser && currentUserAllUnits.length === 0 && !selectedGroupId && (
-              <div className="sidepanel-hint">Click any cell on the floor plan to select your starting location.</div>
-            )}
-            {currentUser && currentUserAllUnits.length === 0 && selectedGroupId && eligibleTargets.length === 0 && (() => {
-              const g = groupUnits.get(selectedGroupId) || []
-              const cellLevel = g[0]?.level
-              const cellRow   = g[0]?.cellR
-              const rowRegistered = flatUnits.some(u => u.owner && u.level === cellLevel && u.cellR === cellRow)
-              return rowRegistered
-                ? <div className="sidepanel-hint sidepanel-hint--warn">This cell is already partially or fully occupied. Pick another cell in the same row.</div>
-                : <div className="sidepanel-hint sidepanel-hint--warn">This row has no existing reservations yet. New registrations are not permitted here. Choose a cell in a registered row.</div>
-            })()}
-            {currentUser && currentUserAllUnits.length === 0 && selectedGroupId && eligibleTargets.length > 0 && (
-              <div className="sidepanel-hint sidepanel-hint--info">Click <strong>Reserve Cell</strong> to reserve all 4 units in this cell.</div>
-            )}
-            {currentUser && currentUserAllUnits.length > 0 && eligibleTargets.length === 0 && (
-              <div className="sidepanel-hint">No adjacent empty units available.</div>
-            )}
-            {currentUser && currentUserAllUnits.length > 0 && eligibleTargets.length > 0 && (
-              <div className="sidepanel-hint">
-                Select at least <strong>2 adjacent empty units</strong>, then click <strong>Add Unit</strong>.
-                {selectedTargetKeys.size > 0 && ` (${selectedTargetKeys.size} selected)`}
-              </div>
-            )}
-
-            {eligibleTargets.length > 0 && (
-              <div className="target-list">
-                {eligibleTargets.map(t => (
-                  <button
-                    key={t.key}
-                    className={`target-item ${selectedTargetKeys.has(t.key) ? 'active' : ''}`}
-                    onClick={() => toggleTargetKey(t.key)}
-                  >
-                    <div className="target-main">
-                      <div className="target-label">{t.label}</div>
-                      <div className="target-meta">
-                        {t.unitIds.length > 1 && (
-                          <span className="pill">
-                            {t.pairRow ? `2 units / ${t.pairRow}` : '2 units'}
-                          </span>
-                        )}
-                        <span className="pill pill--kind">
-                          {t.kind === 'cross-floor' ? 'cross-floor' : 'same level'}
-                        </span>
-                        {/* <span className="pill">dist {t.distance}</span> */}
-                      </div>
-                    </div>
-                  </button>
-                ))}
-              </div>
-            )}
-          </div>
-
-          {/* Release section — shown when user has clicked one of their own units */}
-          {currentUser && selectedOwnUnitId && currentUserAllUnits.some(u => u.id === selectedOwnUnitId) && (
-            <div className="release-section">
-              {(() => {
-                const errors = validateDowngrade(currentUserAllUnits, selectedOwnUnitId)
-                return (
-                  <>
-                    <div className="release-row">
-                      <div className="sidepanel-title release-title">
-                        <svg className="sidepanel-title-icon" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <path d="M2 7h10M8 3l4 4-4 4" stroke="#c0392b" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/>
-                        </svg>
-                        Release: <code className="release-unit-code">{selectedOwnUnitId}</code>
-                      </div>
-                      {errors.length === 0 && (
-                        <button className="release-btn release-btn--inline" onClick={submitRelease}>Release</button>
-                      )}
-                    </div>
-                    {errors.map((e, i) => (
-                      <div key={i} className="sidepanel-hint sidepanel-hint--danger">{e}</div>
-                    ))}
-                  </>
-                )
-              })()}
-            </div>
-          )}
-
-          {/* Furniture for pending reservation — new cell selected or targets selected */}
-          {currentUser && (
-            (currentUserAllUnits.length === 0 && selectedGroupId && eligibleTargets.length > 0) ||
-            (currentUserAllUnits.length > 0 && selectedTargetKeys.size > 0)
-          ) && (
-            <div className="furniture-section">
-              <div className="sidepanel-title">
-                <svg className="sidepanel-title-icon" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <rect x="1" y="7" width="12" height="5" rx="1" stroke="currentColor" strokeWidth="1.4"/>
-                  <rect x="1" y="5" width="2" height="4" rx="0.7" stroke="currentColor" strokeWidth="1.4"/>
-                  <rect x="11" y="5" width="2" height="4" rx="0.7" stroke="currentColor" strokeWidth="1.4"/>
-                  <rect x="3" y="4" width="8" height="5" rx="1" stroke="currentColor" strokeWidth="1.4"/>
-                  <path d="M4 12v1M10 12v1" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round"/>
-                </svg>
-                Furniture
-              </div>
-              <div className="sidepanel-hint sidepanel-hint--info">
-                Optional — choose furniture for your new unit(s)
-              </div>
-              <div className="furniture-grid">
-                {FURNITURE_ITEMS.map(item => {
-                  const isActive = pendingFurniture.includes(item.id)
-                  return (
-                    <button
-                      key={item.id}
-                      className={`furniture-chip${isActive ? ' furniture-chip--active' : ''}`}
-                      onClick={() => setPendingFurniture(prev =>
-                        prev.includes(item.id)
-                          ? prev.filter(f => f !== item.id)
-                          : [...prev, item.id]
-                      )}
-                    >
-                      {item.label}
-                    </button>
-                  )
-                })}
-              </div>
-            </div>
-          )}
-
-          {/* Furniture section — shown when user has clicked one of their own units */}
-          {currentUser && selectedOwnUnitId && currentUserAllUnits.some(u => u.id === selectedOwnUnitId) && (
-            <div className="furniture-section">
-              <div className="sidepanel-title">
-                <svg className="sidepanel-title-icon" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <rect x="1" y="7" width="12" height="5" rx="1" stroke="currentColor" strokeWidth="1.4"/>
-                  <rect x="1" y="5" width="2" height="4" rx="0.7" stroke="currentColor" strokeWidth="1.4"/>
-                  <rect x="11" y="5" width="2" height="4" rx="0.7" stroke="currentColor" strokeWidth="1.4"/>
-                  <rect x="3" y="4" width="8" height="5" rx="1" stroke="currentColor" strokeWidth="1.4"/>
-                  <path d="M4 12v1M10 12v1" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round"/>
-                </svg>
-                Furniture
-              </div>
-              <div className="sidepanel-hint sidepanel-hint--info">
-                Choose furniture for <strong>{selectedOwnUnitId}</strong>
-              </div>
-              <div className="furniture-grid">
-                {FURNITURE_ITEMS.map(item => {
-                  const unitFurniture = unitsById.get(selectedOwnUnitId)?.furniture || []
-                  const isActive = unitFurniture.includes(item.id)
-                  return (
-                    <button
-                      key={item.id}
-                      className={`furniture-chip${isActive ? ' furniture-chip--active' : ''}`}
-                      onClick={() => {
-                        const current = unitsById.get(selectedOwnUnitId)?.furniture || []
-                        const updated = current.includes(item.id)
-                          ? current.filter(f => f !== item.id)
-                          : [...current, item.id]
-                        onUpdateUnit(selectedOwnUnitId, { furniture: updated })
-                      }}
-                    >
-                      {item.label}
-                    </button>
-                  )
-                })}
-              </div>
-            </div>
-          )}
-
-        </aside>
+    <div className="floorplan-card">
+      <div className="floor-tabs" role="tablist" aria-label="Floor levels">
+        {levels.map(level => (
+          <button
+            key={level.level}
+            role="tab"
+            aria-selected={activeLevel === level.level}
+            className={`floor-tab ${activeLevel === level.level ? 'floor-tab--active' : ''}`}
+            onClick={() => onActiveLevelChange(level.level)}
+          >
+            <span className={`floorplan-level-dot floorplan-level-dot--${level.level}`} />
+            {level.level === 0 ? 'Level 1 — Ground Floor' : 'Level 2 — Upper Floor'}
+          </button>
+        ))}
       </div>
 
-      <div className="controls">
-        <div className="controls-group">
-          <button
-            className="primary-btn"
-            onClick={submitAction}
-            disabled={!currentUser || (currentUserAllUnits.length === 0 ? !selectedGroupId : !eligibleTargets.length)}
+      <div className="floorplan-levels">
+        {levels.map(level => (
+          <div
+            key={level.level}
+            className={`floorplan-level ${activeLevel === level.level ? '' : 'floorplan-level--hidden'}`}
           >
-            {currentUserAllUnits.length === 0 ? 'Reserve Cell' : 'Add Unit'}
-          </button>
-          <button
-            onClick={submitRelease}
-            disabled={!selectedOwnUnitId || !currentUserAllUnits.some(u => u.id === selectedOwnUnitId)}
-            className={selectedOwnUnitId && currentUserAllUnits.some(u => u.id === selectedOwnUnitId) ? 'danger-btn' : ''}
-          >
-            Release Unit
-          </button>
-        </div>
-        <div className="controls-sep" />
-        <button className="reset-btn" onClick={() => { resetApp() }}>Reset data</button>
+            <div
+              ref={el => {
+                if (el) levelHostRefs.current.set(level.level, el)
+              }}
+              className="floorplan-svg"
+            />
+          </div>
+        ))}
       </div>
 
       <div className="legend">
@@ -866,125 +409,13 @@ export default function FloorPlan({ levels, hallways, onUpdateUnit, currentUser,
         <span className="legend-item"><span className="legend-dot legend-dot--available" /> Available</span>
         <span className="legend-item"><span className="legend-dot legend-dot--pending" /> Releasing soon</span>
         <span className="legend-item"><span className="legend-dot legend-dot--selected" /> Selected</span>
+        <span className="legend-item"><span className="legend-dot legend-dot--service" /> Service point</span>
         <span className="legend-tip">
           {currentUserAllUnits.length === 0
-            ? 'Click any cell, then "Reserve Cell" to reserve all 4 units.'
-            : 'Select ≥ 2 adjacent empty units, then click "Add Unit". Click your own unit → "Release Unit" to remove it.'}
+            ? 'Click any cell to select it as your starting reservation.'
+            : 'Click highlighted units to add them, or click your own unit to release it.'}
         </span>
       </div>
-
-      <section className="scheduled-requests">
-        <h2 className="sr-heading">
-          <span className="sr-heading-dot" />
-          Scheduled Requests
-        </h2>
-        {pendingActions.length === 0 ? (
-          <p className="sr-empty">No upcoming scheduled actions.</p>
-        ) : (
-          <div className="sr-table-wrap">
-            <table className="sr-table">
-              <thead>
-                <tr>
-                  <th>Type</th>
-                  <th>Cell / Units</th>
-                  <th>User</th>
-                  <th>Action Date</th>
-                </tr>
-              </thead>
-              <tbody>
-                {pendingActions.map((a, i) => {
-                  const label = a.qs.length === 4
-                    ? a.groupId
-                    : a.qs.sort().map(q => `${a.groupId}-${q + 1}`).join(', ')
-                  return (
-                    <tr key={i}>
-                      <td>
-                        <span className={`sr-badge sr-badge--${a.type}`}>
-                          {a.type === 'reserve' ? 'Reserve' : 'Release'}
-                        </span>
-                      </td>
-                      <td className="sr-label">{label}</td>
-                      <td className="sr-user">{a.user}</td>
-                      <td className="sr-date">{a.date}</td>
-                    </tr>
-                  )
-                })}
-              </tbody>
-            </table>
-          </div>
-        )}
-      </section>
-
-      {confirm && (
-        <div className="modal-overlay">
-          <div className="modal">
-            {(() => {
-              const addCount = confirm.target?.unitIds?.length ?? 1
-              return (<>
-                <h3>
-                  {confirm.isRelease ? 'Confirm release'
-                    : confirm.isInitial ? 'Confirm reservation'
-                    : `Confirm add ${addCount > 1 ? addCount + ' units' : 'unit'}`}
-                </h3>
-                <p>
-                  {confirm.isRelease
-                    ? <>Release unit <strong>{confirm.label}</strong> on <strong>{actionDate}</strong>?</>
-                    : confirm.isInitial
-                      ? <>Reserve <strong>{confirm.target.label}</strong> ({confirm.target.unitIds.length} units) on <strong>{actionDate}</strong>?</>
-                      : <>Add <strong>{confirm.target.label}</strong>{addCount > 1 ? ` (${addCount} units)` : ''} on <strong>{actionDate}</strong>?</>
-                  }
-                </p>
-              </>)
-            })()}
-            <div className="modal-actions">
-              <button onClick={() => setConfirm(null)}>Cancel</button>
-              <button className="primary-btn" onClick={() => {
-                if (confirm.isRelease) {
-                  const errors = validateDowngrade(currentUserAllUnits, confirm.unitId)
-                  if (errors.length) {
-                    setConfirm(null)
-                    return showAlert('No longer valid', errors)
-                  }
-                  onUpdateUnit(confirm.unitId, { owner: null, date: null, availableFrom: actionDate, releasedBy: currentUser })
-                  setSelectedOwnUnitId(null)
-                } else if (confirm.isInitial) {
-                  confirm.target.unitIds.forEach(id => onUpdateUnit(id, { owner: currentUser, date: actionDate, availableFrom: null, releasedBy: null, furniture: pendingFurniture }))
-                } else {
-                  const targetUnits = confirm.target.unitIds.map(id => unitsById.get(id)).filter(Boolean)
-                  const errors = validateUpgrade(currentUserAllUnits, targetUnits)
-                  if (errors.length) {
-                    setConfirm(null)
-                    return showAlert('No longer valid', errors)
-                  }
-                  confirm.target.unitIds.forEach(id => onUpdateUnit(id, { owner: currentUser, date: actionDate, availableFrom: null, releasedBy: null, furniture: pendingFurniture }))
-                }
-                setConfirm(null)
-                setSelectedGroupId(null)
-                setSelectedTargetKeys(new Set())
-                setPendingFurniture([])
-              }}>Confirm</button>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {notification && (
-        <div className="modal-overlay" onClick={() => setNotification(null)}>
-          <div className="modal notification-modal" onClick={e => e.stopPropagation()}>
-            <h3 className="notification-title">{notification.title}</h3>
-            <div className="notification-body">
-              {notification.lines.length === 1
-                ? <p>{notification.lines[0]}</p>
-                : <ul>{notification.lines.map((l, i) => <li key={i}>{l}</li>)}</ul>
-              }
-            </div>
-            <div className="modal-actions">
-              <button className="primary-btn" onClick={() => setNotification(null)}>OK</button>
-            </div>
-          </div>
-        </div>
-      )}
-
     </div>
   )
 }

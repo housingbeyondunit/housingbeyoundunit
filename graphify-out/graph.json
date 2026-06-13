@@ -1,0 +1,357 @@
+{
+  "directed": false,
+  "multigraph": false,
+  "graph": {},
+  "nodes": [
+    {
+      "label": "App.jsx",
+      "file_type": "code",
+      "source_file": "src/App.jsx",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "src_app",
+      "community": 0,
+      "norm_label": "app.jsx"
+    },
+    {
+      "label": "layoutConfig",
+      "file_type": "code",
+      "source_file": "src/App.jsx",
+      "source_location": "L12",
+      "_origin": "ast",
+      "id": "src_app_layoutconfig",
+      "community": 0,
+      "norm_label": "layoutconfig"
+    },
+    {
+      "label": "cellGroupLabel()",
+      "file_type": "code",
+      "source_file": "src/App.jsx",
+      "source_location": "L45",
+      "_origin": "ast",
+      "id": "src_app_cellgrouplabel",
+      "community": 1,
+      "norm_label": "cellgrouplabel()"
+    },
+    {
+      "label": "getLevelHeight()",
+      "file_type": "code",
+      "source_file": "src/App.jsx",
+      "source_location": "L48",
+      "_origin": "ast",
+      "id": "src_app_getlevelheight",
+      "community": 3,
+      "norm_label": "getlevelheight()"
+    },
+    {
+      "label": "getLevelBaseY()",
+      "file_type": "code",
+      "source_file": "src/App.jsx",
+      "source_location": "L53",
+      "_origin": "ast",
+      "id": "src_app_getlevelbasey",
+      "community": 3,
+      "norm_label": "getlevelbasey()"
+    },
+    {
+      "label": "buildServiceElements()",
+      "file_type": "code",
+      "source_file": "src/App.jsx",
+      "source_location": "L63",
+      "_origin": "ast",
+      "id": "src_app_buildserviceelements",
+      "community": 0,
+      "norm_label": "buildserviceelements()"
+    },
+    {
+      "label": "buildHallways()",
+      "file_type": "code",
+      "source_file": "src/App.jsx",
+      "source_location": "L117",
+      "_origin": "ast",
+      "id": "src_app_buildhallways",
+      "community": 0,
+      "norm_label": "buildhallways()"
+    },
+    {
+      "label": "defaultUnits()",
+      "file_type": "code",
+      "source_file": "src/App.jsx",
+      "source_location": "L161",
+      "_origin": "ast",
+      "id": "src_app_defaultunits",
+      "community": 1,
+      "norm_label": "defaultunits()"
+    },
+    {
+      "label": "migrateUnit()",
+      "file_type": "code",
+      "source_file": "src/App.jsx",
+      "source_location": "L239",
+      "_origin": "ast",
+      "id": "src_app_migrateunit",
+      "community": 0,
+      "norm_label": "migrateunit()"
+    },
+    {
+      "label": "migrateUnitId()",
+      "file_type": "code",
+      "source_file": "src/App.jsx",
+      "source_location": "L250",
+      "_origin": "ast",
+      "id": "src_app_migrateunitid",
+      "community": 1,
+      "norm_label": "migrateunitid()"
+    },
+    {
+      "label": "normalizeState()",
+      "file_type": "code",
+      "source_file": "src/App.jsx",
+      "source_location": "L258",
+      "_origin": "ast",
+      "id": "src_app_normalizestate",
+      "community": 1,
+      "norm_label": "normalizestate()"
+    },
+    {
+      "label": "App()",
+      "file_type": "code",
+      "source_file": "src/App.jsx",
+      "source_location": "L275",
+      "_origin": "ast",
+      "id": "src_app_app",
+      "community": 0,
+      "norm_label": "app()"
+    },
+    {
+      "label": "FloorPlan.jsx",
+      "file_type": "code",
+      "source_file": "src/components/FloorPlan.jsx",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "components_floorplan",
+      "community": 2,
+      "norm_label": "floorplan.jsx"
+    },
+    {
+      "label": "drawBadge()",
+      "file_type": "code",
+      "source_file": "src/components/FloorPlan.jsx",
+      "source_location": "L20",
+      "_origin": "ast",
+      "id": "components_floorplan_drawbadge",
+      "community": 2,
+      "norm_label": "drawbadge()"
+    },
+    {
+      "label": "FloorPlan()",
+      "file_type": "code",
+      "source_file": "src/components/FloorPlan.jsx",
+      "source_location": "L46",
+      "_origin": "ast",
+      "id": "components_floorplan_floorplan",
+      "community": 2,
+      "norm_label": "floorplan()"
+    }
+  ],
+  "links": [
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/App.jsx",
+      "source_location": "L275",
+      "weight": 1.0,
+      "source": "src_app",
+      "target": "src_app_app",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/App.jsx",
+      "source_location": "L117",
+      "weight": 1.0,
+      "source": "src_app",
+      "target": "src_app_buildhallways",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/App.jsx",
+      "source_location": "L63",
+      "weight": 1.0,
+      "source": "src_app",
+      "target": "src_app_buildserviceelements",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/App.jsx",
+      "source_location": "L45",
+      "weight": 1.0,
+      "source": "src_app",
+      "target": "src_app_cellgrouplabel",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/App.jsx",
+      "source_location": "L161",
+      "weight": 1.0,
+      "source": "src_app",
+      "target": "src_app_defaultunits",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/App.jsx",
+      "source_location": "L53",
+      "weight": 1.0,
+      "source": "src_app",
+      "target": "src_app_getlevelbasey",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/App.jsx",
+      "source_location": "L48",
+      "weight": 1.0,
+      "source": "src_app",
+      "target": "src_app_getlevelheight",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/App.jsx",
+      "source_location": "L12",
+      "weight": 1.0,
+      "source": "src_app",
+      "target": "src_app_layoutconfig",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/App.jsx",
+      "source_location": "L239",
+      "weight": 1.0,
+      "source": "src_app",
+      "target": "src_app_migrateunit",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/App.jsx",
+      "source_location": "L250",
+      "weight": 1.0,
+      "source": "src_app",
+      "target": "src_app_migrateunitid",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/App.jsx",
+      "source_location": "L258",
+      "weight": 1.0,
+      "source": "src_app",
+      "target": "src_app_normalizestate",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/App.jsx",
+      "source_location": "L174",
+      "weight": 1.0,
+      "source": "src_app_defaultunits",
+      "target": "src_app_cellgrouplabel",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/App.jsx",
+      "source_location": "L254",
+      "weight": 1.0,
+      "source": "src_app_migrateunitid",
+      "target": "src_app_cellgrouplabel",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/App.jsx",
+      "source_location": "L57",
+      "weight": 1.0,
+      "source": "src_app_getlevelbasey",
+      "target": "src_app_getlevelheight",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/App.jsx",
+      "source_location": "L171",
+      "weight": 1.0,
+      "source": "src_app_defaultunits",
+      "target": "src_app_getlevelbasey",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/App.jsx",
+      "source_location": "L318",
+      "weight": 1.0,
+      "source": "src_app_app",
+      "target": "src_app_buildhallways",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/App.jsx",
+      "source_location": "L272",
+      "weight": 1.0,
+      "source": "src_app_normalizestate",
+      "target": "src_app_defaultunits",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/FloorPlan.jsx",
+      "source_location": "L20",
+      "weight": 1.0,
+      "source": "components_floorplan",
+      "target": "components_floorplan_drawbadge",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/FloorPlan.jsx",
+      "source_location": "L46",
+      "weight": 1.0,
+      "source": "components_floorplan",
+      "target": "components_floorplan_floorplan",
+      "confidence_score": 1.0
+    }
+  ],
+  "hyperedges": [],
+  "built_at_commit": "f50418959f90173d96b81d8b4094820b6a6f63d4"
+}
