@@ -1,6 +1,14 @@
 import React, { useState, useEffect, useMemo } from 'react'
 import FloorPlan from './components/FloorPlan'
 import hero from './images/hero.png'
+import facade from './images/facade.png'
+import facade2 from './images/facade 2.png'
+import facade3 from './images/facade 3.png'
+import framework from './images/framework.png'
+import wall from './images/wall.png'
+import byoFurniture from './images/BYO FURNITUURE.png'
+import builderFurniture from './images/BUILDER.png'
+import browserFurniture from './images/ARCHIVE FURNITURE.png'
 
 // Minimal in-memory data model with localStorage persistence
 const STORAGE_KEY = 'fp_demo_state_v1'
@@ -10,6 +18,47 @@ const RESIDENT_TABS = [
   { key: 'modules', label: 'Request Modules' },
   { key: 'booking', label: 'Book Bays' },
   { key: 'connect', label: 'Connect To A Designer' },
+]
+
+const MODULE_CATEGORIES = [
+  {
+    key: 'facade',
+    label: 'Facade Modules',
+    image: facade,
+    description: [
+      'Windows, doors, blanks, odd bits, bright bits.',
+      'Choose from the co-op kit, work with us on a custom module, or rescue a module from the archive and give it a new home!',
+    ],
+    options: [
+      { label: 'Choose From The Kit', image: facade2, description: 'pick a tested module from the standard co-op set\n\nsimple, quick, and already approved' },
+      { label: 'Request A Custom Module', image: facade3, description: 'need something different?\n\ntell us what you are imagining and we will help design a module that fits the frame.' },
+      { label: 'Browse The Archive', image: facade, description: 'find reused modules from past homes\n\ncheaper, lower-waste, and already part of the building’s story' },
+    ],
+  },
+  {
+    key: 'furniture',
+    label: 'Furniture Framework',
+    image: framework,
+    description: [
+      'Start with a frame, then fill it your way.',
+      'Book a workshop induction to build your own infill, ask our builder for help, or browse archived furniture pieces ready for a second life.',
+    ],
+    options: [
+      { label: 'Build Yourr Own', image: byoFurniture, description: 'book a workshop induction,\n\nlearn the tools, and make shelves, beds, benches, storage, or whatever your home needs next.' },
+      { label: 'Book A Builder', image: builderFurniture, description: 'have an idea but need a hand?\n\nwork with our builder to measure, cut, fit, and finish your furniture infill.' },
+      { label: 'Browse The Archive', image: browserFurniture, description: 'find frames and furniture pieces left by past residents.\n\ncheaper, less wasteful, and ready to be used again.' },
+    ],
+  },
+  {
+    key: 'wall',
+    label: 'Wall Modules',
+    image: wall,
+    description: [
+    ],
+    options: [
+      { label: 'My Wall Needs Help', image: wall, description: 'wall acting weird?\n\nupload a photo + tell us what happened.\n\nthe workshop will repair, swap, or archive it.' },
+    ],
+  },
 ]
 
 const layoutConfig = {
@@ -288,6 +337,7 @@ export default function App() {
   const [heroVisible, setHeroVisible] = useState(true)
   const [expandedSection, setExpandedSection] = useState(null)
   const [residentTab, setResidentTab] = useState('booking')
+  const [moduleCategory, setModuleCategory] = useState(null)
 
   const toggleSection = (key) => {
     setHeroVisible(false)
@@ -370,7 +420,10 @@ export default function App() {
                 role="tab"
                 aria-selected={residentTab === tab.key}
                 className={`resident-tab${residentTab === tab.key ? ' resident-tab--active' : ''}`}
-                onClick={() => setResidentTab(tab.key)}
+                onClick={() => {
+                  setResidentTab(tab.key)
+                  if (tab.key === 'modules') setModuleCategory(null)
+                }}
               >
                 {tab.label}
               </button>
@@ -388,13 +441,15 @@ export default function App() {
             </>
           )}
 
-          {residentTab === 'modules' && <ResidentPlaceholder title="Modules" />}
+          {residentTab === 'modules' && (
+            <ModulesSection activeCategory={moduleCategory} setActiveCategory={setModuleCategory} />
+          )}
           {residentTab === 'connect' && <ResidentPlaceholder title="Connect" />}
         </AccordionItem>
 
         <AccordionItem
           index="02"
-          label="About"
+          label="About The Project"
           expanded={expandedSection === 'about'}
           onToggle={() => toggleSection('about')}
         >
@@ -444,33 +499,117 @@ function AccordionItem({ index, label, expanded, onToggle, children }) {
 function AboutSection() {
   return (
     <div className="about">
-      <p className="about-lede">
-        Nighthingale Beyond Units is a residential framework built around a simple idea —
-        the floor plan should adapt to the people living in it, not the other way around.
-      </p>
+      <h2 className="about-title">
+        nighthingale <strong>beyond units</strong>
+      </h2>
       <div className="about-columns">
-        <div className="about-block">
-          <h3>Approach</h3>
+        <div className="about-block about-block--intro">
+          <p className="about-lede">a home that keeps up with you.</p><br />
           <p>
-            Each level is organised as a grid of cells, every cell divided into four
-            sub-units. Residents can combine, upgrade, or release units as their needs
-            change, and the plan redraws itself in real time.
+            most apartments are decided once, by someone who'll never live there, for a life
+            you haven't lived yet. Then your life changes — and the apartment doesn't. this is
+            the other way round: the plan follows the people, not the people the plan.
           </p>
         </div>
         <div className="about-block">
-          <h3>Structure</h3>
+          <h3>The Idea</h3>
           <p>
-            Hallways, stairs, and service cores run through the centre of each level,
-            keeping circulation consistent while the surrounding units remain flexible.
+            <strong>there are no fixed apartments here.</strong> each floor is a grid of
+            serviced bays — light, services, and access already in place — and you hold as
+            many as you need. partner moves in? claim another bay. kids leave? release one,
+            and pay less. your neighbour's spare becomes your studio. the walls move; you don't.
           </p>
         </div>
         <div className="about-block">
-          <h3>Use</h3>
+          <h3>What Stays Put</h3>
           <p>
-            This interface is a working demonstration — log in, browse availability across
-            both levels, and reserve or upgrade a unit to see the system respond.
+            <strong>stairs, services, and circulation</strong> run through the core of each
+            floor — fixed, so everything around them is free. that's the whole trick: hold a
+            few things still, and the rest can change as often as life does.
           </p>
         </div>
+        <div className="about-block">
+          <h3>Why</h3>
+          <p>
+            <strong>i don't think housing is a finished product.</strong> a building is handed
+            over complete, then asked to hold lives that keep changing — and it can't. so this
+            proposes the opposite: housing as something never quite finished, produced and
+            re-produced through occupation, for as long as people live in it. the architect
+            sets the conditions; the people make the home, again and again.
+          </p>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+// ── Request Modules: category cards that open into a detail page ───────────
+function ModulesSection({ activeCategory, setActiveCategory }) {
+  const active = MODULE_CATEGORIES.find(c => c.key === activeCategory)
+
+  if (active?.key === 'wall') {
+    const opt = active.options[0]
+    return (
+      <div className="modules">
+        <h2 className="modules-detail-title">{active.label}</h2>
+        <div className="wall-detail">
+          <div className="module-card module-card--static wall-detail-card">
+            <span className="module-card-frame">
+              <img className="module-card-img" src={opt.image} alt={opt.label} />
+              <span className="module-card-overlay">{opt.description}</span>
+            </span>
+            <span className="module-card-label">{opt.label}</span>
+          </div>
+          <div className="wall-detail-copy">
+            <p>If your wall is scratched, stuck, wobbly, tired, or just not doing its job anymore, <strong>tell us here</strong>.</p>
+            <p>We can repair it, swap it, or send it back to the archive for its next life.</p>
+            <p className="wall-detail-copy--muted">
+              Want to move walls or change your room layout?<br />
+              Head to <strong>BOOK BAYS</strong> — that is where the bigger home-shifting happens.
+            </p>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  if (active) {
+    return (
+      <div className="modules">
+        <h2 className="modules-detail-title">{active.label}</h2>
+        <div className="modules-detail-desc">
+          {active.description.map(line => <p key={line}>{line}</p>)}
+        </div>
+        <div className="modules-grid">
+          {active.options.map(opt => (
+            <div key={opt.label} className="module-card module-card--static">
+              <span className="module-card-frame">
+                <img className="module-card-img" src={opt.image} alt={opt.label} />
+                <span className="module-card-overlay">{opt.description}</span>
+              </span>
+              <span className="module-card-label">{opt.label}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    )
+  }
+
+  return (
+    <div className="modules">
+      <div className="modules-grid">
+        {MODULE_CATEGORIES.map(cat => (
+          <button
+            key={cat.key}
+            className="module-card"
+            onClick={() => setActiveCategory(cat.key)}
+          >
+            <span className="module-card-frame">
+              <img className="module-card-img" src={cat.image} alt={cat.label} />
+            </span>
+            <span className="module-card-label">{cat.label}</span>
+          </button>
+        ))}
       </div>
     </div>
   )

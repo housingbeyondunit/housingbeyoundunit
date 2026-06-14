@@ -14,10 +14,20 @@
       "norm_label": "app.jsx"
     },
     {
-      "label": "layoutConfig",
+      "label": "RESIDENT_TABS",
       "file_type": "code",
       "source_file": "src/App.jsx",
       "source_location": "L9",
+      "_origin": "ast",
+      "id": "src_app_resident_tabs",
+      "community": 0,
+      "norm_label": "resident_tabs"
+    },
+    {
+      "label": "layoutConfig",
+      "file_type": "code",
+      "source_file": "src/App.jsx",
+      "source_location": "L15",
       "_origin": "ast",
       "id": "src_app_layoutconfig",
       "community": 0,
@@ -27,7 +37,7 @@
       "label": "cellGroupLabel()",
       "file_type": "code",
       "source_file": "src/App.jsx",
-      "source_location": "L42",
+      "source_location": "L48",
       "_origin": "ast",
       "id": "src_app_cellgrouplabel",
       "community": 1,
@@ -37,7 +47,7 @@
       "label": "getLevelHeight()",
       "file_type": "code",
       "source_file": "src/App.jsx",
-      "source_location": "L45",
+      "source_location": "L51",
       "_origin": "ast",
       "id": "src_app_getlevelheight",
       "community": 4,
@@ -47,7 +57,7 @@
       "label": "getLevelBaseY()",
       "file_type": "code",
       "source_file": "src/App.jsx",
-      "source_location": "L50",
+      "source_location": "L56",
       "_origin": "ast",
       "id": "src_app_getlevelbasey",
       "community": 4,
@@ -57,7 +67,7 @@
       "label": "buildServiceElements()",
       "file_type": "code",
       "source_file": "src/App.jsx",
-      "source_location": "L60",
+      "source_location": "L66",
       "_origin": "ast",
       "id": "src_app_buildserviceelements",
       "community": 0,
@@ -67,7 +77,7 @@
       "label": "buildHallways()",
       "file_type": "code",
       "source_file": "src/App.jsx",
-      "source_location": "L114",
+      "source_location": "L120",
       "_origin": "ast",
       "id": "src_app_buildhallways",
       "community": 2,
@@ -77,7 +87,7 @@
       "label": "defaultUnits()",
       "file_type": "code",
       "source_file": "src/App.jsx",
-      "source_location": "L158",
+      "source_location": "L164",
       "_origin": "ast",
       "id": "src_app_defaultunits",
       "community": 1,
@@ -87,7 +97,7 @@
       "label": "migrateUnit()",
       "file_type": "code",
       "source_file": "src/App.jsx",
-      "source_location": "L235",
+      "source_location": "L241",
       "_origin": "ast",
       "id": "src_app_migrateunit",
       "community": 0,
@@ -97,7 +107,7 @@
       "label": "migrateUnitId()",
       "file_type": "code",
       "source_file": "src/App.jsx",
-      "source_location": "L245",
+      "source_location": "L251",
       "_origin": "ast",
       "id": "src_app_migrateunitid",
       "community": 1,
@@ -107,7 +117,7 @@
       "label": "normalizeState()",
       "file_type": "code",
       "source_file": "src/App.jsx",
-      "source_location": "L253",
+      "source_location": "L259",
       "_origin": "ast",
       "id": "src_app_normalizestate",
       "community": 1,
@@ -117,7 +127,7 @@
       "label": "App()",
       "file_type": "code",
       "source_file": "src/App.jsx",
-      "source_location": "L270",
+      "source_location": "L276",
       "_origin": "ast",
       "id": "src_app_app",
       "community": 2,
@@ -127,7 +137,7 @@
       "label": "SplashScreen()",
       "file_type": "code",
       "source_file": "src/App.jsx",
-      "source_location": "L394",
+      "source_location": "L409",
       "_origin": "ast",
       "id": "src_app_splashscreen",
       "community": 0,
@@ -137,7 +147,7 @@
       "label": "AccordionItem()",
       "file_type": "code",
       "source_file": "src/App.jsx",
-      "source_location": "L412",
+      "source_location": "L427",
       "_origin": "ast",
       "id": "src_app_accordionitem",
       "community": 0,
@@ -147,17 +157,27 @@
       "label": "AboutSection()",
       "file_type": "code",
       "source_file": "src/App.jsx",
-      "source_location": "L429",
+      "source_location": "L444",
       "_origin": "ast",
       "id": "src_app_aboutsection",
       "community": 0,
       "norm_label": "aboutsection()"
     },
     {
+      "label": "ResidentPlaceholder()",
+      "file_type": "code",
+      "source_file": "src/App.jsx",
+      "source_location": "L480",
+      "_origin": "ast",
+      "id": "src_app_residentplaceholder",
+      "community": 0,
+      "norm_label": "residentplaceholder()"
+    },
+    {
       "label": "AVATAR_COLORS",
       "file_type": "code",
       "source_file": "src/App.jsx",
-      "source_location": "L465",
+      "source_location": "L489",
       "_origin": "ast",
       "id": "src_app_avatar_colors",
       "community": 0,
@@ -167,7 +187,7 @@
       "label": "avatarColor()",
       "file_type": "code",
       "source_file": "src/App.jsx",
-      "source_location": "L466",
+      "source_location": "L490",
       "_origin": "ast",
       "id": "src_app_avatarcolor",
       "community": 3,
@@ -177,7 +197,7 @@
       "label": "UserBadge()",
       "file_type": "code",
       "source_file": "src/App.jsx",
-      "source_location": "L469",
+      "source_location": "L493",
       "_origin": "ast",
       "id": "src_app_userbadge",
       "community": 3,
@@ -187,7 +207,7 @@
       "label": "UserSelector()",
       "file_type": "code",
       "source_file": "src/App.jsx",
-      "source_location": "L485",
+      "source_location": "L509",
       "_origin": "ast",
       "id": "src_app_userselector",
       "community": 0,
@@ -201,9 +221,9 @@
       "source_file": "src/App.jsx",
       "source_location": "L429",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_app",
-      "target": "src_app_aboutsection",
-      "confidence_score": 1.0
+      "target": "src_app_aboutsection"
     },
     {
       "relation": "contains",
@@ -211,9 +231,9 @@
       "source_file": "src/App.jsx",
       "source_location": "L412",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_app",
-      "target": "src_app_accordionitem",
-      "confidence_score": 1.0
+      "target": "src_app_accordionitem"
     },
     {
       "relation": "contains",
@@ -221,9 +241,9 @@
       "source_file": "src/App.jsx",
       "source_location": "L270",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_app",
-      "target": "src_app_app",
-      "confidence_score": 1.0
+      "target": "src_app_app"
     },
     {
       "relation": "contains",
@@ -231,9 +251,9 @@
       "source_file": "src/App.jsx",
       "source_location": "L465",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_app",
-      "target": "src_app_avatar_colors",
-      "confidence_score": 1.0
+      "target": "src_app_avatar_colors"
     },
     {
       "relation": "contains",
@@ -241,9 +261,9 @@
       "source_file": "src/App.jsx",
       "source_location": "L466",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_app",
-      "target": "src_app_avatarcolor",
-      "confidence_score": 1.0
+      "target": "src_app_avatarcolor"
     },
     {
       "relation": "contains",
@@ -251,9 +271,9 @@
       "source_file": "src/App.jsx",
       "source_location": "L114",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_app",
-      "target": "src_app_buildhallways",
-      "confidence_score": 1.0
+      "target": "src_app_buildhallways"
     },
     {
       "relation": "contains",
@@ -261,9 +281,9 @@
       "source_file": "src/App.jsx",
       "source_location": "L60",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_app",
-      "target": "src_app_buildserviceelements",
-      "confidence_score": 1.0
+      "target": "src_app_buildserviceelements"
     },
     {
       "relation": "contains",
@@ -271,9 +291,9 @@
       "source_file": "src/App.jsx",
       "source_location": "L42",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_app",
-      "target": "src_app_cellgrouplabel",
-      "confidence_score": 1.0
+      "target": "src_app_cellgrouplabel"
     },
     {
       "relation": "contains",
@@ -281,9 +301,9 @@
       "source_file": "src/App.jsx",
       "source_location": "L158",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_app",
-      "target": "src_app_defaultunits",
-      "confidence_score": 1.0
+      "target": "src_app_defaultunits"
     },
     {
       "relation": "contains",
@@ -291,9 +311,9 @@
       "source_file": "src/App.jsx",
       "source_location": "L50",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_app",
-      "target": "src_app_getlevelbasey",
-      "confidence_score": 1.0
+      "target": "src_app_getlevelbasey"
     },
     {
       "relation": "contains",
@@ -301,9 +321,49 @@
       "source_file": "src/App.jsx",
       "source_location": "L45",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_app",
-      "target": "src_app_getlevelheight",
-      "confidence_score": 1.0
+      "target": "src_app_getlevelheight"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/App.jsx",
+      "source_location": "L9",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_app",
+      "target": "src_app_layoutconfig"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/App.jsx",
+      "source_location": "L235",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_app",
+      "target": "src_app_migrateunit"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/App.jsx",
+      "source_location": "L245",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_app",
+      "target": "src_app_migrateunitid"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/App.jsx",
+      "source_location": "L253",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_app",
+      "target": "src_app_normalizestate"
     },
     {
       "relation": "contains",
@@ -312,37 +372,17 @@
       "source_location": "L9",
       "weight": 1.0,
       "source": "src_app",
-      "target": "src_app_layoutconfig",
+      "target": "src_app_resident_tabs",
       "confidence_score": 1.0
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/App.jsx",
-      "source_location": "L235",
+      "source_location": "L480",
       "weight": 1.0,
       "source": "src_app",
-      "target": "src_app_migrateunit",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "src/App.jsx",
-      "source_location": "L245",
-      "weight": 1.0,
-      "source": "src_app",
-      "target": "src_app_migrateunitid",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "src/App.jsx",
-      "source_location": "L253",
-      "weight": 1.0,
-      "source": "src_app",
-      "target": "src_app_normalizestate",
+      "target": "src_app_residentplaceholder",
       "confidence_score": 1.0
     },
     {
@@ -351,9 +391,9 @@
       "source_file": "src/App.jsx",
       "source_location": "L394",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_app",
-      "target": "src_app_splashscreen",
-      "confidence_score": 1.0
+      "target": "src_app_splashscreen"
     },
     {
       "relation": "contains",
@@ -361,9 +401,9 @@
       "source_file": "src/App.jsx",
       "source_location": "L469",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_app",
-      "target": "src_app_userbadge",
-      "confidence_score": 1.0
+      "target": "src_app_userbadge"
     },
     {
       "relation": "contains",
@@ -371,9 +411,9 @@
       "source_file": "src/App.jsx",
       "source_location": "L485",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_app",
-      "target": "src_app_userselector",
-      "confidence_score": 1.0
+      "target": "src_app_userselector"
     },
     {
       "relation": "calls",
@@ -382,9 +422,9 @@
       "source_file": "src/App.jsx",
       "source_location": "L171",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_app_defaultunits",
-      "target": "src_app_cellgrouplabel",
-      "confidence_score": 1.0
+      "target": "src_app_cellgrouplabel"
     },
     {
       "relation": "calls",
@@ -393,9 +433,9 @@
       "source_file": "src/App.jsx",
       "source_location": "L249",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_app_migrateunitid",
-      "target": "src_app_cellgrouplabel",
-      "confidence_score": 1.0
+      "target": "src_app_cellgrouplabel"
     },
     {
       "relation": "calls",
@@ -404,9 +444,9 @@
       "source_file": "src/App.jsx",
       "source_location": "L54",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_app_getlevelbasey",
-      "target": "src_app_getlevelheight",
-      "confidence_score": 1.0
+      "target": "src_app_getlevelheight"
     },
     {
       "relation": "calls",
@@ -415,9 +455,9 @@
       "source_file": "src/App.jsx",
       "source_location": "L168",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_app_defaultunits",
-      "target": "src_app_getlevelbasey",
-      "confidence_score": 1.0
+      "target": "src_app_getlevelbasey"
     },
     {
       "relation": "calls",
@@ -426,9 +466,9 @@
       "source_file": "src/App.jsx",
       "source_location": "L323",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_app_app",
-      "target": "src_app_buildhallways",
-      "confidence_score": 1.0
+      "target": "src_app_buildhallways"
     },
     {
       "relation": "calls",
@@ -437,9 +477,9 @@
       "source_file": "src/App.jsx",
       "source_location": "L267",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_app_normalizestate",
-      "target": "src_app_defaultunits",
-      "confidence_score": 1.0
+      "target": "src_app_defaultunits"
     },
     {
       "relation": "calls",
@@ -448,11 +488,11 @@
       "source_file": "src/App.jsx",
       "source_location": "L472",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_app_userbadge",
-      "target": "src_app_avatarcolor",
-      "confidence_score": 1.0
+      "target": "src_app_avatarcolor"
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "3e8c0a940ca4d72c1781ebb79709ac91d1335c8f"
+  "built_at_commit": "28e7341e2bd29042be14d3b71adab859baa1120e"
 }

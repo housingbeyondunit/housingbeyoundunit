@@ -14,7 +14,7 @@
   --blue-dark: #1d4ed8;
   --teal: #0f766e;
   --orange: #f97316;
-  --red: #dc2626;
+  --red: #ff1d25;
   --green: #059669;
   --selected-green: #00b588;
   --shadow: 0 18px 45px rgba(15, 23, 42, 0.12);
@@ -32,9 +32,9 @@ html, body, #root {
 body {
   margin: 0;
   min-width: 320px;
-  font-family: Inter, Segoe UI, Arial, sans-serif;
+  font-family: 'Google Sans', sans-serif;
   color: var(--text);
-  background: var(--bg);
+  background: var(--white);
 }
 
 button,
@@ -268,7 +268,7 @@ button:disabled {
 
 .accordion-item {
   border-top: 2px solid #000000;
-  border-bottom: 1px solid #000000;
+  /* border-bottom: 1px solid #000000; */
 }
 
 .accordion--expanded .accordion-item:last-child {
@@ -320,6 +320,10 @@ button:disabled {
   color: var(--primary-yellow);
 }
 
+.accordion-item--expanded .accordion-header {
+  background: var(--red);
+}
+
 .accordion-label {
   flex: 1;
   font-family: 'Roboto Mono', 'Consolas', monospace;
@@ -361,30 +365,55 @@ button:disabled {
 .about {
   display: flex;
   flex-direction: column;
-  gap: 48px;
+  gap: 32px;
+  padding-top: 20px;
+  border-top: 2px solid var(--red);
 }
 
-.about-lede {
-  max-width: 760px;
+.about-title {
   margin: 0;
-  font-size: clamp(1.15rem, 2.4vw, 1.6rem);
+  font-family: 'Roboto Mono', 'Consolas', monospace;
+  font-size: clamp(1.6rem, 4vw, 2.6rem);
   font-weight: 400;
-  line-height: 1.6;
+  letter-spacing: -0.01em;
+  text-transform: lowercase;
   color: var(--text);
+}
+
+.about-title strong {
+  font-family: 'Google Sans', sans-serif;
+  font-weight: 800;
 }
 
 .about-columns {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 32px;
-  padding-top: 32px;
-  border-top: 1px solid var(--hairline);
+  grid-template-columns: 1.6fr repeat(3, minmax(0, 1fr));
+  gap: 0;
+}
+
+.about-block {
+  padding: 0 28px;
+  border-left: 1px solid var(--hairline);
+}
+
+.about-block:first-child {
+  padding-left: 0;
+  border-left: none;
+}
+
+.about-lede {
+  margin: 0 0 16px;
+  font-size: clamp(1.05rem, 2vw, 1.35rem);
+  font-weight: 400;
+  line-height: 1.4;
+  color: var(--text);
 }
 
 .about-block h3 {
-  margin: 0 0 10px;
+  margin: 0 0 14px;
+  font-family: 'Roboto Mono', 'Consolas', monospace;
   font-size: 0.8rem;
-  font-weight: 800;
+  font-weight: 700;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--muted);
@@ -392,7 +421,13 @@ button:disabled {
 
 .about-block p {
   margin: 0;
+  font-size: 0.92rem;
   line-height: 1.65;
+  color: var(--text);
+}
+
+.about-block p strong {
+  font-weight: 700;
   color: var(--text);
 }
 
@@ -441,6 +476,170 @@ button:disabled {
   color: var(--muted);
   font-size: 0.95rem;
   letter-spacing: 0.04em;
+}
+
+/* ── Request Modules ─────────────────────────────────────────────────────── */
+
+.modules-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(50px, 0.5fr));
+  gap: 48px;
+  margin: 0 15rem;
+}
+
+.module-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 18px;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  text-align: left;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.module-card-frame {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  aspect-ratio: 1;
+  border: 0.5px solid var(--text);
+  background: var(--surface);
+  overflow: hidden;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.module-card-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  text-align: center;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  letter-spacing: 0.02em;
+  color: var(--black);
+  font-weight: 600;
+  background: rgba(255, 123, 172, 0.70);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  pointer-events: none;
+  white-space: pre-line;
+}
+
+.module-card-frame:hover .module-card-overlay {
+  opacity: 1;
+}
+
+.module-card--static {
+  cursor: default;
+}
+
+.module-card-img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+}
+
+.module-card-label {
+  font-family: 'Roboto Mono', 'Consolas', monospace;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text);
+}
+
+.modules-back {
+  display: inline-block;
+  margin-bottom: 32px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  font-family: 'Roboto Mono', 'Consolas', monospace;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.modules-back:hover {
+  transform: none;
+  box-shadow: none;
+  color: var(--blue);
+}
+
+.modules-detail-title {
+  margin: 0 0 8px;
+  font-family: 'Roboto Mono', 'Consolas', monospace;
+  font-size: clamp(1rem, 3vw, 1.5rem);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text);
+}
+
+.modules-detail-desc {
+  margin-bottom: 24px;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.modules-detail-desc p {
+  margin: 0 0 6px;
+}
+
+/* ── Wall Modules: single card + copy layout ────────────────────────────── */
+.wall-detail {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 64px;
+  margin-top: 40px;
+}
+
+.wall-detail-card {
+  flex: 0 0 320px;
+}
+
+.wall-detail-overlay {
+  align-items: flex-start;
+  justify-content: flex-start;
+  text-align: left;
+  opacity: 1;
+}
+
+.wall-detail-copy {
+  flex: 1;
+  max-width: 560px;
+  padding-top: 24px;
+  font-size: 1.05rem;
+  line-height: 1.6;
+  color: var(--text);
+}
+
+.wall-detail-copy p {
+  margin: 0 0 24px;
+}
+
+.wall-detail-copy strong {
+  font-family: 'Roboto Mono', 'Consolas', monospace;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.wall-detail-copy--muted {
+  color: var(--muted);
 }
 
 /* ── Residents content header ───────────────────────────────────────────── */
@@ -1286,6 +1485,20 @@ button:disabled {
   .controls-sep {
     display: none;
   }
+
+  .about-columns {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    row-gap: 28px;
+  }
+
+  .about-block:first-child {
+    grid-column: 1 / -1;
+  }
+
+  .about-block:nth-child(3) {
+    padding-left: 0;
+    border-left: none;
+  }
 }
 
 @media (max-width: 720px) {
@@ -1305,6 +1518,19 @@ button:disabled {
 
   .about-columns {
     grid-template-columns: 1fr;
+    row-gap: 24px;
+  }
+
+  .about-block {
+    padding: 0;
+    border-left: none;
+    border-top: 1px solid var(--hairline);
+    padding-top: 20px;
+  }
+
+  .about-block:first-child {
+    border-top: none;
+    padding-top: 0;
   }
 
   .app-title-row,
