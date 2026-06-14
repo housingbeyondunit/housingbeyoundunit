@@ -1,6 +1,8 @@
 :root {
   color-scheme: light;
   --bg: #f5f2ec;
+  --black: #000000;
+  --white: #ffffff;
   --hairline: #ddd6c9;
   --surface: #ffffff;
   --surface-soft: #f8fafc;
@@ -14,6 +16,7 @@
   --orange: #f97316;
   --red: #dc2626;
   --green: #059669;
+  --selected-green: #00b588;
   --shadow: 0 18px 45px rgba(15, 23, 42, 0.12);
   --primary-yellow: #ffc649;
 }
@@ -351,7 +354,7 @@ button:disabled {
 }
 
 .accordion-content {
-  padding: 0 4px 64px;
+  padding: 16px 16px 64px;
 }
 
 /* ── About (editorial) ──────────────────────────────────────────────────── */
@@ -391,6 +394,53 @@ button:disabled {
   margin: 0;
   line-height: 1.65;
   color: var(--text);
+}
+
+/* ── Residents secondary tab navigation ─────────────────────────────────── */
+.resident-tabs {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 28px;
+  /* border-bottom: 1px solid var(--hairline); */
+}
+
+.resident-tab {
+  min-height: auto;
+  border: 0;
+  border-radius: 0;
+  /* border-bottom: 2px solid transparent; */
+  background: transparent;
+  color: var(--black);
+  font-family: 'Roboto Mono', 'Consolas', monospace;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.resident-tab:hover {
+  transform: none;
+  box-shadow: none;
+  color: var(--black);
+}
+
+.resident-tab--active {
+  color: var(--black);
+  background: var(--selected-green);
+}
+
+.resident-placeholder {
+  padding: 64px 0;
+  text-align: center;
+}
+
+.resident-placeholder-text {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.95rem;
+  letter-spacing: 0.04em;
 }
 
 /* ── Residents content header ───────────────────────────────────────────── */

@@ -1,0 +1,82 @@
+{
+  ".claude/settings.local.json": {
+    "mtime": 1781452458.5113955,
+    "ast_hash": "5deafbd56c5b38399bf10d7d4fa36d1d",
+    "semantic_hash": ""
+  },
+  ".claude/skills/ui-ux-pro-max/scripts/core.py": {
+    "mtime": 1779860767.310386,
+    "ast_hash": "3df4734a785963a8242a56c1b926adfd",
+    "semantic_hash": ""
+  },
+  ".claude/skills/ui-ux-pro-max/scripts/design_system.py": {
+    "mtime": 1779860767.3127756,
+    "ast_hash": "08f84d04608a19049c90fc2b1ef314f9",
+    "semantic_hash": ""
+  },
+  ".claude/skills/ui-ux-pro-max/scripts/search.py": {
+    "mtime": 1779860767.314045,
+    "ast_hash": "8c7e35426fe8f6f3ed91e9dce0ed7af1",
+    "semantic_hash": ""
+  },
+  "package.json": {
+    "mtime": 1781017651.9436347,
+    "ast_hash": "a03a1a60d9b266f5fc5b84f75e36f3d8",
+    "semantic_hash": ""
+  },
+  "src/App.jsx": {
+    "mtime": 1781454946.3453648,
+    "ast_hash": "af0a978b95422a8cd74975c862935386",
+    "semantic_hash": ""
+  },
+  "src/components/FloorPlan.jsx": {
+    "mtime": 1781411784.8031476,
+    "ast_hash": "4889ddf2e67811333e7dd465be507b21",
+    "semantic_hash": ""
+  },
+  "src/main.jsx": {
+    "mtime": 1778511558.5071318,
+    "ast_hash": "fc1f2b42abbd2bb433632b3854c8a19f",
+    "semantic_hash": ""
+  },
+  "src/utils/reservationRules.js": {
+    "mtime": 1778942866.1523046,
+    "ast_hash": "73349e7cd96d9d0c2eeeb02969ac9571",
+    "semantic_hash": ""
+  },
+  "vite.config.js": {
+    "mtime": 1781017411.4688656,
+    "ast_hash": "9ecf9f4a521da4ae93f7bf971fb341e1",
+    "semantic_hash": ""
+  },
+  ".claude/skills/ui-ux-pro-max/SKILL.md": {
+    "mtime": 1779860777.2564354,
+    "ast_hash": "e092c3924799d4fc4194f994d8394cc3",
+    "semantic_hash": ""
+  },
+  "CLAUDE.md": {
+    "mtime": 1781411784.7942886,
+    "ast_hash": "e0391cfda81b9e50fb6290aaf11c39d1",
+    "semantic_hash": ""
+  },
+  "README.md": {
+    "mtime": 1778511566.0217717,
+    "ast_hash": "c63b48f51fdc117ff03fe1137ffc274e",
+    "semantic_hash": ""
+  },
+  "docs/floorplan-logic.md": {
+    "mtime": 1778596009.4726584,
+    "ast_hash": "9d65b345dac66707327e0ba29e09f3ce",
+    "semantic_hash": ""
+  },
+  "index.html": {
+    "mtime": 1781451711.6370173,
+    "ast_hash": "fe0710f5333226d9240d9325c723c484",
+    "semantic_hash": ""
+  },
+  "src/images/hero.png": {
+    "mtime": 1781453623.4360292,
+    "ast_hash": "b3e441e2a105d79547f556cc682c71f0",
+    "semantic_hash": ""
+  }
+}

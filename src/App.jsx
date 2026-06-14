@@ -6,6 +6,12 @@ import hero from './images/hero.png'
 const STORAGE_KEY = 'fp_demo_state_v1'
 const USER_KEY = 'fp_demo_user_v1'
 
+const RESIDENT_TABS = [
+  { key: 'modules', label: 'Request Modules' },
+  { key: 'booking', label: 'Book Bays' },
+  { key: 'connect', label: 'Connect To A Designer' },
+]
+
 const layoutConfig = {
   cellCols: 6,
   cellRows: 2,
@@ -281,6 +287,7 @@ export default function App() {
 
   const [heroVisible, setHeroVisible] = useState(true)
   const [expandedSection, setExpandedSection] = useState(null)
+  const [residentTab, setResidentTab] = useState('booking')
 
   const toggleSection = (key) => {
     setHeroVisible(false)
@@ -356,25 +363,33 @@ export default function App() {
           expanded={expandedSection === 'residents'}
           onToggle={() => toggleSection('residents')}
         >
-          <div className="app-header">
-            <div className="app-title-row">
-              <div className="app-title-block">
-                <h2 className="app-title">Floor Plan Booking</h2>
-                <p className="app-subtitle">Unit reservation &amp; management system</p>
-              </div>
-              {currentUser && (
-                <UserBadge
-                  name={currentUser}
-                  unitCount={currentUserUnitCount}
-                  onLogout={() => setCurrentUser('')}
-                />
-              )}
-            </div>
-            {!currentUser && (
-              <UserSelector existingUsers={existingUsers} onSetUser={setCurrentUser} />
-            )}
+          <div className="resident-tabs" role="tablist" aria-label="Resident sections">
+            {RESIDENT_TABS.map(tab => (
+              <button
+                key={tab.key}
+                role="tab"
+                aria-selected={residentTab === tab.key}
+                className={`resident-tab${residentTab === tab.key ? ' resident-tab--active' : ''}`}
+                onClick={() => setResidentTab(tab.key)}
+              >
+                {tab.label}
+              </button>
+            ))}
           </div>
-          <FloorPlan levels={state.levels} hallways={hallways} onUpdateUnit={updateUnit} currentUser={currentUser} resetApp={resetState} />
+
+          {residentTab === 'booking' && (
+            <>
+              <div className="app-header">
+                {!currentUser && (
+                  <UserSelector existingUsers={existingUsers} onSetUser={setCurrentUser} />
+                )}
+              </div>
+              <FloorPlan levels={state.levels} hallways={hallways} onUpdateUnit={updateUnit} currentUser={currentUser} resetApp={resetState} />
+            </>
+          )}
+
+          {residentTab === 'modules' && <ResidentPlaceholder title="Modules" />}
+          {residentTab === 'connect' && <ResidentPlaceholder title="Connect" />}
         </AccordionItem>
 
         <AccordionItem
@@ -457,6 +472,15 @@ function AboutSection() {
           </p>
         </div>
       </div>
+    </div>
+  )
+}
+
+// ── Placeholder content for upcoming resident tabs ─────────────────────────
+function ResidentPlaceholder({ title }) {
+  return (
+    <div className="resident-placeholder">
+      <p className="resident-placeholder-text">{title} is coming soon.</p>
     </div>
   )
 }

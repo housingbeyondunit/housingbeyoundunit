@@ -1,0 +1,458 @@
+{
+  "directed": false,
+  "multigraph": false,
+  "graph": {},
+  "nodes": [
+    {
+      "label": "App.jsx",
+      "file_type": "code",
+      "source_file": "src/App.jsx",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "src_app",
+      "community": 0,
+      "norm_label": "app.jsx"
+    },
+    {
+      "label": "layoutConfig",
+      "file_type": "code",
+      "source_file": "src/App.jsx",
+      "source_location": "L9",
+      "_origin": "ast",
+      "id": "src_app_layoutconfig",
+      "community": 0,
+      "norm_label": "layoutconfig"
+    },
+    {
+      "label": "cellGroupLabel()",
+      "file_type": "code",
+      "source_file": "src/App.jsx",
+      "source_location": "L42",
+      "_origin": "ast",
+      "id": "src_app_cellgrouplabel",
+      "community": 1,
+      "norm_label": "cellgrouplabel()"
+    },
+    {
+      "label": "getLevelHeight()",
+      "file_type": "code",
+      "source_file": "src/App.jsx",
+      "source_location": "L45",
+      "_origin": "ast",
+      "id": "src_app_getlevelheight",
+      "community": 4,
+      "norm_label": "getlevelheight()"
+    },
+    {
+      "label": "getLevelBaseY()",
+      "file_type": "code",
+      "source_file": "src/App.jsx",
+      "source_location": "L50",
+      "_origin": "ast",
+      "id": "src_app_getlevelbasey",
+      "community": 4,
+      "norm_label": "getlevelbasey()"
+    },
+    {
+      "label": "buildServiceElements()",
+      "file_type": "code",
+      "source_file": "src/App.jsx",
+      "source_location": "L60",
+      "_origin": "ast",
+      "id": "src_app_buildserviceelements",
+      "community": 0,
+      "norm_label": "buildserviceelements()"
+    },
+    {
+      "label": "buildHallways()",
+      "file_type": "code",
+      "source_file": "src/App.jsx",
+      "source_location": "L114",
+      "_origin": "ast",
+      "id": "src_app_buildhallways",
+      "community": 2,
+      "norm_label": "buildhallways()"
+    },
+    {
+      "label": "defaultUnits()",
+      "file_type": "code",
+      "source_file": "src/App.jsx",
+      "source_location": "L158",
+      "_origin": "ast",
+      "id": "src_app_defaultunits",
+      "community": 1,
+      "norm_label": "defaultunits()"
+    },
+    {
+      "label": "migrateUnit()",
+      "file_type": "code",
+      "source_file": "src/App.jsx",
+      "source_location": "L235",
+      "_origin": "ast",
+      "id": "src_app_migrateunit",
+      "community": 0,
+      "norm_label": "migrateunit()"
+    },
+    {
+      "label": "migrateUnitId()",
+      "file_type": "code",
+      "source_file": "src/App.jsx",
+      "source_location": "L245",
+      "_origin": "ast",
+      "id": "src_app_migrateunitid",
+      "community": 1,
+      "norm_label": "migrateunitid()"
+    },
+    {
+      "label": "normalizeState()",
+      "file_type": "code",
+      "source_file": "src/App.jsx",
+      "source_location": "L253",
+      "_origin": "ast",
+      "id": "src_app_normalizestate",
+      "community": 1,
+      "norm_label": "normalizestate()"
+    },
+    {
+      "label": "App()",
+      "file_type": "code",
+      "source_file": "src/App.jsx",
+      "source_location": "L270",
+      "_origin": "ast",
+      "id": "src_app_app",
+      "community": 2,
+      "norm_label": "app()"
+    },
+    {
+      "label": "SplashScreen()",
+      "file_type": "code",
+      "source_file": "src/App.jsx",
+      "source_location": "L394",
+      "_origin": "ast",
+      "id": "src_app_splashscreen",
+      "community": 0,
+      "norm_label": "splashscreen()"
+    },
+    {
+      "label": "AccordionItem()",
+      "file_type": "code",
+      "source_file": "src/App.jsx",
+      "source_location": "L412",
+      "_origin": "ast",
+      "id": "src_app_accordionitem",
+      "community": 0,
+      "norm_label": "accordionitem()"
+    },
+    {
+      "label": "AboutSection()",
+      "file_type": "code",
+      "source_file": "src/App.jsx",
+      "source_location": "L429",
+      "_origin": "ast",
+      "id": "src_app_aboutsection",
+      "community": 0,
+      "norm_label": "aboutsection()"
+    },
+    {
+      "label": "AVATAR_COLORS",
+      "file_type": "code",
+      "source_file": "src/App.jsx",
+      "source_location": "L465",
+      "_origin": "ast",
+      "id": "src_app_avatar_colors",
+      "community": 0,
+      "norm_label": "avatar_colors"
+    },
+    {
+      "label": "avatarColor()",
+      "file_type": "code",
+      "source_file": "src/App.jsx",
+      "source_location": "L466",
+      "_origin": "ast",
+      "id": "src_app_avatarcolor",
+      "community": 3,
+      "norm_label": "avatarcolor()"
+    },
+    {
+      "label": "UserBadge()",
+      "file_type": "code",
+      "source_file": "src/App.jsx",
+      "source_location": "L469",
+      "_origin": "ast",
+      "id": "src_app_userbadge",
+      "community": 3,
+      "norm_label": "userbadge()"
+    },
+    {
+      "label": "UserSelector()",
+      "file_type": "code",
+      "source_file": "src/App.jsx",
+      "source_location": "L485",
+      "_origin": "ast",
+      "id": "src_app_userselector",
+      "community": 0,
+      "norm_label": "userselector()"
+    }
+  ],
+  "links": [
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/App.jsx",
+      "source_location": "L429",
+      "weight": 1.0,
+      "source": "src_app",
+      "target": "src_app_aboutsection",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/App.jsx",
+      "source_location": "L412",
+      "weight": 1.0,
+      "source": "src_app",
+      "target": "src_app_accordionitem",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/App.jsx",
+      "source_location": "L270",
+      "weight": 1.0,
+      "source": "src_app",
+      "target": "src_app_app",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/App.jsx",
+      "source_location": "L465",
+      "weight": 1.0,
+      "source": "src_app",
+      "target": "src_app_avatar_colors",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/App.jsx",
+      "source_location": "L466",
+      "weight": 1.0,
+      "source": "src_app",
+      "target": "src_app_avatarcolor",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/App.jsx",
+      "source_location": "L114",
+      "weight": 1.0,
+      "source": "src_app",
+      "target": "src_app_buildhallways",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/App.jsx",
+      "source_location": "L60",
+      "weight": 1.0,
+      "source": "src_app",
+      "target": "src_app_buildserviceelements",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/App.jsx",
+      "source_location": "L42",
+      "weight": 1.0,
+      "source": "src_app",
+      "target": "src_app_cellgrouplabel",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/App.jsx",
+      "source_location": "L158",
+      "weight": 1.0,
+      "source": "src_app",
+      "target": "src_app_defaultunits",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/App.jsx",
+      "source_location": "L50",
+      "weight": 1.0,
+      "source": "src_app",
+      "target": "src_app_getlevelbasey",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/App.jsx",
+      "source_location": "L45",
+      "weight": 1.0,
+      "source": "src_app",
+      "target": "src_app_getlevelheight",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/App.jsx",
+      "source_location": "L9",
+      "weight": 1.0,
+      "source": "src_app",
+      "target": "src_app_layoutconfig",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/App.jsx",
+      "source_location": "L235",
+      "weight": 1.0,
+      "source": "src_app",
+      "target": "src_app_migrateunit",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/App.jsx",
+      "source_location": "L245",
+      "weight": 1.0,
+      "source": "src_app",
+      "target": "src_app_migrateunitid",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/App.jsx",
+      "source_location": "L253",
+      "weight": 1.0,
+      "source": "src_app",
+      "target": "src_app_normalizestate",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/App.jsx",
+      "source_location": "L394",
+      "weight": 1.0,
+      "source": "src_app",
+      "target": "src_app_splashscreen",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/App.jsx",
+      "source_location": "L469",
+      "weight": 1.0,
+      "source": "src_app",
+      "target": "src_app_userbadge",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/App.jsx",
+      "source_location": "L485",
+      "weight": 1.0,
+      "source": "src_app",
+      "target": "src_app_userselector",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/App.jsx",
+      "source_location": "L171",
+      "weight": 1.0,
+      "source": "src_app_defaultunits",
+      "target": "src_app_cellgrouplabel",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/App.jsx",
+      "source_location": "L249",
+      "weight": 1.0,
+      "source": "src_app_migrateunitid",
+      "target": "src_app_cellgrouplabel",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/App.jsx",
+      "source_location": "L54",
+      "weight": 1.0,
+      "source": "src_app_getlevelbasey",
+      "target": "src_app_getlevelheight",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/App.jsx",
+      "source_location": "L168",
+      "weight": 1.0,
+      "source": "src_app_defaultunits",
+      "target": "src_app_getlevelbasey",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/App.jsx",
+      "source_location": "L323",
+      "weight": 1.0,
+      "source": "src_app_app",
+      "target": "src_app_buildhallways",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/App.jsx",
+      "source_location": "L267",
+      "weight": 1.0,
+      "source": "src_app_normalizestate",
+      "target": "src_app_defaultunits",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/App.jsx",
+      "source_location": "L472",
+      "weight": 1.0,
+      "source": "src_app_userbadge",
+      "target": "src_app_avatarcolor",
+      "confidence_score": 1.0
+    }
+  ],
+  "hyperedges": [],
+  "built_at_commit": "3e8c0a940ca4d72c1781ebb79709ac91d1335c8f"
+}
