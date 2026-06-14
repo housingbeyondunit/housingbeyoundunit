@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react'
 import FloorPlan from './components/FloorPlan'
+import hero from './images/hero.png'
 
 // Minimal in-memory data model with localStorage persistence
 const STORAGE_KEY = 'fp_demo_state_v1'
@@ -278,6 +279,23 @@ export default function App() {
     return sessionStorage.getItem(USER_KEY) || ''
   })
 
+  const [heroVisible, setHeroVisible] = useState(true)
+  const [expandedSection, setExpandedSection] = useState(null)
+
+  const toggleSection = (key) => {
+    setHeroVisible(false)
+    setExpandedSection(prev => (prev === key ? null : key))
+  }
+
+  const [showSplash, setShowSplash] = useState(true)
+  const [splashClosing, setSplashClosing] = useState(false)
+
+  const dismissSplash = () => {
+    if (splashClosing) return
+    setSplashClosing(true)
+    setTimeout(() => setShowSplash(false), 350)
+  }
+
   useEffect(() => {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(state))
   }, [state])
@@ -318,26 +336,127 @@ export default function App() {
   const currentUserUnitCount = existingUsers.find(u => u.name === currentUser)?.count ?? 0
 
   return (
-    <div className="app">
-      <div className="app-header">
-        <div className="app-title-row">
-          <div className="app-title-block">
-            <h1 className="app-title">Floor Plan Booking</h1>
-            <p className="app-subtitle">Unit reservation &amp; management system</p>
+    <div className="studio">
+      {showSplash && <SplashScreen onClose={dismissSplash} closing={splashClosing} />}
+
+      {heroVisible && (
+        <section className="studio-hero">
+          <img
+            className="studio-hero-img"
+            src={hero}
+            alt="Building facade"
+          />
+        </section>
+      )}
+
+      <nav className={`accordion${expandedSection ? ' accordion--expanded' : ''}`} aria-label="Site sections">
+        <AccordionItem
+          index="01"
+          label="Residents"
+          expanded={expandedSection === 'residents'}
+          onToggle={() => toggleSection('residents')}
+        >
+          <div className="app-header">
+            <div className="app-title-row">
+              <div className="app-title-block">
+                <h2 className="app-title">Floor Plan Booking</h2>
+                <p className="app-subtitle">Unit reservation &amp; management system</p>
+              </div>
+              {currentUser && (
+                <UserBadge
+                  name={currentUser}
+                  unitCount={currentUserUnitCount}
+                  onLogout={() => setCurrentUser('')}
+                />
+              )}
+            </div>
+            {!currentUser && (
+              <UserSelector existingUsers={existingUsers} onSetUser={setCurrentUser} />
+            )}
           </div>
-          {currentUser && (
-            <UserBadge
-              name={currentUser}
-              unitCount={currentUserUnitCount}
-              onLogout={() => setCurrentUser('')}
-            />
-          )}
+          <FloorPlan levels={state.levels} hallways={hallways} onUpdateUnit={updateUnit} currentUser={currentUser} resetApp={resetState} />
+        </AccordionItem>
+
+        <AccordionItem
+          index="02"
+          label="About"
+          expanded={expandedSection === 'about'}
+          onToggle={() => toggleSection('about')}
+        >
+          <AboutSection />
+        </AccordionItem>
+      </nav>
+    </div>
+  )
+}
+
+// ── Full-screen splash overlay shown on first load ──────────────────────────
+function SplashScreen({ onClose, closing }) {
+  return (
+    <section
+      className={`splash-screen ${closing ? 'splash-screen--closing' : ''}`}
+      onClick={onClose}
+    >
+      <button className="splash-close" aria-label="Close" onClick={onClose}>
+        &times;
+      </button>
+      <h1 className="splash-line splash-line--main">a home that can change with you</h1>
+      <p className="splash-line splash-line--sub">
+        nighthingale <span className="splash-line--sub-alt">beyond units</span>
+      </p>
+    </section>
+  )
+}
+
+// ── Vertical accordion section: only one open at a time, thin dividers ─────
+function AccordionItem({ index, label, expanded, onToggle, children }) {
+  return (
+    <section className={`accordion-item${expanded ? ' accordion-item--expanded' : ''}`}>
+      <button className="accordion-header" onClick={onToggle} aria-expanded={expanded}>
+        <span className="accordion-icon" aria-hidden="true">{expanded ? '−' : '+'}</span>
+        <span className="accordion-label">{label}</span>
+      </button>
+      <div className="accordion-panel">
+        <div className="accordion-panel-inner">
+          <div className="accordion-content">{children}</div>
         </div>
-        {!currentUser && (
-          <UserSelector existingUsers={existingUsers} onSetUser={setCurrentUser} />
-        )}
       </div>
-      <FloorPlan levels={state.levels} hallways={hallways} onUpdateUnit={updateUnit} currentUser={currentUser} resetApp={resetState} />
+    </section>
+  )
+}
+
+// ── Editorial "About" content ───────────────────────────────────────────────
+function AboutSection() {
+  return (
+    <div className="about">
+      <p className="about-lede">
+        Nighthingale Beyond Units is a residential framework built around a simple idea —
+        the floor plan should adapt to the people living in it, not the other way around.
+      </p>
+      <div className="about-columns">
+        <div className="about-block">
+          <h3>Approach</h3>
+          <p>
+            Each level is organised as a grid of cells, every cell divided into four
+            sub-units. Residents can combine, upgrade, or release units as their needs
+            change, and the plan redraws itself in real time.
+          </p>
+        </div>
+        <div className="about-block">
+          <h3>Structure</h3>
+          <p>
+            Hallways, stairs, and service cores run through the centre of each level,
+            keeping circulation consistent while the surrounding units remain flexible.
+          </p>
+        </div>
+        <div className="about-block">
+          <h3>Use</h3>
+          <p>
+            This interface is a working demonstration — log in, browse availability across
+            both levels, and reserve or upgrade a unit to see the system respond.
+          </p>
+        </div>
+      </div>
     </div>
   )
 }
