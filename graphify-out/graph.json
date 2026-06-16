@@ -4,14 +4,224 @@
   "graph": {},
   "nodes": [
     {
+      "label": "package.json",
+      "file_type": "code",
+      "source_file": "package.json",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "package",
+      "community": 4,
+      "norm_label": "package.json"
+    },
+    {
+      "label": "name",
+      "file_type": "code",
+      "source_file": "package.json",
+      "source_location": "L2",
+      "_origin": "ast",
+      "id": "package_name",
+      "community": 4,
+      "norm_label": "name"
+    },
+    {
+      "label": "version",
+      "file_type": "code",
+      "source_file": "package.json",
+      "source_location": "L3",
+      "_origin": "ast",
+      "id": "package_version",
+      "community": 4,
+      "norm_label": "version"
+    },
+    {
+      "label": "private",
+      "file_type": "code",
+      "source_file": "package.json",
+      "source_location": "L4",
+      "_origin": "ast",
+      "id": "package_private",
+      "community": 4,
+      "norm_label": "private"
+    },
+    {
+      "label": "scripts",
+      "file_type": "code",
+      "source_file": "package.json",
+      "source_location": "L5",
+      "_origin": "ast",
+      "id": "package_scripts",
+      "community": 5,
+      "norm_label": "scripts"
+    },
+    {
+      "label": "dev",
+      "file_type": "code",
+      "source_file": "package.json",
+      "source_location": "L6",
+      "_origin": "ast",
+      "id": "package_scripts_dev",
+      "community": 5,
+      "norm_label": "dev"
+    },
+    {
+      "label": "build",
+      "file_type": "code",
+      "source_file": "package.json",
+      "source_location": "L7",
+      "_origin": "ast",
+      "id": "package_scripts_build",
+      "community": 5,
+      "norm_label": "build"
+    },
+    {
+      "label": "preview",
+      "file_type": "code",
+      "source_file": "package.json",
+      "source_location": "L8",
+      "_origin": "ast",
+      "id": "package_scripts_preview",
+      "community": 5,
+      "norm_label": "preview"
+    },
+    {
+      "label": "predeploy",
+      "file_type": "code",
+      "source_file": "package.json",
+      "source_location": "L9",
+      "_origin": "ast",
+      "id": "package_scripts_predeploy",
+      "community": 5,
+      "norm_label": "predeploy"
+    },
+    {
+      "label": "deploy",
+      "file_type": "code",
+      "source_file": "package.json",
+      "source_location": "L10",
+      "_origin": "ast",
+      "id": "package_scripts_deploy",
+      "community": 5,
+      "norm_label": "deploy"
+    },
+    {
+      "label": "deploy-origin2",
+      "file_type": "code",
+      "source_file": "package.json",
+      "source_location": "L11",
+      "_origin": "ast",
+      "id": "package_scripts_deploy_origin2",
+      "community": 5,
+      "norm_label": "deploy-origin2"
+    },
+    {
+      "label": "dependencies",
+      "file_type": "code",
+      "source_file": "package.json",
+      "source_location": "L13",
+      "_origin": "ast",
+      "id": "package_dependencies",
+      "community": 4,
+      "norm_label": "dependencies"
+    },
+    {
+      "label": "@svgdotjs/svg.js",
+      "file_type": "code",
+      "source_file": "package.json",
+      "source_location": "L14",
+      "_origin": "ast",
+      "id": "package_dependencies_svgdotjs_svg_js",
+      "community": 4,
+      "norm_label": "@svgdotjs/svg.js"
+    },
+    {
+      "label": "react",
+      "file_type": "code",
+      "source_file": "package.json",
+      "source_location": "L15",
+      "_origin": "ast",
+      "id": "package_dependencies_react",
+      "community": 4,
+      "norm_label": "react"
+    },
+    {
+      "label": "react-dom",
+      "file_type": "code",
+      "source_file": "package.json",
+      "source_location": "L16",
+      "_origin": "ast",
+      "id": "package_dependencies_react_dom",
+      "community": 4,
+      "norm_label": "react-dom"
+    },
+    {
+      "label": "devDependencies",
+      "file_type": "code",
+      "source_file": "package.json",
+      "source_location": "L18",
+      "_origin": "ast",
+      "id": "package_devdependencies",
+      "community": 6,
+      "norm_label": "devdependencies"
+    },
+    {
+      "label": "gh-pages",
+      "file_type": "code",
+      "source_file": "package.json",
+      "source_location": "L19",
+      "_origin": "ast",
+      "id": "package_devdependencies_gh_pages",
+      "community": 6,
+      "norm_label": "gh-pages"
+    },
+    {
+      "label": "playwright",
+      "file_type": "code",
+      "source_file": "package.json",
+      "source_location": "L20",
+      "_origin": "ast",
+      "id": "package_devdependencies_playwright",
+      "community": 6,
+      "norm_label": "playwright"
+    },
+    {
+      "label": "vite",
+      "file_type": "code",
+      "source_file": "package.json",
+      "source_location": "L21",
+      "_origin": "ast",
+      "id": "package_devdependencies_vite",
+      "community": 6,
+      "norm_label": "vite"
+    },
+    {
+      "label": "FloorPlan.jsx",
+      "file_type": "code",
+      "source_file": "src/components/FloorPlan.jsx",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "components_floorplan",
+      "community": 7,
+      "norm_label": "floorplan.jsx"
+    },
+    {
+      "label": "FloorPlan()",
+      "file_type": "code",
+      "source_file": "src/components/FloorPlan.jsx",
+      "source_location": "L11",
+      "_origin": "ast",
+      "id": "components_floorplan_floorplan",
+      "community": 7,
+      "norm_label": "floorplan()"
+    },
+    {
       "label": "App.jsx",
       "file_type": "code",
       "source_file": "src/App.jsx",
       "source_location": "L1",
       "_origin": "ast",
-      "id": "src_app",
       "community": 0,
-      "norm_label": "app.jsx"
+      "norm_label": "app.jsx",
+      "id": "src_app"
     },
     {
       "label": "RESIDENT_TABS",
@@ -19,9 +229,9 @@
       "source_file": "src/App.jsx",
       "source_location": "L19",
       "_origin": "ast",
-      "id": "src_app_resident_tabs",
       "community": 0,
-      "norm_label": "resident_tabs"
+      "norm_label": "resident_tabs",
+      "id": "src_app_resident_tabs"
     },
     {
       "label": "MODULE_CATEGORIES",
@@ -29,9 +239,9 @@
       "source_file": "src/App.jsx",
       "source_location": "L25",
       "_origin": "ast",
-      "id": "src_app_module_categories",
       "community": 0,
-      "norm_label": "module_categories"
+      "norm_label": "module_categories",
+      "id": "src_app_module_categories"
     },
     {
       "label": "layoutConfig",
@@ -39,9 +249,9 @@
       "source_file": "src/App.jsx",
       "source_location": "L66",
       "_origin": "ast",
-      "id": "src_app_layoutconfig",
       "community": 0,
-      "norm_label": "layoutconfig"
+      "norm_label": "layoutconfig",
+      "id": "src_app_layoutconfig"
     },
     {
       "label": "cellGroupLabel()",
@@ -49,9 +259,9 @@
       "source_file": "src/App.jsx",
       "source_location": "L99",
       "_origin": "ast",
-      "id": "src_app_cellgrouplabel",
       "community": 1,
-      "norm_label": "cellgrouplabel()"
+      "norm_label": "cellgrouplabel()",
+      "id": "src_app_cellgrouplabel"
     },
     {
       "label": "getLevelHeight()",
@@ -59,9 +269,9 @@
       "source_file": "src/App.jsx",
       "source_location": "L102",
       "_origin": "ast",
-      "id": "src_app_getlevelheight",
       "community": 1,
-      "norm_label": "getlevelheight()"
+      "norm_label": "getlevelheight()",
+      "id": "src_app_getlevelheight"
     },
     {
       "label": "getLevelBaseY()",
@@ -69,9 +279,9 @@
       "source_file": "src/App.jsx",
       "source_location": "L107",
       "_origin": "ast",
-      "id": "src_app_getlevelbasey",
       "community": 1,
-      "norm_label": "getlevelbasey()"
+      "norm_label": "getlevelbasey()",
+      "id": "src_app_getlevelbasey"
     },
     {
       "label": "buildServiceElements()",
@@ -79,9 +289,9 @@
       "source_file": "src/App.jsx",
       "source_location": "L117",
       "_origin": "ast",
-      "id": "src_app_buildserviceelements",
       "community": 0,
-      "norm_label": "buildserviceelements()"
+      "norm_label": "buildserviceelements()",
+      "id": "src_app_buildserviceelements"
     },
     {
       "label": "buildHallways()",
@@ -89,9 +299,9 @@
       "source_file": "src/App.jsx",
       "source_location": "L171",
       "_origin": "ast",
-      "id": "src_app_buildhallways",
       "community": 2,
-      "norm_label": "buildhallways()"
+      "norm_label": "buildhallways()",
+      "id": "src_app_buildhallways"
     },
     {
       "label": "defaultUnits()",
@@ -99,9 +309,9 @@
       "source_file": "src/App.jsx",
       "source_location": "L215",
       "_origin": "ast",
-      "id": "src_app_defaultunits",
       "community": 1,
-      "norm_label": "defaultunits()"
+      "norm_label": "defaultunits()",
+      "id": "src_app_defaultunits"
     },
     {
       "label": "migrateUnit()",
@@ -109,9 +319,9 @@
       "source_file": "src/App.jsx",
       "source_location": "L292",
       "_origin": "ast",
-      "id": "src_app_migrateunit",
       "community": 0,
-      "norm_label": "migrateunit()"
+      "norm_label": "migrateunit()",
+      "id": "src_app_migrateunit"
     },
     {
       "label": "migrateUnitId()",
@@ -119,9 +329,9 @@
       "source_file": "src/App.jsx",
       "source_location": "L302",
       "_origin": "ast",
-      "id": "src_app_migrateunitid",
       "community": 1,
-      "norm_label": "migrateunitid()"
+      "norm_label": "migrateunitid()",
+      "id": "src_app_migrateunitid"
     },
     {
       "label": "normalizeState()",
@@ -129,9 +339,9 @@
       "source_file": "src/App.jsx",
       "source_location": "L310",
       "_origin": "ast",
-      "id": "src_app_normalizestate",
       "community": 1,
-      "norm_label": "normalizestate()"
+      "norm_label": "normalizestate()",
+      "id": "src_app_normalizestate"
     },
     {
       "label": "App()",
@@ -139,9 +349,9 @@
       "source_file": "src/App.jsx",
       "source_location": "L327",
       "_origin": "ast",
-      "id": "src_app_app",
       "community": 2,
-      "norm_label": "app()"
+      "norm_label": "app()",
+      "id": "src_app_app"
     },
     {
       "label": "SplashScreen()",
@@ -149,9 +359,9 @@
       "source_file": "src/App.jsx",
       "source_location": "L468",
       "_origin": "ast",
-      "id": "src_app_splashscreen",
       "community": 0,
-      "norm_label": "splashscreen()"
+      "norm_label": "splashscreen()",
+      "id": "src_app_splashscreen"
     },
     {
       "label": "AccordionItem()",
@@ -159,9 +369,9 @@
       "source_file": "src/App.jsx",
       "source_location": "L486",
       "_origin": "ast",
-      "id": "src_app_accordionitem",
       "community": 0,
-      "norm_label": "accordionitem()"
+      "norm_label": "accordionitem()",
+      "id": "src_app_accordionitem"
     },
     {
       "label": "AboutSection()",
@@ -169,9 +379,9 @@
       "source_file": "src/App.jsx",
       "source_location": "L503",
       "_origin": "ast",
-      "id": "src_app_aboutsection",
       "community": 0,
-      "norm_label": "aboutsection()"
+      "norm_label": "aboutsection()",
+      "id": "src_app_aboutsection"
     },
     {
       "label": "ModulesSection()",
@@ -179,9 +389,9 @@
       "source_file": "src/App.jsx",
       "source_location": "L583",
       "_origin": "ast",
-      "id": "src_app_modulessection",
       "community": 0,
-      "norm_label": "modulessection()"
+      "norm_label": "modulessection()",
+      "id": "src_app_modulessection"
     },
     {
       "label": "ConnectSection()",
@@ -189,9 +399,9 @@
       "source_file": "src/App.jsx",
       "source_location": "L655",
       "_origin": "ast",
-      "id": "src_app_connectsection",
       "community": 0,
-      "norm_label": "connectsection()"
+      "norm_label": "connectsection()",
+      "id": "src_app_connectsection"
     },
     {
       "label": "ResidentPlaceholder()",
@@ -199,9 +409,9 @@
       "source_file": "src/App.jsx",
       "source_location": "L678",
       "_origin": "ast",
-      "id": "src_app_residentplaceholder",
       "community": 0,
-      "norm_label": "residentplaceholder()"
+      "norm_label": "residentplaceholder()",
+      "id": "src_app_residentplaceholder"
     },
     {
       "label": "AVATAR_COLORS",
@@ -209,9 +419,9 @@
       "source_file": "src/App.jsx",
       "source_location": "L687",
       "_origin": "ast",
-      "id": "src_app_avatar_colors",
       "community": 0,
-      "norm_label": "avatar_colors"
+      "norm_label": "avatar_colors",
+      "id": "src_app_avatar_colors"
     },
     {
       "label": "avatarColor()",
@@ -219,9 +429,9 @@
       "source_file": "src/App.jsx",
       "source_location": "L688",
       "_origin": "ast",
-      "id": "src_app_avatarcolor",
       "community": 3,
-      "norm_label": "avatarcolor()"
+      "norm_label": "avatarcolor()",
+      "id": "src_app_avatarcolor"
     },
     {
       "label": "UserBadge()",
@@ -229,9 +439,9 @@
       "source_file": "src/App.jsx",
       "source_location": "L691",
       "_origin": "ast",
-      "id": "src_app_userbadge",
       "community": 3,
-      "norm_label": "userbadge()"
+      "norm_label": "userbadge()",
+      "id": "src_app_userbadge"
     },
     {
       "label": "UserSelector()",
@@ -239,12 +449,202 @@
       "source_file": "src/App.jsx",
       "source_location": "L707",
       "_origin": "ast",
-      "id": "src_app_userselector",
       "community": 0,
-      "norm_label": "userselector()"
+      "norm_label": "userselector()",
+      "id": "src_app_userselector"
     }
   ],
   "links": [
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "package.json",
+      "source_location": "L13",
+      "weight": 1.0,
+      "source": "package",
+      "target": "package_dependencies",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "package.json",
+      "source_location": "L18",
+      "weight": 1.0,
+      "source": "package",
+      "target": "package_devdependencies",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "package.json",
+      "source_location": "L2",
+      "weight": 1.0,
+      "source": "package",
+      "target": "package_name",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "package.json",
+      "source_location": "L4",
+      "weight": 1.0,
+      "source": "package",
+      "target": "package_private",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "package.json",
+      "source_location": "L5",
+      "weight": 1.0,
+      "source": "package",
+      "target": "package_scripts",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "package.json",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "package",
+      "target": "package_version",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "package.json",
+      "source_location": "L7",
+      "weight": 1.0,
+      "source": "package_scripts",
+      "target": "package_scripts_build",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "package.json",
+      "source_location": "L10",
+      "weight": 1.0,
+      "source": "package_scripts",
+      "target": "package_scripts_deploy",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "package.json",
+      "source_location": "L11",
+      "weight": 1.0,
+      "source": "package_scripts",
+      "target": "package_scripts_deploy_origin2",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "package.json",
+      "source_location": "L6",
+      "weight": 1.0,
+      "source": "package_scripts",
+      "target": "package_scripts_dev",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "package.json",
+      "source_location": "L9",
+      "weight": 1.0,
+      "source": "package_scripts",
+      "target": "package_scripts_predeploy",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "package.json",
+      "source_location": "L8",
+      "weight": 1.0,
+      "source": "package_scripts",
+      "target": "package_scripts_preview",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "package.json",
+      "source_location": "L15",
+      "weight": 1.0,
+      "source": "package_dependencies",
+      "target": "package_dependencies_react",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "package.json",
+      "source_location": "L16",
+      "weight": 1.0,
+      "source": "package_dependencies",
+      "target": "package_dependencies_react_dom",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "package.json",
+      "source_location": "L14",
+      "weight": 1.0,
+      "source": "package_dependencies",
+      "target": "package_dependencies_svgdotjs_svg_js",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "package.json",
+      "source_location": "L19",
+      "weight": 1.0,
+      "source": "package_devdependencies",
+      "target": "package_devdependencies_gh_pages",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "package.json",
+      "source_location": "L20",
+      "weight": 1.0,
+      "source": "package_devdependencies",
+      "target": "package_devdependencies_playwright",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "package.json",
+      "source_location": "L21",
+      "weight": 1.0,
+      "source": "package_devdependencies",
+      "target": "package_devdependencies_vite",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/FloorPlan.jsx",
+      "source_location": "L11",
+      "weight": 1.0,
+      "source": "components_floorplan",
+      "target": "components_floorplan_floorplan",
+      "confidence_score": 1.0
+    },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
@@ -331,9 +731,9 @@
       "source_file": "src/App.jsx",
       "source_location": "L655",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_app",
-      "target": "src_app_connectsection",
-      "confidence_score": 1.0
+      "target": "src_app_connectsection"
     },
     {
       "relation": "contains",
@@ -554,5 +954,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "562137b43d376e0b1d3f9adb9261b49637564e45"
+  "built_at_commit": "b08d8b21c87eed3287a00cd3c787becd02410a32"
 }

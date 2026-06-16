@@ -144,7 +144,7 @@ button:disabled {
   border-radius: 50%;
   background: var(--primary-yellow);
   color: #000000;
-  font-size: 22px;
+  font-size: 1.375rem;
   line-height: 1;
   backdrop-filter: blur(4px);
 }
@@ -166,7 +166,7 @@ button:disabled {
 
 .splash-line--sub {
   margin-top: 16px;
-  font-size: clamp(1.5rem, 1.6vw, 1.15rem);
+  font-size: clamp(0.9rem, 1.6vw, 1.15rem);
   font-weight: 400;
   letter-spacing: 0.08em;
   text-transform: lowercase;
@@ -471,7 +471,7 @@ button:disabled {
 .about-block h3 {
   margin: 0 0 14px;
   font-family: 'Roboto Mono', 'Consolas', monospace;
-  font-size: 1.7rem;
+  font-size: 1.5rem;
   font-weight: 700;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -732,7 +732,7 @@ button:disabled {
 .app-subtitle {
   margin: 0;
   color: var(--muted);
-  font-size: 13px;
+  font-size: 0.8rem;
   font-weight: 500;
   letter-spacing: 0;
 }
@@ -745,7 +745,7 @@ button:disabled {
   height: 38px;
   border-radius: 50%;
   color: #fff;
-  font-size: 15px;
+  font-size: 0.9rem;
   font-weight: 800;
   flex-shrink: 0;
   box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.35);
@@ -754,7 +754,7 @@ button:disabled {
 .user-avatar--sm {
   width: 28px;
   height: 28px;
-  font-size: 12px;
+  font-size: 0.75rem;
 }
 
 .user-badge {
@@ -779,7 +779,7 @@ button:disabled {
 .user-badge-name {
   overflow: hidden;
   color: var(--text);
-  font-size: 14px;
+  font-size: 0.875rem;
   font-weight: 800;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -787,14 +787,14 @@ button:disabled {
 
 .user-badge-meta {
   color: var(--muted);
-  font-size: 12px;
+  font-size: 0.75rem;
 }
 
 .user-logout-btn {
   min-height: 32px;
   padding: 6px 10px;
   color: #475569;
-  font-size: 12px;
+  font-size: 0.75rem;
 }
 
 .user-selector {
@@ -818,7 +818,7 @@ button:disabled {
 
 .user-selector-label {
   color: var(--muted);
-  font-size: 12px;
+  font-size: 0.75rem;
   font-weight: 800;
   letter-spacing: 0;
   text-transform: uppercase;
@@ -846,7 +846,7 @@ button:disabled {
 
 .user-card-name {
   color: var(--text);
-  font-size: 13px;
+  font-size: 0.8rem;
   font-weight: 800;
 }
 
@@ -855,13 +855,13 @@ button:disabled {
   border-radius: 999px;
   background: #e2e8f0;
   color: #475569;
-  font-size: 11px;
+  font-size: 0.7rem;
   font-weight: 700;
 }
 
 .user-selector-divider {
   color: #94a3b8;
-  font-size: 12px;
+  font-size: 0.75rem;
   white-space: nowrap;
 }
 
@@ -885,7 +885,7 @@ button:disabled {
   width: min(220px, 54vw);
   min-height: 38px;
   padding: 8px 11px;
-  font-size: 13px;
+  font-size: 0.8rem;
 }
 
 .user-new-input:focus,
@@ -930,7 +930,7 @@ button:disabled {
 
 .plan-stat-label {
   color: var(--muted);
-  font-size: 11px;
+  font-size: 0.7rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.04em;
@@ -938,7 +938,7 @@ button:disabled {
 
 .plan-stat-sep {
   color: var(--line-strong);
-  font-size: 14px;
+  font-size: 0.875rem;
   user-select: none;
 }
 
@@ -960,7 +960,7 @@ button:disabled {
   align-items: center;
   gap: 8px;
   color: #475569;
-  font-size: 12px;
+  font-size: 0.75rem;
   white-space: nowrap;
 }
 
@@ -971,7 +971,7 @@ button:disabled {
 .plan-date-field input[type="date"] {
   min-height: 36px;
   padding: 7px 9px;
-  font-size: 12px;
+  font-size: 0.75rem;
   border: 1px solid var(--line-strong);
   border-radius: 8px;
   background: #fff;
@@ -1017,7 +1017,7 @@ button:disabled {
 }
 
 .floorplan-level-label {
-  font-size: 12px;
+  font-size: 0.75rem;
   font-weight: 700;
   color: var(--muted);
   letter-spacing: 0.04em;
@@ -1080,7 +1080,7 @@ button:disabled {
   padding-bottom: 12px;
   border-bottom: 1px solid var(--line);
   color: var(--teal);
-  font-size: 11px;
+  font-size: 0.7rem;
   font-weight: 900;
   text-transform: uppercase;
   letter-spacing: 0.07em;
@@ -1111,7 +1111,7 @@ button:disabled {
   gap: 6px;
   margin: 0 0 10px;
   color: var(--text);
-  font-size: 13px;
+  font-size: 0.8rem;
   font-weight: 800;
   letter-spacing: 0.01em;
 }
@@ -1131,7 +1131,7 @@ button:disabled {
   border-radius: 0 8px 8px 0;
   background: #f8fafc;
   color: #475569;
-  font-size: 12.5px;
+  font-size: 0.75rem;
   line-height: 1.5;
 }
 
@@ -1165,7 +1165,7 @@ button:disabled {
   align-items: center;
   gap: 8px;
   color: #475569;
-  font-size: 12px;
+  font-size: 0.75rem;
 }
 
 .date-field span {
@@ -1178,7 +1178,7 @@ button:disabled {
   flex: 1;
   min-height: 36px;
   padding: 7px 9px;
-  font-size: 12px;
+  font-size: 0.75rem;
 }
 
 .target-list {
@@ -1242,7 +1242,7 @@ button:disabled {
 .target-label {
   margin-bottom: 5px;
   color: var(--text);
-  font-size: 12.5px;
+  font-size: 0.8rem;
   font-weight: 800;
   font-family: 'Fira Mono', 'Consolas', monospace;
 }
@@ -1259,7 +1259,7 @@ button:disabled {
   border-radius: 999px;
   background: #f1f5f9;
   color: #475569;
-  font-size: 10.5px;
+  font-size: 0.7rem;
   font-weight: 700;
 }
 
@@ -1311,7 +1311,7 @@ button:disabled {
   color: var(--muted) !important;
   border-color: transparent !important;
   background: transparent !important;
-  font-size: 13px;
+  font-size: 0.8rem;
   font-weight: 600;
 }
 
@@ -1333,7 +1333,7 @@ button:disabled {
   border-radius: 10px;
   background: #f8fafc;
   color: #475569;
-  font-size: 12.5px;
+  font-size: 0.75rem;
 }
 
 .legend-item {
@@ -1379,7 +1379,7 @@ button:disabled {
   border-radius: 999px;
   background: #e2e8f0;
   color: #475569;
-  font-size: 11.5px;
+  font-size: 0.7rem;
   line-height: 1.45;
 }
 
@@ -1415,7 +1415,7 @@ button:disabled {
   margin: 0 0 18px;
   color: #475569;
   line-height: 1.55;
-  font-size: 14px;
+  font-size: 0.875rem;
 }
 
 .modal-actions {
@@ -1765,7 +1765,7 @@ button:disabled {
   }
 
   .legend-item {
-    font-size: 11.5px;
+    font-size: 0.7rem;
   }
 
   .legend-tip {
