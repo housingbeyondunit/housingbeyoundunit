@@ -1,3 +1,10 @@
+@font-face {
+  font-family: 'Aileron';
+  src: url('./assets/fonts/aileron-regular.otf') format('otf');
+  font-weight: 400;
+  font-style: normal;
+}
+
 :root {
   color-scheme: light;
   --bg: #f5f2ec;
@@ -389,6 +396,10 @@ button:disabled {
   border-bottom: 1px solid var(--hairline);
 }
 
+.about-intro p {
+  font-size: 1.2rem;
+}
+
 .about-columns {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -412,6 +423,10 @@ button:disabled {
   grid-column: 1 / -1;
 }
 
+.about-block--full h3 {
+  font-family: 'Aileron', sans-serif !important;
+}
+
 .about-block--full p {
   font-size: 0.95rem;
   line-height: 1.7;
@@ -433,6 +448,7 @@ button:disabled {
   padding-top: 20px;
   border-top: 1px solid var(--hairline);
   font-size: 0.78rem;
+  font-style: italic;
   line-height: 1.6;
   letter-spacing: 0.03em;
   color: var(--muted);
@@ -446,7 +462,7 @@ button:disabled {
 
 .about-lede {
   margin: 0 0 16px;
-  font-size: clamp(1.05rem, 2vw, 1.35rem);
+  font-size: clamp(1.2rem, 2vw, 1.55rem);
   font-weight: 400;
   line-height: 1.4;
   color: var(--text);
@@ -455,7 +471,7 @@ button:disabled {
 .about-block h3 {
   margin: 0 0 14px;
   font-family: 'Roboto Mono', 'Consolas', monospace;
-  font-size: 0.8rem;
+  font-size: 1.7rem;
   font-weight: 700;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -463,7 +479,7 @@ button:disabled {
 }
 
 .about-block p {
-  font-size: 0.92rem;
+  font-size: 1.2rem;
   line-height: 1.65;
   color: var(--text);
 }
@@ -785,8 +801,8 @@ button:disabled {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  gap: 12px;
-  padding: 14px 16px;
+  gap: 8px;
+  padding: 10px 12px;
   border: 1px solid var(--line);
   border-radius: 12px;
   background: linear-gradient(135deg, rgba(248, 250, 252, 0.98), rgba(239, 246, 255, 0.85));
@@ -884,58 +900,94 @@ button:disabled {
   gap: 16px;
 }
 
-.plan-overview {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 10px;
-}
-
-.overview-card {
+.plan-stats-bar {
   display: flex;
-  min-height: 82px;
-  flex-direction: column;
-  justify-content: space-between;
-  padding: 14px 16px;
+  align-items: center;
+  gap: 10px;
+  padding: 7px 12px;
   border: 1px solid var(--line);
-  border-top: 3px solid var(--line-strong);
-  border-radius: 10px;
-  background: var(--surface);
-  transition: box-shadow 0.18s ease, transform 0.18s ease;
+  border-radius: 8px;
+  background: var(--surface-soft);
+  flex-wrap: wrap;
 }
 
-.overview-card:hover {
-  box-shadow: 0 6px 18px rgba(15, 23, 42, 0.08);
-  transform: translateY(-2px);
+.plan-stat {
+  display: flex;
+  align-items: baseline;
+  gap: 5px;
 }
 
-.overview-card--total { border-top-color: #94a3b8; }
-.overview-card--available { border-top-color: var(--green); }
-.overview-card--occupied { border-top-color: #e11d48; }
-
-.overview-card strong {
-  font-size: 2rem;
+.plan-stat strong {
+  font-size: 1.1rem;
   font-weight: 900;
   line-height: 1;
   letter-spacing: -0.02em;
 }
 
-.overview-card--accent {
-  border-color: rgba(37, 99, 235, 0.28);
-  border-top-color: var(--blue);
-  background: linear-gradient(135deg, #eff6ff, #ecfeff);
-}
+.plan-stat--available strong { color: var(--green); }
+.plan-stat--occupied strong { color: #e11d48; }
+.plan-stat--mine strong { color: var(--blue); }
 
-.overview-label {
+.plan-stat-label {
   color: var(--muted);
   font-size: 11px;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.04em;
+}
+
+.plan-stat-sep {
+  color: var(--line-strong);
+  font-size: 14px;
+  user-select: none;
+}
+
+.plan-header-bar {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.plan-header-bar .legend {
+  flex: 1;
+  min-width: 0;
+}
+
+.plan-date-field {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #475569;
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+.plan-date-field span {
+  font-weight: 800;
+}
+
+.plan-date-field input[type="date"] {
+  min-height: 36px;
+  padding: 7px 9px;
+  font-size: 12px;
+  border: 1px solid var(--line-strong);
+  border-radius: 8px;
+  background: #fff;
+  color: var(--text);
+  outline: none;
+  transition: border-color 0.16s ease, box-shadow 0.16s ease;
+}
+
+.plan-date-field input[type="date"]:focus {
+  border-color: var(--blue);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.14);
 }
 
 .layout {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 500px;
+  grid-template-columns: minmax(0, 1fr) 320px;
   gap: 16px;
   align-items: start;
 }
@@ -1617,6 +1669,10 @@ button:disabled {
     border-left: none;
   }
 
+  .modules-grid {
+    margin: 0 3rem;
+  }
+
   .connect-layout {
     grid-template-columns: 1fr 1fr;
     gap: 24px;
@@ -1628,18 +1684,13 @@ button:disabled {
 }
 
 @media (max-width: 720px) {
-  .studio {
-    width: min(100vw - 24px, 1280px);
-    padding: 20px 0 64px;
-  }
-
   .accordion-header {
     gap: 14px;
     padding: 22px 2px;
   }
 
   .accordion-content {
-    padding: 0 2px 40px;
+    padding: 0 12px 40px;
   }
 
   .about-columns {
@@ -1664,23 +1715,124 @@ button:disabled {
   }
 
   .app-title-row,
-  .user-badge,
-  .user-new-form {
+  .user-badge {
     align-items: stretch;
     flex-direction: column;
   }
 
-  .plan-overview {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+  .user-new-form {
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
   }
 
   .user-new-input {
-    width: 100%;
+    flex: 1;
+    min-width: 0;
+    width: auto;
+  }
+
+  .user-selector-label {
+    display: none;
+  }
+
+  .user-selector-divider {
+    display: none;
+  }
+
+  .user-card-count {
+    display: none;
+  }
+
+  .user-selector {
+    gap: 6px;
+    padding: 8px 10px;
+  }
+
+  .app-header {
+    margin-bottom: 8px;
+  }
+
+  .floorplan-wrap {
+    gap: 10px;
   }
 
   .legend {
-    align-items: flex-start;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .legend-item {
+    font-size: 11.5px;
+  }
+
+  .legend-tip {
+    display: none;
+  }
+
+  .plan-header-bar {
     flex-direction: column;
+    gap: 6px;
+  }
+
+  .plan-header-bar .legend {
+    flex-basis: auto;
+  }
+
+  .modules-grid {
+    margin: 0;
+    gap: 28px;
+  }
+
+  .resident-tabs {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    margin-bottom: 20px;
+  }
+
+  .resident-tab {
+    padding: 10px 6px;
+    font-size: 0.72rem;
+    text-align: center;
+    letter-spacing: 0.05em;
+  }
+
+  .wall-detail {
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .wall-detail-card {
+    flex: 0 0 auto;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .connect-layout {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .connect-copy {
+    grid-column: auto;
+    padding-top: 0;
+  }
+
+  .connect-copy p {
+    font-size: 1rem;
+  }
+
+  .connect-copy-heading {
+    font-size: 1.15rem;
+    margin-bottom: 20px !important;
+  }
+
+  .connect-cta {
+    font-size: 1.3rem;
+    margin-top: 24px;
   }
 }
 

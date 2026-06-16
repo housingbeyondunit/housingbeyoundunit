@@ -1,16 +1,16 @@
-# Graph Report - floor-plan-thesis  (2026-06-15)
+# Graph Report - floor-plan-thesis  (2026-06-16)
 
 ## Corpus Check
-- 14 files · ~190,493 words
+- 14 files · ~219,660 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 23 nodes · 29 edges · 4 communities (2 shown, 2 thin omitted)
+- 24 nodes · 30 edges · 4 communities (2 shown, 2 thin omitted)
 - Extraction: 100% EXTRACTED · 0% INFERRED · 0% AMBIGUOUS
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `416c2df6`
+- Built from commit: `562137b4`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -41,7 +41,7 @@
 ## Communities (4 total, 2 thin omitted)
 
 ### Community 0 - "Community 0"
-Cohesion: 0.15
+Cohesion: 0.14
 Nodes (4): AVATAR_COLORS, layoutConfig, MODULE_CATEGORIES, RESIDENT_TABS
 
 ### Community 1 - "Community 1"
@@ -64,3 +64,5 @@ _Questions this graph is uniquely positioned to answer:_
   _High betweenness centrality (0.002) - this node is a cross-community bridge._
 - **What connects `RESIDENT_TABS`, `MODULE_CATEGORIES`, `layoutConfig` to the rest of the system?**
   _4 weakly-connected nodes found - possible documentation gaps or missing edges._
+- **Should `Community 0` be split into smaller, more focused modules?**
+  _Cohesion score 0.14285714285714285 - nodes in this community are weakly interconnected._

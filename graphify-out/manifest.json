@@ -25,12 +25,12 @@
     "semantic_hash": ""
   },
   "src/App.jsx": {
-    "mtime": 1781461084.0126028,
-    "ast_hash": "727217d7e69a172c2c2ce07e625ea9db",
+    "mtime": 1781608251.2200027,
+    "ast_hash": "edb694d9483d8920ce61db6b3a27d878",
     "semantic_hash": ""
   },
   "src/components/FloorPlan.jsx": {
-    "mtime": 1781411784.8031476,
+    "mtime": 1781606803.4156253,
     "ast_hash": "4889ddf2e67811333e7dd465be507b21",
     "semantic_hash": ""
   },
@@ -117,6 +117,16 @@
   "src/images/wall.png": {
     "mtime": 1781456533.6380239,
     "ast_hash": "8110cdbd39f6ff92a33d8a0d4103c79a",
+    "semantic_hash": ""
+  },
+  "src/images/connect1.png": {
+    "mtime": 1781607302.1169581,
+    "ast_hash": "fe4090f7da48f26ac48aeb2e7d7890d9",
+    "semantic_hash": ""
+  },
+  "src/images/connect2.png": {
+    "mtime": 1781607301.0641756,
+    "ast_hash": "2bd60052fffbad60f86be0bf790d6c2f",
     "semantic_hash": ""
   }
 }

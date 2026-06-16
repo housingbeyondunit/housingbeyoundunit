@@ -593,24 +593,46 @@ export default function FloorPlan({ levels, hallways, onUpdateUnit, currentUser,
 
   return (
     <div className="floorplan-wrap">
-      <section className="plan-overview" aria-label="Floor plan summary">
-        <div className="overview-card overview-card--total">
-          <span className="overview-label">Total units</span>
+      <div className="plan-stats-bar" aria-label="Floor plan summary">
+        <span className="plan-stat">
           <strong>{planStats.total}</strong>
-        </div>
-        <div className="overview-card overview-card--available">
-          <span className="overview-label">Available</span>
+          <span className="plan-stat-label">total</span>
+        </span>
+        <span className="plan-stat-sep">·</span>
+        <span className="plan-stat plan-stat--available">
           <strong>{planStats.available}</strong>
-        </div>
-        <div className="overview-card overview-card--occupied">
-          <span className="overview-label">Occupied</span>
+          <span className="plan-stat-label">available</span>
+        </span>
+        <span className="plan-stat-sep">·</span>
+        <span className="plan-stat plan-stat--occupied">
           <strong>{planStats.occupied}</strong>
-        </div>
-        <div className="overview-card overview-card--accent">
-          <span className="overview-label">Your units</span>
+          <span className="plan-stat-label">occupied</span>
+        </span>
+        <span className="plan-stat-sep">·</span>
+        <span className="plan-stat plan-stat--mine">
           <strong>{planStats.ownedByCurrentUser}</strong>
+          <span className="plan-stat-label">yours</span>
+        </span>
+      </div>
+
+      <div className="plan-header-bar">
+        <div className="legend">
+          <span className="legend-item"><span className="legend-dot legend-dot--occupied" /> Occupied</span>
+          <span className="legend-item"><span className="legend-dot legend-dot--available" /> Available</span>
+          <span className="legend-item"><span className="legend-dot legend-dot--pending" /> Releasing soon</span>
+          <span className="legend-item"><span className="legend-dot legend-dot--selected" /> Selected</span>
+          <span className="legend-tip">
+            {currentUserAllUnits.length === 0
+              ? 'Click any cell, then "Reserve Cell" to reserve all 4 units.'
+              : 'Select ≥ 2 adjacent empty units, then click "Add Unit". Click your own unit → "Release Unit" to remove it.'}
+          </span>
         </div>
-      </section>
+        <label className="date-field plan-date-field">
+          <span>Action date</span>
+          <input type="date" value={actionDate} min={todayISO}
+            onChange={e => setActionDate(e.target.value)} />
+        </label>
+      </div>
 
       <div className="layout">
         <div className="floorplan-levels">
@@ -641,25 +663,6 @@ export default function FloorPlan({ levels, hallways, onUpdateUnit, currentUser,
               <rect x="9" y="9" width="6" height="6" rx="1" stroke="currentColor" strokeWidth="1.5"/>
             </svg>
             Reservation controls
-          </div>
-
-          {/* ── Action date ───────────────────────────────────────── */}
-          <div className="sidepanel-section">
-            <div className="sidepanel-title">
-              <svg className="sidepanel-title-icon" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <rect x="1" y="2" width="12" height="11" rx="1.5" stroke="currentColor" strokeWidth="1.4"/>
-                <path d="M1 5h12" stroke="currentColor" strokeWidth="1.4"/>
-                <path d="M4 1v2M10 1v2" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round"/>
-              </svg>
-              Action date
-            </div>
-            <div className="date-picker-row">
-              <label className="date-field">
-                <span>Date</span>
-                <input type="date" value={actionDate} min={todayISO}
-                  onChange={e => setActionDate(e.target.value)} />
-              </label>
-            </div>
           </div>
 
           {/* ── Action section ────────────────────────────────────── */}
@@ -772,18 +775,6 @@ export default function FloorPlan({ levels, hallways, onUpdateUnit, currentUser,
         </div>
         <div className="controls-sep" />
         <button className="reset-btn" onClick={() => { resetApp() }}>Reset data</button>
-      </div>
-
-      <div className="legend">
-        <span className="legend-item"><span className="legend-dot legend-dot--occupied" /> Occupied</span>
-        <span className="legend-item"><span className="legend-dot legend-dot--available" /> Available</span>
-        <span className="legend-item"><span className="legend-dot legend-dot--pending" /> Releasing soon</span>
-        <span className="legend-item"><span className="legend-dot legend-dot--selected" /> Selected</span>
-        <span className="legend-tip">
-          {currentUserAllUnits.length === 0
-            ? 'Click any cell, then "Reserve Cell" to reserve all 4 units.'
-            : 'Select ≥ 2 adjacent empty units, then click "Add Unit". Click your own unit → "Release Unit" to remove it.'}
-        </span>
       </div>
 
       <section className="scheduled-requests">
