@@ -25,8 +25,8 @@
     "semantic_hash": ""
   },
   "src/App.jsx": {
-    "mtime": 1781455839.6280203,
-    "ast_hash": "5c828264b574f34a1eef994f079ef09c",
+    "mtime": 1781461084.0126028,
+    "ast_hash": "727217d7e69a172c2c2ce07e625ea9db",
     "semantic_hash": ""
   },
   "src/components/FloorPlan.jsx": {
@@ -77,6 +77,46 @@
   "src/images/hero.png": {
     "mtime": 1781453623.4360292,
     "ast_hash": "b3e441e2a105d79547f556cc682c71f0",
+    "semantic_hash": ""
+  },
+  "src/images/ARCHIVE FURNITURE.png": {
+    "mtime": 1781456525.9400377,
+    "ast_hash": "9f6ed45a21709a01b4bc3c03e9b7c46f",
+    "semantic_hash": ""
+  },
+  "src/images/BUILDER.png": {
+    "mtime": 1781456527.99856,
+    "ast_hash": "e8473c3d79e263d9d8df7970b98298c4",
+    "semantic_hash": ""
+  },
+  "src/images/BYO FURNITUURE.png": {
+    "mtime": 1781456526.853595,
+    "ast_hash": "2a3276ec224e0d51ab454171a5c889f8",
+    "semantic_hash": ""
+  },
+  "src/images/facade 2.png": {
+    "mtime": 1781458343.2190583,
+    "ast_hash": "dbf458c4d0d744b92ede89aff9c2dde8",
+    "semantic_hash": ""
+  },
+  "src/images/facade 3.png": {
+    "mtime": 1781458340.0898232,
+    "ast_hash": "d58c5b885220dc2bfe258fd4283c1f5e",
+    "semantic_hash": ""
+  },
+  "src/images/facade.png": {
+    "mtime": 1781456534.431342,
+    "ast_hash": "5f6f4c5dd33eb4db7d5108d51c756814",
+    "semantic_hash": ""
+  },
+  "src/images/framework.png": {
+    "mtime": 1781456532.9565234,
+    "ast_hash": "3e5b61b4fe586321d1d1d14c59187d3f",
+    "semantic_hash": ""
+  },
+  "src/images/wall.png": {
+    "mtime": 1781456533.6380239,
+    "ast_hash": "8110cdbd39f6ff92a33d8a0d4103c79a",
     "semantic_hash": ""
   }
 }
