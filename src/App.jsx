@@ -9,6 +9,8 @@ import wall from './images/wall.png'
 import byoFurniture from './images/BYO FURNITUURE.png'
 import builderFurniture from './images/BUILDER.png'
 import browserFurniture from './images/ARCHIVE FURNITURE.png'
+import connect1 from './images/connect1.png'
+import connect2 from './images/connect2.png'
 
 // Minimal in-memory data model with localStorage persistence
 const STORAGE_KEY = 'fp_demo_state_v1'
@@ -446,7 +448,7 @@ export default function App() {
           {residentTab === 'modules' && (
             <ModulesSection activeCategory={moduleCategory} setActiveCategory={setModuleCategory} />
           )}
-          {residentTab === 'connect' && <ResidentPlaceholder title="Connect" />}
+          {residentTab === 'connect' && <ConnectSection />}
         </AccordionItem>
 
         <AccordionItem
@@ -504,15 +506,15 @@ function AboutSection() {
       <h2 className="about-title">
         nighthingale <strong>beyond units</strong>
       </h2>
+      <div className="about-intro">
+        <p className="about-lede">a home that keeps up with you.</p>
+        <p>
+          most apartments are decided once, by someone who'll never live there, for a life
+          you haven't lived yet. Then your life changes — and the apartment doesn't. this is
+          the other way round: the plan follows the people, not the people the plan.
+        </p>
+      </div>
       <div className="about-columns">
-        <div className="about-block about-block--intro">
-          <p className="about-lede">a home that keeps up with you.</p><br />
-          <p>
-            most apartments are decided once, by someone who'll never live there, for a life
-            you haven't lived yet. Then your life changes — and the apartment doesn't. this is
-            the other way round: the plan follows the people, not the people the plan.
-          </p>
-        </div>
         <div className="about-block">
           <h3>The Idea</h3>
           <p>
@@ -541,6 +543,38 @@ function AboutSection() {
           </p>
         </div>
       </div>
+      <div className="about-block about-block--full">
+        <h3>reading a building</h3>
+        <p>
+          could this work somewhere else? stand in any building — a warehouse that's sat empty,
+          an office no one wants anymore, an empty lot — and the question is the same: can it
+          host the framework? here's how we find out.
+        </p>
+        <p>
+          we read a building in one order, starting with the thing that decides everything else:{' '}
+          <strong>light.</strong> how deep can daylight reach inside? that sets how much of the
+          floor can become a home. then the <strong>structure</strong> — can the grid hold rooms
+          and let walls move across it? the <strong>services</strong> — can kitchens and bathrooms
+          go anywhere, and move when a home changes? and the <strong>way in and out</strong> —
+          enough doors and stairs for every home the floor might become?
+        </p>
+        <p>
+          read in this order, most buildings answer one of three ways: it works as it stands, it
+          works once we open a void to let light into the middle, or it's not quite right for
+          this. we can usually tell fairly quickly.
+        </p>
+        <p>
+          so if you've got a building, a site, or just a hunch,{' '}
+          [get in touch] — this isn't a finished product to
+          buy, but a way of making homes that keep up with the people in them. And it travels.
+        </p>
+      </div>
+      <p className="about-disclaimer">
+        nightingale beyond units is the M.Arch thesis of{' '}
+        <strong>GRACIELLE LUKMANTO</strong> (University of Melbourne).
+        this demonstration was built collaboratively with{' '}
+        <strong>RICHARD LOIS</strong>, using Claude Code.
+      </p>
     </div>
   )
 }
@@ -612,6 +646,29 @@ function ModulesSection({ activeCategory, setActiveCategory }) {
             <span className="module-card-label">{cat.label}</span>
           </button>
         ))}
+      </div>
+    </div>
+  )
+}
+
+// ── Connect To A Designer ──────────────────────────────────────────────────
+function ConnectSection() {
+  return (
+    <div className="connect">
+      <p className="connect-header">SEE HOW OTHERS MADE IT WORK!</p>
+      <div className="connect-layout">
+        <div className="connect-example-frame">
+          <img src={connect1} alt="Example home 1" className="connect-example-img" />
+        </div>
+        <div className="connect-example-frame">
+          <img src={connect2} alt="Example home 2" className="connect-example-img" />
+        </div>
+        <div className="connect-copy">
+          <p className="connect-copy-heading">not seeing your home yet?</p>
+          <p>no worries. every household is a little weird.</p>
+          <p>show us what you need, what is not working, or what you are trying to make space for.</p>
+          <button className="connect-cta">TALK TO OUR DESIGNERS</button>
+        </div>
       </div>
     </div>
   )
