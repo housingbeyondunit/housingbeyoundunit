@@ -275,7 +275,7 @@ const defaultUnits = () => {
     for (const u of levelUnits) {
       if (u.level === level && u.cellR === cellR && u.cellC === cellC) {
         u.owner = owner
-        u.date = '2000-01-01'
+        u.date = '2026-01-01'
       }
     }
   }
@@ -291,7 +291,7 @@ const migrateUnit = u => {
   const { startDate, endDate, ...rest } = u
   return {
     ...rest,
-    date: u.date ?? startDate ?? (u.owner ? '2000-01-01' : null),
+    date: u.date ?? startDate ?? (u.owner ? '2026-01-01' : null),
     availableFrom: u.availableFrom ?? null,
     releasedBy: u.releasedBy ?? null,
   }
@@ -433,8 +433,10 @@ export default function App() {
           {residentTab === 'booking' && (
             <>
               <div className="app-header">
-                {!currentUser && (
+                {!currentUser ? (
                   <UserSelector existingUsers={existingUsers} onSetUser={setCurrentUser} />
+                ) : (
+                  <UserBadge name={currentUser} unitCount={currentUserUnitCount} onLogout={() => setCurrentUser('')} />
                 )}
               </div>
               <FloorPlan levels={state.levels} hallways={hallways} onUpdateUnit={updateUnit} currentUser={currentUser} resetApp={resetState} />
